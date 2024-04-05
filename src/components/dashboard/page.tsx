@@ -20,7 +20,7 @@ const Page: React.FC = () => {
 
     return (
 
-        <h1>API Data</h1>
+        <h1 className=''>API Data</h1>
 
     );
 }
