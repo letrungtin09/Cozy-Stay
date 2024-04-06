@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import HeaderComponent from "@/components/headerComponent.tsx";
+import FooterComponent from "@/components/footerComponent.tsx";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { faTiktok, faFacebookF, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
+library.add(fas, faTiktok, faFacebookF, faInstagram)
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,7 +22,12 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body suppressHydrationWarning className={inter.className}>{children}</body>
+
+      <body suppressHydrationWarning={true} className={inter.className}>
+        <HeaderComponent />
+        {children}
+        <FooterComponent />
+      </body>
     </html>
   );
 }
