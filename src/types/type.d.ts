@@ -3,3 +3,8 @@ interface TypesCategory {
     nameCategory: string;
     description: string;
 }
+interface FormValuesLogin {
+    email: string;
+    password: string;
+    types: bolean;
+}
