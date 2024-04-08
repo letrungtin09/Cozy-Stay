@@ -1,0 +1,318 @@
+.main-admin .left-admin {
+  background-color: #111518;
+  padding: 0;
+}
+.main-admin .left-admin .logo-admin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+}
+.main-admin .left-admin .logo-admin img {
+  width: 55%;
+}
+.main-admin .left-admin .title-admin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 65px;
+  color: rgb(255, 255, 255);
+  font-size: 17px;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-top: 1px solid #4ccd99;
+  border-bottom: 1px solid #4ccd99;
+  padding: 8px 0;
+}
+.main-admin .left-admin .title-admin span {
+  margin-left: 10px;
+  font-weight: bold;
+}
+.main-admin .left-admin .title-admin svg {
+  width: 24px;
+  height: 24px;
+  color: #4ccd99;
+}
+.main-admin .left-admin .navbar-admin {
+  display: flex;
+  justify-content: center;
+}
+.main-admin .left-admin .navbar-admin .cateAdmin {
+  display: flex;
+  align-items: center;
+}
+.main-admin .left-admin .navbar-admin .cateAdmin svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.main-admin .left-admin .navbar-admin ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding-top: 15px;
+}
+.main-admin .left-admin .navbar-admin ul li {
+  padding: 8px 0;
+  margin: 5px 0;
+}
+.main-admin .left-admin .navbar-admin ul li a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  transition: 0.3s;
+}
+.main-admin .left-admin .navbar-admin ul li a:hover {
+  color: #4ccd99;
+}
+.main-admin .left-admin .navbar-admin ul li a.active {
+  color: #4ccd99;
+}
+.main-admin .left-admin .navbar-admin ul li a span {
+  font-weight: 500;
+}
+.main-admin .left-admin .navbar-admin ul li a i {
+  width: 24px;
+}
+.main-admin .left-admin .btn-admin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.main-admin .left-admin .btn-admin .btn--home {
+  padding: 7px 25px;
+  background-color: #4ccd99;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+.main-admin .left-admin .btn-admin .btn--home:hover {
+  background-color: #3fa97f;
+}
+.main-admin .right-admin {
+  padding: 0;
+}
+.main-admin .right-admin .header-admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  box-shadow: 0px 1px 5px #999;
+}
+.main-admin .right-admin .header-admin .header-form {
+  position: relative;
+}
+.main-admin .right-admin .header-admin .header-form input {
+  width: 390px;
+  padding: 8px 15px;
+  padding-right: 39px;
+  border: 2px solid #999;
+  border-radius: 20px;
+  font-size: 15px;
+}
+.main-admin .right-admin .header-admin .header-form input:focus {
+  outline: none;
+}
+.main-admin .right-admin .header-admin .header-form .header-search {
+  position: absolute;
+  right: 17px;
+  top: 9px;
+  border: none;
+  background-color: transparent;
+}
+.main-admin .right-admin .header-admin .header-form .header-search i {
+  font-size: 18px;
+}
+.main-admin .right-admin .header-admin .header-account .user-admin {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  padding: 8px;
+  border: 1px solid #999;
+  border-radius: 50%;
+}
+.main-admin .right-admin .header-admin .header-account .user-admin::after {
+  content: unset;
+}
+.main-admin .right-admin .header-admin .header-account .user-admin img {
+  width: 100%;
+}
+.main-admin .right-admin .header-admin .header-account .dropdown-item {
+  font-size: 14px;
+  padding: 8px 15px;
+}
+.main-admin .right-admin .header-admin .header-account .dropdown-item i {
+  margin-right: 7px;
+}
+.main-admin .right-admin .content-admin {
+  min-height: 700px;
+  padding: 0 30px;
+}
+.main-admin .right-admin .content-admin .content-adminTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+.main-admin .right-admin .content-admin .content-adminTop h2 {
+  font-size: 26px;
+  font-weight: bold;
+}
+.main-admin
+  .right-admin
+  .content-admin
+  .content-adminTop
+  .admin-btnAdd
+  .btn--add {
+  display: flex;
+  padding: 9px 20px;
+  background-color: rgb(34, 34, 34);
+  border-radius: 50px;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+.main-admin
+  .right-admin
+  .content-admin
+  .content-adminTop
+  .admin-btnAdd
+  .btn--add:hover {
+  background-color: #4ccd99;
+}
+.main-admin
+  .right-admin
+  .content-admin
+  .content-adminTop
+  .admin-btnAdd
+  .btn--add
+  svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.main-admin .right-admin .content-admin .content-adminBottom {
+  margin: 15px 0 40px;
+  width: 1206px;
+  overflow-x: auto;
+}
+.main-admin .right-admin .content-admin .content-adminBottom table,
+.main-admin .right-admin .content-admin .content-adminBottom th,
+.main-admin .right-admin .content-admin .content-adminBottom td {
+  border: 1px solid #e3e3e3;
+  border-collapse: collapse;
+  text-align: center;
+}
+.main-admin .right-admin .content-admin .content-adminBottom table {
+  width: 100%;
+}
+.main-admin .right-admin .content-admin .content-adminBottom table th {
+  padding: 15px;
+  text-transform: uppercase;
+  font-size: 14px;
+  background-color: #4ccd99;
+  text-wrap: nowrap;
+}
+.main-admin .right-admin .content-admin .content-adminBottom table td {
+  padding: 10px;
+}
+.main-admin
+  .right-admin
+  .content-admin
+  .content-adminBottom
+  table
+  td
+  .img-admin {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+.main-admin
+  .right-admin
+  .content-admin
+  .content-adminBottom
+  table
+  td
+  .btn-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main-admin
+  .right-admin
+  .content-admin
+  .content-adminBottom
+  table
+  td
+  .btn-action
+  .btn--operation {
+  width: 90px;
+  padding: 5px 0;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+}
+.main-admin
+  .right-admin
+  .content-admin
+  .content-adminBottom
+  table
+  td
+  .btn-action
+  a {
+  text-decoration: none;
+  background-color: #2980b9;
+}
+.main-admin
+  .right-admin
+  .content-admin
+  .content-adminBottom
+  table
+  td
+  .btn-action
+  button {
+  border: none;
+  background-color: #e74c3c;
+  margin: 7px 0;
+}
+.main-admin
+  .right-admin
+  .content-admin
+  .content-adminBottom
+  table
+  td
+  .btn-action
+  .btn--detail {
+  background-color: #7f8c8d;
+}
+.main-admin .right-admin .content-admin .content-adminBottom table .btnTd {
+  width: 13%;
+}
+.main-admin .right-admin .content-admin .content-adminBottom table .id-pd {
+  padding: 10px;
+}
+.main-admin .right-admin .footer-admin {
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  box-shadow: 1px 0px 5px #999;
+}
+.main-admin .right-admin .footer-admin .footer-logo img {
+  width: 130px;
+}
+.main-admin .right-admin .footer-admin .footer-copyright {
+  width: 90%;
+  text-align: center;
+}
+.main-admin .right-admin .footer-admin .footer-copyright .footer-lttin {
+  margin-bottom: 0;
+  font-size: 15px;
+}
+.main-admin .right-admin .footer-admin .footer-copyright .footer-lttin a {
+  text-decoration: none;
+  color: #3fa97f;
+  font-weight: 500;
+}
