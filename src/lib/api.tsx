@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const fetchData = async (url: string): Promise<any> => {
+const getData = async (url: string): Promise<any> => {
     try {
         const response = await axios.get(url);
         return response.data;
@@ -10,17 +10,16 @@ const fetchData = async (url: string): Promise<any> => {
     }
 };
 
-const createData = async (url: string, newData: any): Promise<any> => {
+const postData = async (url: string, data: any): Promise<any> => {
     try {
-        const response = await axios.post(url, newData);
+        const response = await axios.post(url, data);
         return response.data;
     } catch (error: any) {
-        console.error('Error creating data:', error);
-        return null;
+        return error;
     }
 };
 
-const updateData = async (url: string, updatedData: any): Promise<any> => {
+const putData = async (url: string, updatedData: any): Promise<any> => {
     try {
         const response = await axios.put(url, updatedData);
         return response.data;
@@ -39,6 +38,6 @@ const deleteData = async (url: string): Promise<boolean> => {
         return false;
     }
 };
-const ApiFunctions = { fetchData, createData, updateData, deleteData };
+const ApiFunctions = { getData, postData, putData, deleteData };
 
 export default ApiFunctions;

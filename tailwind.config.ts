@@ -8,13 +8,90 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        'black-color': 'black',
+        'white-color': '#ffffff',
+        'main-color': '#4CCD99',
+        'color-green-0': '#4ccd99',
+        'color-green-1': 'rgba(76, 205, 153, 0.7)',
+        'color-green-2': '#3fa97f',
+        'color-black-0': 'rgba(0, 0, 0, 0.5)',
+        'color-black-1': 'rgba(0, 0, 0, 0)',
+        'color-black-2': 'rgba(34, 34, 34, 0.7)',
+        'color-black-3': 'rgba(34, 34, 34, 0.3)',
+        'color-black-4': 'rgba(150, 150, 150, 0.3)',
+        'color-black-5': 'rgb(34, 34, 34)',
+        'color-white-0': 'rgba(255, 255, 255)',
+        'color-white-1': 'rgb(245, 245, 245)',
+        'color-white-2': '#f7f7f7',
+        'color-gray-0': '#e3e3e3',
+        'color-gray-1': '#999',
+        'color-blue-0': '#18a0c6',
+        'color-blue-1': '#3b5998',
+        'color-blue-2': 'rgba(24, 160, 198, 0.3)',
+        'color-red-0': '#dd4c3b',
+        'color-footer-1': '#818998',
+        'color-line-footer': 'rgba(34, 34, 34, 0.3)',
+      },
+      width: {
+        '10%': '10%',
+        '20%': '20%',
+        '30%': '30%',
+        '40%': '40%',
+        '50%': '50%',
+        '60%': '60%',
+        '70%': '70%',
+        '80%': '80%',
+        '90%': '90%',
+        '85px': '85px',
+        '20px': '20px',
+        '75px': '75px',
+        '300px': '300px',
+
+      },
+      maxWidth: {
+        '300px': '300px',
+      },
+      height: {
+        '1px': '1px',
+        '2px': '2px',
+        '500px': '500px',
+      },
+      margin: {
+        '5%': '5%',
+        '8px': '8px',
+        '4px': '4px',
+        '20px': '20px',
+        '15px': '15px',
+      },
+      padding: {
+        '15': '15px',
+        '5px': '5px',
+        '75px': '75px',
+        '12px': '12px',
+      },
+      fontFamily: {
+        'banner': ['FontBanner'],
+      },
+      letterSpacing: {
+        '1px': '1px',
+      },
+      fontSize: {
+        '15px': '15px',
+        '16px': '16px',
+        '22px': '22px',
+        '14px': '14px',
+      },
+      borderRadius: {
+        '90px': '90px',
+      },
+      borderWidth: {
+        '2px': '2px',
+        '4px': '4px',
+        '6px': '6px',
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };
 export default config;
