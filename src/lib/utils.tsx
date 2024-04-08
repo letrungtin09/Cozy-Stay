@@ -6,13 +6,13 @@ const createCipherObj = () => {
 
     const key = crypto
         .createHash("sha256")
-        .update(String(process.env.NEXT_PUBLIC_SECRET_KEY!))
+        .update(String('duytuong123'))
         .digest("base64")
         .substring(0, 32);
 
     const iv = crypto
         .createHash("sha256")
-        .update(String(process.env.NEXT_PUBLIC_SECRET_KEY!))
+        .update(String('duytuong123'))
         .digest("base64")
         .substring(0, 16);
     const cipher = crypto.createCipheriv(algorithm, key, iv)
