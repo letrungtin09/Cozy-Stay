@@ -1,0 +1,61 @@
+.formInsertEdit {
+  padding: 30px 100px;
+  margin-bottom: 30px;
+  min-height: 700px;
+}
+.formInsertEdit .formInsertEdit__title h1 {
+  font-size: 26px;
+  text-align: center;
+  font-weight: bold;
+  color: #4ccd99;
+  margin-bottom: 15px;
+}
+.formInsertEdit .formInsertEdit__input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 20px;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  border-bottom: 1px solid #4ccd99;
+  transition: all 0.3s;
+}
+.formInsertEdit .formInsertEdit__input:focus {
+  outline: none;
+  background-color: rgba(179, 245, 217, 0.9960784314);
+  border-radius: 5px;
+}
+.formInsertEdit__textarea {
+  border: 1px solid #4ccd99 !important;
+  border-radius: 5px;
+}
+.formInsertEdit .input-readonly {
+  background-color: rgb(245, 245, 245);
+  border-radius: 5px;
+  color: rgba(34, 34, 34, 0.7);
+}
+.formInsertEdit .input-readonly:focus {
+  background-color: rgb(245, 245, 245);
+}
+.formInsertEdit .formInsertEdit__label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.formInsertEdit .btn-form {
+  display: inline-block;
+  border: 1px solid #666;
+  padding: 7px 30px;
+  margin-right: 15px;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: rgb(34, 34, 34);
+  border: none;
+  transition: all 0.3s;
+}
+.formInsertEdit .btn-form:hover {
+  background-color: #4ccd99;
+}
+.formInsertEdit .formInsertEdit__btn {
+  margin-top: 10px;
+}

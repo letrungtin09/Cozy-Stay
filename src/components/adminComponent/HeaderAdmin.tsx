@@ -1,8 +1,14 @@
 import Image from "next/image";
 import React from "react";
-import avatar from "../../public/images/account/admin.jpg";
+import avatar from "../../../public/images/account/admin.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBell,
+  faGear,
+  faMagnifyingGlass,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
+import Script from "next/script";
 
 const HeaderAdmin = () => {
   return (
@@ -38,21 +44,22 @@ const HeaderAdmin = () => {
         <ul className="dropdown-menu">
           <li>
             <a className="dropdown-item" href="#">
-              <i className="fa fa-bell"></i> Thông báo
+              <FontAwesomeIcon icon={faBell} /> Thông báo
             </a>
           </li>
           <li>
             <a className="dropdown-item" href="#">
-              <i className="fa fa-cog"></i>Cài đặt
+              <FontAwesomeIcon icon={faGear} /> Cài đặt
             </a>
           </li>
           <li>
             <a className="dropdown-item" href="#">
-              <i className="fa fa-sign-out-alt"></i>Đăng xuất
+              <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
             </a>
           </li>
         </ul>
       </div>
+      <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" />
     </div>
   );
 };

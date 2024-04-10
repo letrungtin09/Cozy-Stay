@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import logo from "../../public/images/CozyStay.png";
+import logo from "../../../public/images/CozyStay.png";
 
 const FooterAdmin = () => {
   return (

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import logo from "../../public/images/CozyStay.png";
+import logo from "../../../public/images/CozyStay.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTableList,
@@ -9,19 +9,23 @@ import {
   faUserTie,
   faUserGear,
 } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const SideBarAdmin = () => {
   return (
     <div className="col-2 left-admin">
       <div className="logo-admin">
-        <a href="adminCate.html" className="text-center d-flex justify-center">
+        <Link
+          href="/admin/adminPlace"
+          className="text-center d-flex justify-center"
+        >
           <Image
             src={logo}
             width={500}
             height={500}
             alt="Picture of the author"
           />
-        </a>
+        </Link>
       </div>
       <div className="title-admin">
         <FontAwesomeIcon icon={faUserGear} />
@@ -30,34 +34,34 @@ const SideBarAdmin = () => {
       <div className="navbar-admin">
         <ul>
           <li>
-            <a className="cateAdmin" href="adminCate.html">
+            <Link className="cateAdmin" href="/admin/adminCategory">
               <FontAwesomeIcon icon={faTableList} />
               <span>Danh mục chỗ ở</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a className="cateAdmin" href="adminProduct.html">
+            <Link className="cateAdmin" href="/admin/adminPlace">
               <FontAwesomeIcon icon={faHouseChimneyWindow} />
               <span>Chỗ cho thuê</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a className="cateAdmin" href="">
+            <Link className="cateAdmin" href="/admin/adminService">
               <FontAwesomeIcon icon={faReceipt} /> <span>Dịch vụ</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a className="cateAdmin" href="">
+            <Link className="cateAdmin" href="/admin/adminAccount">
               <FontAwesomeIcon icon={faUserTie} />
               <span>Tài khoản</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
       <div className="btn-admin">
-        <a className="btn--home" href="index.html">
+        <Link className="btn--home" href="/">
           Quay lại trang chủ
-        </a>
+        </Link>
       </div>
     </div>
   );

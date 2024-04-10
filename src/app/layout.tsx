@@ -24,9 +24,9 @@ export default function RootLayout({
     <html>
 
       <body suppressHydrationWarning={true} className={inter.className}>
-        <HeaderComponent />
+        {/* <HeaderComponent /> */}
         {children}
-        <FooterComponent />
+        {/* <FooterComponent /> */}
       </body>
     </html>
   );
