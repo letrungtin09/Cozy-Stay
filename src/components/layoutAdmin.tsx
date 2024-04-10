@@ -1,17 +1,17 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/styles/styleAdmin.css";
-import HeaderAdmin from "./HeaderAdmin";
-import FooterAdmin from "./FooterAdmin";
+import HeaderAdmin from "@/components/adminComponent/HeaderAdmin";
+import FooterAdmin from "@/components/adminComponent/FooterAdmin";
 export default function LayoutAdmin({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <>
-            <HeaderAdmin />
-            {children}
-            <FooterAdmin />
-        </>
-    );
+  return (
+    <>
+      <HeaderAdmin />
+      {children}
+      <FooterAdmin />
+    </>
+  );
 }
