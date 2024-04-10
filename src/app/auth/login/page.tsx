@@ -4,6 +4,7 @@ import ApiFunctions from "@/lib/api";
 import { errorElement } from "@/lib/common";
 import { useRef, useEffect } from "react";
 import Link from 'next/link'
+
 export default function Login() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -37,7 +38,7 @@ export default function Login() {
                         }
                     } else if (response.status) {
                         if (response.idUser) {
-                            window.sessionStorage.setItem(process.env.NEXT_PUBLIC_SECRET_KEY!, JSON.stringify(response));
+                            window.sessionStorage.setItem('duytuong123', JSON.stringify(response));
                         }
                         window.location.href = '/';
                     }
@@ -89,7 +90,7 @@ export default function Login() {
                             <span> Không có tài khoản ?
                                 <Link
                                     className="no-underline text-[#4ccd99] font-bold transition duration-[0.3s] hover:text-color-green-2"
-                                    href="/register"> Đăng ký
+                                    href="/auth/register"> Đăng ký
                                 </Link></span>
                         </div>
                         <div className="login__social">

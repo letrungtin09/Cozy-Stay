@@ -31,7 +31,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/components/footerComponent",
+    "src/components/headerComponent"
   ],
   "exclude": [
     "node_modules"
