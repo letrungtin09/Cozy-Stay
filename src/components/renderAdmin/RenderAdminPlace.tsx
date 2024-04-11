@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
@@ -51,6 +52,19 @@ const RenderAdminPlace = () => {
 
     fetchData();
   }, [apiPartner]);
+
+  const deletePlace = async (id: any) => {
+    const apiPlaces2 = `${localUrl}/api/places?id=${id}`;
+    try {
+      const res = await ApiFunctions.deleteData(apiPlaces2).then(() => {
+        alert("Xóa thành công !");
+        location.reload();
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="content-admin">
       <div className="content-adminTop">
@@ -143,11 +157,20 @@ const RenderAdminPlace = () => {
                 </td>
                 <td>
                   <div className="btn-action">
-                    <a className="btn--operation btn--edit" href="#">
+                    <Link
+                      className="btn--operation btn--edit"
+                      href={{
+                        pathname: "/admin/adminPlace/formUpdatePlace",
+                        query: { id: place.id },
+                      }}
+                    >
                       <FontAwesomeIcon icon={faPenToSquare} />
                       Sửa
-                    </a>
-                    <button className="btn--operation btn--delete">
+                    </Link>
+                    <button
+                      className="btn--operation btn--delete"
+                      onClick={() => deletePlace(place.id)}
+                    >
                       <FontAwesomeIcon icon={faCircleXmark} />
                       Xóa
                     </button>
