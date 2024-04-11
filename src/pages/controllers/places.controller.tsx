@@ -93,6 +93,7 @@ export default class ApiPlaces {
             const reservationKind = req.body.reservationKind;
             const kindroom = req.body.kindroom;
             const image = req.body.image;
+            const approveStatus = req.body.approveStatus;
             const data = {
                 address: address,
                 price: price,
@@ -110,7 +111,8 @@ export default class ApiPlaces {
                 title: title,
                 reservationKind: reservationKind,
                 kindroom: kindroom,
-                image: image
+                image: image,
+                approveStatus: approveStatus
             };
             await Places.putUpDatePlaces(data, numberId);
             res.json({ "thongbao": 'Đã cập nhật Places' });

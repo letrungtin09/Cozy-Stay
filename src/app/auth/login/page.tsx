@@ -12,9 +12,7 @@ export default function Login() {
 
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (document.querySelectorAll('.errorLogin')) document.querySelectorAll('.errorLogin').forEach((e) => {
-            e.remove();
-        })
+        if (document.querySelectorAll('.errorLogin')) document.querySelectorAll('.errorLogin').forEach((e) => e.remove());
         const apiUrl: string = `${process.env.NEXT_PUBLIC_API_URL!}/api/login`;
         const email = emailRef.current?.value || '';
         const passWord = passwordRef.current?.value || '';
@@ -43,7 +41,6 @@ export default function Login() {
                         window.location.href = '/';
                     }
                 })
-
         }
     }
 

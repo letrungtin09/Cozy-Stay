@@ -63,6 +63,7 @@ const config: Config = {
         '4px': '4px',
         '20px': '20px',
         '15px': '15px',
+        '12px': '12px',
       },
       padding: {
         '15': '15px',
@@ -90,6 +91,38 @@ const config: Config = {
         '4px': '4px',
         '6px': '6px',
       },
+      top: {
+        '45%': '45%',
+        '4px': '4px',
+        '6px': '6px',
+      },
+      gridTemplateColumns: {
+        '2-130px': 'repeat(2, 130px)',
+
+        'footer': '200px minmax(900px, 1fr) 100px',
+      },
+      keyframes: {
+        wiggle: {
+          'to': {
+            transform: 'translateY(-0px)',
+            filter: 'blur(0px)',
+            opacity: '1',
+          }
+        }
+      },
+      animation: {
+        'wiggle-1s': 'wiggle 0.5s 0.8s linear 1 forwards',
+        'wiggle-1.2s': 'wiggle 0.5s 1s linear 1 forwards',
+        'wiggle-1.4s': 'wiggle 0.5s 1.2s linear 1 forwards',
+        'wiggle-1.6s': 'wiggle 0.5s 1.4s linear 1 forwards',
+      },
+      animationDelay: {
+        '1.2': '1.2s',
+        '1.5': '1.5s',
+      },
+      translate: {
+        '!50px': '-50px'
+      }
     },
   },
   plugins: [require('@tailwindcss/typography')],
