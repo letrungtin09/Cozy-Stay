@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLocationDot, faPhone, faEnvelope, faArrowRight, faLanguage, faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import { faTiktok, faFacebookF, faInstagram } from "@fortawesome/free-brands-svg-icons";
 export default function FooterComponent() {
     return (
         <footer className="bg-white-color text-16px text-color-footer-1 normal-case">
@@ -34,7 +36,7 @@ export default function FooterComponent() {
                             <ul className="list-unstyled">
                                 <li className="hover:translate-x-[10px] transition-transform duration-500 mb-[13px]">
                                     <FontAwesomeIcon
-                                        icon="location-dot"
+                                        icon={faLocationDot}
                                         width={16}
                                         height={16}
                                         className="mr-[2px] inline-block"
@@ -46,7 +48,7 @@ export default function FooterComponent() {
                                 </li>
                                 <li className="hover:translate-x-[10px] transition-transform duration-500 mb-[13px]">
                                     <FontAwesomeIcon
-                                        icon="phone"
+                                        icon={faPhone}
                                         width={16}
                                         height={16}
                                         className="mr-[2px] inline-block"
@@ -55,7 +57,7 @@ export default function FooterComponent() {
                                 </li>
                                 <li className="hover:translate-x-[10px] transition-transform duration-500 mb-[13px]">
                                     <FontAwesomeIcon
-                                        icon="envelope"
+                                        icon={faEnvelope}
                                         width={16}
                                         height={16}
                                         className="mr-[2px] inline-block"
@@ -77,7 +79,7 @@ export default function FooterComponent() {
                                         <li className="group hover:translate-x-[10px] transition-transform duration-500 mb-[13px]">
                                             <a className="text-14px text-black-color font-normal no-underline" href="#">
                                                 <FontAwesomeIcon
-                                                    icon="arrow-right"
+                                                    icon={faArrowRight}
                                                     width={12}
                                                     height={16}
                                                     className="mr-[2px] opacity-0 transition-all duration-300 inline-block group-hover:opacity-100"
@@ -87,7 +89,7 @@ export default function FooterComponent() {
                                         <li className="group hover:translate-x-[10px] transition-transform duration-500 mb-[13px]">
                                             <a className="text-14px text-black-color font-normal no-underline" href="#">
                                                 <FontAwesomeIcon
-                                                    icon="arrow-right"
+                                                    icon={faArrowRight}
                                                     width={12}
                                                     height={16}
                                                     className="mr-[2px] opacity-0 transition-all duration-300 inline-block group-hover:opacity-100"
@@ -97,7 +99,7 @@ export default function FooterComponent() {
                                         <li className="group hover:translate-x-[10px] transition-transform duration-500 mb-[13px]">
                                             <a className="text-14px text-black-color font-normal no-underline" href="#">
                                                 <FontAwesomeIcon
-                                                    icon="arrow-right"
+                                                    icon={faArrowRight}
                                                     width={12}
                                                     height={16}
                                                     className="mr-[2px] opacity-0 transition-all duration-300 inline-block group-hover:opacity-100"
@@ -107,7 +109,7 @@ export default function FooterComponent() {
                                         <li className="group hover:translate-x-[10px] transition-transform duration-500 mb-[13px]">
                                             <a className="text-14px text-black-color font-normal no-underline" href="#">
                                                 <FontAwesomeIcon
-                                                    icon="arrow-right"
+                                                    icon={faArrowRight}
                                                     width={12}
                                                     height={16}
                                                     className="mr-[2px] opacity-0 transition-all duration-300 inline-block group-hover:opacity-100"
@@ -117,7 +119,7 @@ export default function FooterComponent() {
                                         <li className="group hover:translate-x-[10px] transition-transform duration-500 mb-[13px]">
                                             <a className="text-14px text-black-color font-normal no-underline" href="#">
                                                 <FontAwesomeIcon
-                                                    icon="arrow-right"
+                                                    icon={faArrowRight}
                                                     width={12}
                                                     height={16}
                                                     className="mr-[2px] opacity-0 transition-all duration-300 inline-block group-hover:opacity-100"
@@ -147,7 +149,7 @@ export default function FooterComponent() {
                                 <div className="foot-email-subscribe absolute top-0 right-[14px] w-[50%] h-full bg-transparent text-[#666c81] text-[12px] flex items-center justify-end">
                                     <span>
                                         <FontAwesomeIcon
-                                            icon="arrow-right"
+                                            icon={faArrowRight}
                                             width={12}
                                             height={16}
                                             className=""
@@ -174,7 +176,7 @@ export default function FooterComponent() {
                         <div className="footer-social flex justify-end">
                             <a className="text-[#333] no-underline mr-[15px]" href="#">
                                 <FontAwesomeIcon
-                                    icon="language"
+                                    icon={faLanguage}
                                     width={20}
                                     height={16}
                                     className="s inline-block font-[300] text-[14px] hover:opacity-[.7]"
@@ -182,28 +184,29 @@ export default function FooterComponent() {
                                 Tiếng Việt (VN)</a>
                             <a className="text-[#333] no-underline mr-[15px]" href="#">
                                 <FontAwesomeIcon
-                                    icon="dollar-sign"
+                                    icon={faDollarSign}
                                     width={14}
                                     height={16}
                                     className="inline-block font-[300] text-[14px] hover:opacity-[.7]"
                                 />USD
                             </a>
                             <a className="text-[#333] no-underline mr-[15px]" href="#">
-                                <FontAwesomeIcon icon={['fab', 'tiktok']}
+                                <FontAwesomeIcon
+                                    icon={faTiktok}
                                     width={20}
                                     height={16}
                                     className="inline-block font-[300] text-[14px] hover:opacity-[.7]"
                                 />
                             </a>
                             <a className="text-[#333] no-underline mr-[15px]" href="#">
-                                <FontAwesomeIcon icon={['fab', 'facebook-f']}
+                                <FontAwesomeIcon icon={faFacebookF}
                                     width={20}
                                     height={16}
                                     className="inline-block font-[300] text-[14px] hover:opacity-[.7]"
                                 />
                             </a>
                             <a className="text-[#333] no-underline mr-[15px]" href="#">
-                                <FontAwesomeIcon icon={['fab', 'instagram']}
+                                <FontAwesomeIcon icon={faInstagram}
                                     width={20}
                                     height={16}
                                     className="inline-block font-[300] text-[14px] hover:opacity-[.7]"

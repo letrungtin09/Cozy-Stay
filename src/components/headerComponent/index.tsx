@@ -2,7 +2,7 @@
 import Image from 'next/image';
 export default function HeaderComponent() {
     return (
-        <header className="fixed top-0 bg-white-color w-full z-50">
+        <header className="fixed top-0 bg-white-color w-full z-50 h-[66px]">
             <div className="container-hd w-90% my-0 mx-5% flex justify-between">
                 <div className="col w-10% py-15 px-0 text-center">
                     <Image
