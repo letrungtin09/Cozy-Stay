@@ -2,9 +2,11 @@
 import FooterAdmin from "@/components/adminComponent/FooterAdmin";
 import HeaderAdmin from "@/components/adminComponent/HeaderAdmin";
 import SideBarAdmin from "@/components/adminComponent/SideBarAdmin";
-import RenderAdminPlace from "@/components/renderAdmin/RenderAdminPlace";
 
-export default function Home() {
+
+import FormAddCategory from "@/components/formAdmin/FormAddCategory";
+
+export default function page() {
   return (
     <div>
       <section className="main-admin">
@@ -14,7 +16,8 @@ export default function Home() {
             <div className="col-10 right-admin">
               <HeaderAdmin />
 
-              <RenderAdminPlace />
+              <FormAddCategory/>
+
 
               <FooterAdmin />
             </div>
@@ -24,3 +27,4 @@ export default function Home() {
     </div>
   );
 }
+

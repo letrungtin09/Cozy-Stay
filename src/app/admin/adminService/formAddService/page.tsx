@@ -2,9 +2,14 @@
 import FooterAdmin from "@/components/adminComponent/FooterAdmin";
 import HeaderAdmin from "@/components/adminComponent/HeaderAdmin";
 import SideBarAdmin from "@/components/adminComponent/SideBarAdmin";
-import RenderAdminPlace from "@/components/renderAdmin/RenderAdminPlace";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@/styles/formAdmin.css";
+import "@/styles/styleAdmin.css";
+import FormAddService from "@/components/formAdmin/FormAddService";
 
-export default function Home() {
+
+
+export default function page() {
   return (
     <div>
       <section className="main-admin">
@@ -14,7 +19,8 @@ export default function Home() {
             <div className="col-10 right-admin">
               <HeaderAdmin />
 
-              <RenderAdminPlace />
+              <FormAddService/>
+
 
               <FooterAdmin />
             </div>

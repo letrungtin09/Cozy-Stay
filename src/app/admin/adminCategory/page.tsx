@@ -2,7 +2,10 @@
 import FooterAdmin from "@/components/adminComponent/FooterAdmin";
 import HeaderAdmin from "@/components/adminComponent/HeaderAdmin";
 import SideBarAdmin from "@/components/adminComponent/SideBarAdmin";
-import RenderAdminPlace from "@/components/renderAdmin/RenderAdminPlace";
+
+
+
+import RenderAdminCategory from "@/components/renderAdmin/RenderAdminCategory";
 
 export default function Home() {
   return (
@@ -14,7 +17,7 @@ export default function Home() {
             <div className="col-10 right-admin">
               <HeaderAdmin />
 
-              <RenderAdminPlace />
+              <RenderAdminCategory/>
 
               <FooterAdmin />
             </div>

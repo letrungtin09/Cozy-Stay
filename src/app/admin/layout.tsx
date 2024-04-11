@@ -1,22 +1,10 @@
-import LayoutAdmin from "@/components/layoutAdmin";
-import SideBarAdmin from "@/components/SideBarAdmin";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@/styles/formAdmin.css";
+import "@/styles/styleAdmin.css";
 export default function LayoutAuth({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <section className="main-admin">
-            <div className="container-fluid">
-                <div className="row">
-                    <SideBarAdmin />
-                    <div className="col-10 right-admin">
-                        <LayoutAdmin>
-                            {children}
-                        </LayoutAdmin>
-                    </div>
-                </div>
-            </div>
-        </section >
-    );
+  return <>{children}</>;
 }

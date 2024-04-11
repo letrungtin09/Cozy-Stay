@@ -1,10 +1,10 @@
-"use client";
 import FooterAdmin from "@/components/adminComponent/FooterAdmin";
 import HeaderAdmin from "@/components/adminComponent/HeaderAdmin";
 import SideBarAdmin from "@/components/adminComponent/SideBarAdmin";
-import RenderAdminPlace from "@/components/renderAdmin/RenderAdminPlace";
+import React from "react";
+import FormUpdatePlace from "@/components/formAdmin/FormUpdatePlace";
 
-export default function Home() {
+const page = () => {
   return (
     <div>
       <section className="main-admin">
@@ -14,7 +14,7 @@ export default function Home() {
             <div className="col-10 right-admin">
               <HeaderAdmin />
 
-              <RenderAdminPlace />
+              <FormUpdatePlace />
 
               <FooterAdmin />
             </div>
@@ -23,4 +23,6 @@ export default function Home() {
       </section>
     </div>
   );
-}
+};
+
+export default page;
