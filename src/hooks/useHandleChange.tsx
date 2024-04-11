@@ -10,5 +10,5 @@ export default function useHandleChange(initialValues: any) {
     });
   };
 
-  return { values, handleChange };
+  return { values, handleChange, setValues };
 }
