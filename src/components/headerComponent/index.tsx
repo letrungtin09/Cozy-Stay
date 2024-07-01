@@ -1,61 +1,90 @@
-'use client';
-import Image from 'next/image';
+"use client";
+import {
+  faArrowRightFromBracket,
+  faHouseChimneyUser,
+  faHouseUser,
+  faLocationDot,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Dropdown from "react-bootstrap/Dropdown";
+import Image from "next/image";
+import Link from "next/link";
 export default function HeaderComponent() {
-    return (
-        <header className="fixed top-0 bg-white-color w-full z-50 h-[66px]">
-            <div className="container-hd w-90% my-0 mx-5% flex justify-between">
-                <div className="col w-10% py-15 px-0 text-center">
-                    <Image
-                        src="/images/iconImage/img/CozyStay.png"
-                        alt="logo"
-                        width={100}
-                        height={100}
-                        className='cursor-pointer w-90%'
-                        priority={true}
-                    />
-                </div>
-                <div className="col w-50% flex items-center">
-                    <ul className="menu-hd w-full flex justify-around m-0 items-center">
-                        <li className="font-banner tracking-1px list-none text-15px">
-                            <a className="uppercase text-black-color text no-underline font-bold" href="#">Đặt chổ</a>
-                        </li>
-                        <li className="font-banner tracking-1px list-none text-15px">
-                            <a className="uppercase text-black-color text no-underline font-bold" href="#">Chổ ở tốt nhất</a>
-                        </li>
-                        <li className="font-banner tracking-1px list-none text-15px">
-                            <a className="uppercase text-black-color text no-underline font-bold" href="#">Bài viết</a>
-                        </li>
-                        <li className="font-banner tracking-1px list-none text-15px">
-                            <span className="uppercase text-black-color font-bold cursor-pointer">Ngôn ngữ </span>
-                        </li>
-                        <li className="font-banner tracking-1px list-none text-15px">
-                            <div id="btn-menu" className="w-85px rounded-90px border-2px border-black-color flex justify-evenly">
-                                <span className="btn-menu-item-1">
-                                    <Image
-                                        src="/images/iconImage/img/icon-user.png"
-                                        alt="logo"
-                                        width={100}
-                                        height={100}
-                                        className='cursor-pointer w-20px my-8px mx-4px'
-                                        priority={true}
-                                    />
-                                </span>
-                                <span className="btn-menu-item-2">
-                                    <Image
-                                        src="/images/iconImage/img/icon-menu.png"
-                                        alt="logo"
-                                        width={100}
-                                        height={100}
-                                        className='cursor-pointer w-20px my-8px mx-4px'
-                                        priority={true}
-                                    />
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+  return (
+    <>
+      <header>
+        <div className="container-hd">
+          <div className="col col-1">
+            <Link
+              href={{
+                pathname: "/",
+              }}
+            >
+              <img className="logo-hd" src="images/CozyStay.png" alt="" />
+            </Link>
+          </div>
+          <div className="col col-2">
+            <input
+              type="search"
+              name=""
+              className="input-search-header btn-height"
+              placeholder="Tìm nhà ở..."
+            />
+            <div className="search-local btn-height btn-header">
+              <Link
+                href={{
+                  pathname: "/searchPlace",
+                }}
+              >
+                <FontAwesomeIcon icon={faLocationDot} />
+                <p>Địa điểm gần bạn</p>
+              </Link>
             </div>
-        </header>
+          </div>
+          <div className="col col-3">
+            <div className="register-host btn-height btn-header">
+              <FontAwesomeIcon icon={faHouseUser} />
+              <p>Trở thành chủ nhà</p>
+            </div>
+            <div className="dropdown-header btn-height">
+              <Dropdown>
+                <Dropdown.Toggle>
+                  <img
+                    src="images/icon-user.png"
+                    alt=""
+                    className="account-icon icon-header"
+                  />
+                  <img
+                    src="images/icon-menu.png"
+                    alt=""
+                    className="account-menu icon-header"
+                  />
+                </Dropdown.Toggle>
 
-    );
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/wallet">Ví tiền của bạn</Dropdown.Item>
+                  <Dropdown.Item href="/updateAccount">
+                    Cập nhật tài khoản
+                  </Dropdown.Item>
+                  <Dropdown.Item href="/changePassword">
+                    Đổi mật khẩu
+                  </Dropdown.Item>
+                  <Dropdown.Item href="/myPlace?id=1">
+                    Phòng/nhà của bạn
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-5">
+                    Chuyển sang chế độ chủ nhà
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-6">
+                    Đăng xuất <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          </div>
+        </div>
+      </header>
+    </>
+  );
 }
