@@ -4,164 +4,185 @@ import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
-const FillterCarousel: React.FC = () => {
+import "@/styles/arrowsCarousel.css";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+const NextArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={`${className} custom-arrow next-arrow bg-blue-500 rounded-full p-2`}
+            style={{ ...style, display: 'block' }}
+            onClick={onClick}
+        />
+    );
+};
 
+const PrevArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={`${className} custom-arrow prev-arrow bg-blue-500 rounded-full p-2`}
+            style={{ ...style, display: 'block' }}
+            onClick={onClick}
+        />
+    );
+};
+const FillterCarousel: React.FC = () => {
+    const settings = {
+        className: "center",
+        infinite: true,
+        centerPadding: "60px",
+        slidesToShow: 9,
+        swipeToSlide: true,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+    };
     return (
         <>
-            <div className="line"></div>
-            <Slider
-                className={"center"}
-                infinite={true}
-                centerPadding={"60px"}
-                slidesToShow={5}
-                swipeToSlide={true}
-                afterChange={function (index) {
-                    console.log(
-                        `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-                    );
-                }}
-                prevArrow={<button className="prev-arrow">Previous</button>}
-                nextArrow={<button className="next-arrow text-red-500"><h1>sdsd</h1></button>}
-            >
-                <div>
-                    <h3>1</h3>
-                </div>
-                <div>
-                    <h3>2</h3>
-                </div>
-                <div>
-                    <h3>2</h3>
-                </div>
-                <div>
-                    <h3>2</h3>
-                </div>
-                <div>
-                    <h3>2</h3>
-                </div>
-                <div>
-                    <h3>2</h3>
-                </div>
-                <div>
-                    <h3>3</h3>
-                </div>
-                <div>
-                    <h3>4</h3>
-                </div>
-                <div>
-                    <h3>5</h3>
-                </div>
-                <div>
-                    <h3>6</h3>
-                </div>
-                <div>
-                    <h3>7</h3>
-                </div>
-                <div>
-                    <h3>8</h3>
-                </div>
-                <div>
-                    <h3>9</h3>
-                </div>
-            </Slider>
-            {/* <div className="filter__container section-padding">
+            <div className="line w-full h-[1px] bg-color-black-4 mb-[20px]"></div>
+            <div className="filter__container section-padding px-[75px]">
                 <div className="filter__slider">
                     <div className="filter__list">
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item active">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                        <div className="filter__item">
-                            <div className="filter__icon"><i className="fa fa-home"></i></div>
-                            <div className="filter__text">Nhà ở Boutique</div>
-                        </div>
-                    </div>
+                        <Slider {...settings}>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique
+                                    <div className="w-full h-[1px] bg-color-green-0"></div>
+                                </div>
 
-                    <div className="filter__btnNextPrev">
-                        <div className="prev-container">
-                            <button id="prev-filter" className="btn-prev"><i className="fa fa-angle-left"></i></button>
-                        </div>
-                        <div className="next-container">
-                            <button id="next-filter" className="btn-next"><i className="fa fa-angle-right"></i></button>
-                        </div>
+                            </div>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique</div>
+                            </div>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique</div>
+                            </div>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique</div>
+                            </div>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique</div>
+                            </div>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique</div>
+                            </div>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique</div>
+                            </div>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique</div>
+                            </div>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique</div>
+                            </div>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique</div>
+                            </div>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique</div>
+                            </div>
+                            <div className="filter__item text-color-black-2">
+                                <div className="mb-[8px] filter__icon flex justify-center">
+                                    <FontAwesomeIcon
+                                        icon={faHome}
+                                        width={20}
+                                        height={20}
+                                        className="mr-[2px] inline-block mb-[-1px]"
+                                    />
+                                </div>
+                                <div className="filter__text text-[16px] font-[500] text-center">Nhà ở Boutique</div>
+                            </div>
+                        </Slider>
                     </div>
                 </div>
-                <div className="filter__btnFilter">
-                    <button className="btn-filter"><i className="fa fa-filter"></i> Bộ lọc</button>
-                </div>
-            </div> */}
+            </div>
         </>
     )
 }

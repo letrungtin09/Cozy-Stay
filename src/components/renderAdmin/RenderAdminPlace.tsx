@@ -16,19 +16,22 @@ import {
 import Link from "next/link";
 
 const RenderAdminPlace = () => {
-  const apiPartner = `${localUrl}/api/partner`;
+  const apiUser = `${localUrl}/api/user`;
   const apiPlaces = `${localUrl}/api/places`;
+  const apiCategory = `${localUrl}/api/category`;
   const [dataPlace, setDataPlace] = useState<any[]>([]);
-  const [dataPartner, setDataPartner] = useState<any[]>([]);
+  const [dataUser, setDataUser] = useState<any[]>([]);
+  const [dataCategory, setDataCategory] = useState<any[]>([]);
 
   useEffect(() => {
-    // ApiFunctions.getData(apiPlaces).then((res) => {
-    //   setDataPlace(res.places);
-    // });
     const fetchData = async () => {
       try {
         const res = await ApiFunctions.getData(apiPlaces);
-        setDataPlace(res.places);
+        const dataRes = res.places;
+        const sortData = dataRes.sort(function (a: any, b: any) {
+          return b.id - a.id;
+        });
+        setDataPlace(sortData);
       } catch (error) {
         console.log(error);
       }
@@ -37,21 +40,44 @@ const RenderAdminPlace = () => {
     fetchData();
   }, [apiPlaces]);
 
+  const PlaceKindRoom = (kind: any) => {
+    let placeKindRoom: string = "";
+    if (kind === 0) {
+      placeKindRoom = "phòng";
+    } else if (kind === 1) {
+      placeKindRoom = "căn hộ";
+    } else {
+      placeKindRoom = "nhà";
+    }
+
+    return placeKindRoom;
+  };
+
   useEffect(() => {
-    // ApiFunctions.getData(apiPlaces).then((res) => {
-    //   setDataPlace(res.places);
-    // });
     const fetchData = async () => {
       try {
-        const res = await ApiFunctions.getData(apiPartner);
-        setDataPartner(res.partner);
+        const res = await ApiFunctions.getData(apiUser);
+        setDataUser(res.user);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchData();
-  }, [apiPartner]);
+  }, [apiUser]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await ApiFunctions.getData(apiCategory);
+        setDataCategory(res.cate);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [apiCategory]);
 
   const deletePlace = async (id: any) => {
     const apiPlaces2 = `${localUrl}/api/places?id=${id}`;
@@ -82,17 +108,14 @@ const RenderAdminPlace = () => {
             <th>tên chỗ ở</th>
             <th>địa chỉ</th>
             <th>giá thuê</th>
-            <th>mức giảm giá</th>
             <th>hình ảnh</th>
             <th>chủ nhà</th>
             <th>danh mục</th>
             <th>loại phòng</th>
-            <th>loại đặt phòng</th>
             <th>số lượng khách</th>
             <th>phòng tắm</th>
             <th>phòng ngủ</th>
-            <th>giường ngủ</th>
-            <th>mô tả</th>
+            {/* <th>mô tả</th> */}
             <th>kinh độ</th>
             <th>vĩ độ</th>
             <th>trạng thái</th>
@@ -106,47 +129,39 @@ const RenderAdminPlace = () => {
                 <td>{place.title}</td>
                 <td>{place.address}</td>
                 <td>{place.price}đ</td>
-                <td>{place.discount}%</td>
                 <td>
-                  <div className="slider">
-                    <div className="list">
-                      <img src={place.image} alt="" />
-                      {/* <Image
+                  <img src={`images/places/${place.image1}`} alt="" />
+                  {/* <Image
                                   src={place.image}
                                   width={50}
                                   height={50}
                                   alt="Picture of the author"
                                 /> */}
-                    </div>
-                  </div>
                 </td>
                 <td>
-                  {dataPartner.map((partner) => (
-                    <div key={partner.id}>
-                      {partner.id == place.id
-                        ? partner.userName
-                        : partner.userName}
+                  {dataUser.map((user) => (
+                    <div key={user.id}>
+                      {user.id == place.idUser ? user.userName : ""}
                     </div>
                   ))}
                 </td>
-                <td>{place.idCategory}</td>
-                <td>{place.kindroom}</td>
                 <td>
-                  {place.reservationKind == 0 ? (
-                    <div className="kind-auto">Tự động cho thuê</div>
-                  ) : (
-                    <div className="kind-confirm">Chờ xác nhận</div>
-                  )}
+                  {dataCategory.map((cate) => (
+                    <div key={cate.id}>
+                      {cate.id == place.idCategory ? cate.nameCategory : ""}
+                    </div>
+                  ))}
                 </td>
+                <td>{PlaceKindRoom(place.kindRoom)}</td>
                 <td>{place.quantityPeople} khách</td>
                 <td>{place.quantityBath} phòng</td>
                 <td>{place.quantityBedRoom} phòng</td>
-                <td>{place.quantityBed} giường</td>
-                <td className="place-des">{place.longDescription}</td>
+
+                {/* <td className="place-des">{place.description}</td> */}
                 <td>{place.longitude}</td>
                 <td>{place.latitude}</td>
                 <td>
-                  {place.status == 0 ? "Đang có người ở" : "Chưa có người ở"}
+                  {place.status == 0 ? "Chưa có người ở" : "Đang có người ở"}
                 </td>
                 <td>
                   {place.approveStatus == 0 ? (

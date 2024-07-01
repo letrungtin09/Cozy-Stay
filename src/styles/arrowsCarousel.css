@@ -1,0 +1,22 @@
+.custom-arrow::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.next-arrow::before {
+    background-image: url('/path/to/next-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.prev-arrow::before {
+    background-image: url('/path/to/prev-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
