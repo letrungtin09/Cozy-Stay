@@ -22,11 +22,10 @@ const AsNavFor: React.FC = () => {
         elementRef3
     ];
     const imageCover = [
-        "/images/iconImage/img/bestPlace-SaiGon.jpg",
         "/images/iconImage/img/bestPlace-HaNoi.jpg",
         "/images/iconImage/img/bg-2.jpg",
-        "/images/iconImage/img/bg-1.jpg"
-
+        "/images/iconImage/img/bg-1.jpg",
+        "/images/iconImage/img/bestPlace-SaiGon.jpg"
     ];
 
     const removeAnimation = (index: number | null) => {
@@ -47,21 +46,35 @@ const AsNavFor: React.FC = () => {
             currentElementRef.current?.querySelector('.buttons')?.classList.add('animate-wiggle-1.6s');
         }
     }
+    const renderImage = (currentSlide: number) => {
+        const imageCarouselElements = document.querySelector(`.imageCarousel-${currentSlide}`);
+        const imageCarouselFace = document.querySelector(`.faceImageCarousel-${currentSlide}`);
+        imageCarouselElements?.classList.add('animate-wiggle-0.6s');
+        imageCarouselFace?.classList.add('z-10');
+    }
+    const blurImage = (currentSlide: number | null) => {
+        const imageCarouselElements = document.querySelector(`.imageCarousel-${currentSlide}`);
+        const imageCarouselFace = document.querySelector(`.faceImageCarousel-${currentSlide}`);
+        imageCarouselElements?.classList.remove('animate-wiggle-0.6s');
+        imageCarouselFace?.classList.remove('z-10');
+
+    }
     useEffect(() => {
         if (sliderRef1.current && sliderRef2.current) {
             setNav1(sliderRef1.current);
             setNav2(sliderRef2.current);
         }
         renderAnimation(0);
+        renderImage(0);
     }, []);
 
     useEffect(() => {
         removeAnimation(prevElement);
+        blurImage(prevElement);
     }, [prevElement])
 
     return (
         <div className="slider-container h-full relative">
-
             <Slider
                 dots={true}
                 asNavFor={nav2 || undefined}
@@ -69,26 +82,33 @@ const AsNavFor: React.FC = () => {
                 arrows={false}
                 fade={true}
                 autoplay={true}
-                autoplaySpeed={4000}
+                speed={1000}
+                autoplaySpeed={5000}
                 afterChange={(currentSlide) => {
                     setprevElement(numberPrev.current);
                     numberPrev.current = currentSlide;
                     renderAnimation(currentSlide);
+                    renderImage(currentSlide);
                 }}
                 appendDots={dots => (
                     <div
                         style={{
                             padding: "10px",
-                            bottom: "560px",
-                            left: "210px"
+                            bottom: "586px",
+                            left: "330px"
                         }}
                     >
-                        <ul style={{ margin: "0px" }}> {dots} </ul>
+                        <ul style={{ margin: "0px" }}>
+                            {dots.map((dot, index) => (
+                                <span key={index} className="mr-[80px]">
+                                    {dot}
+                                </span>
+                            ))} </ul>
                     </div>
                 )}
                 customPaging={i => (
                     <div
-                        className="w-[150px] h-[220px] flex-shrink-0 relative"
+                        className={`faceImageCarousel-${i} w-[150px] h-[220px] flex-shrink-0 relative`}
                     >
                         <Image
                             src={imageCover[i]}
@@ -96,8 +116,8 @@ const AsNavFor: React.FC = () => {
                             width={500}
                             height={500}
                             priority={true}
-                            className="w-full h-full object-cover rounded-[20px]" />
-
+                            className={`imageCarousel-${i} w-full h-full object-cover rounded-[20px] blur-[6px]`}
+                            data-img={i} />
                     </div>
                 )
                 }
