@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       <LayoutCustomer>
-        <section className="cover slider">
+        {/* <section className="cover slider">
           <div className="carousel_cv h-[100vh] mt-[66px] w-full overflow-hidden relative">
             <AsNavFor></AsNavFor>
           </div>
@@ -25,6 +25,11 @@ export default function Home() {
         <section className="filter mb-[30px]">
           <FillterCarousel />
         </section>
+        </section> */}
+        <Cover></Cover>
+        <BestPlaces></BestPlaces>
+        <FilterCategory></FilterCategory>
+        <RenderPlaces></RenderPlaces>
       </LayoutCustomer>
     </>
   );
