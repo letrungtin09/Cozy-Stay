@@ -9,6 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        btnColorGreen: {
+          DEFAULT: '#4ccd99',
+          hover: '#3fa97f',
+        },
         'black-color': 'black',
         'white-color': '#ffffff',
         'main-color': '#4CCD99',
@@ -115,6 +119,7 @@ const config: Config = {
         'wiggle-1.2s': 'wiggle 0.5s 1s linear 1 forwards',
         'wiggle-1.4s': 'wiggle 0.5s 1.2s linear 1 forwards',
         'wiggle-1.6s': 'wiggle 0.5s 1.4s linear 1 forwards',
+        'wiggle-0.6s': 'wiggle 0.2s 0.4s linear 1 forwards',
       },
       animationDelay: {
         '1.2': '1.2s',
@@ -123,6 +128,11 @@ const config: Config = {
       translate: {
         '!50px': '-50px'
       }
+    },
+  },
+  variants: {
+    extend: {
+      backgroundColor: ['hover'],
     },
   },
   plugins: [require('@tailwindcss/typography')],

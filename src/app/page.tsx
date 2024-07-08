@@ -1,5 +1,6 @@
 "use client";
 import AsNavFor from "@/components/coverCarousel";
+import BestPlace from "@/components/bestPlaces";
 import LayoutCustomer from "@/components/layoutCustomer";
 import { BestPlaces } from "@/components/renderPlaces/BestPlaces";
 import { FilterCategory } from "@/components/renderCategory/FilterCategory";

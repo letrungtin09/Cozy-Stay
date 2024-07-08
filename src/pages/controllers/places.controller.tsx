@@ -1,16 +1,16 @@
 import Places from "../models/places.models";
 import { NextApiRequest, NextApiResponse } from "next";
 export default class ApiPlaces {
-  // Lấy tất
-  public getAllPlaces = async (req: NextApiRequest, res: NextApiResponse) => {
-    try {
-      const resultPlaces = await Places.fetchAllPlaces();
-      res.json({ places: resultPlaces });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
-    }
-  };
+    // Lấy tất
+    public getAllPlaces = async (req: NextApiRequest, res: NextApiResponse) => {
+        try {
+            const resultPlaces = await Places.fetchAllPlaces();
+            res.json({ places: resultPlaces });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
+        }
+    };
 
   // Thêm
   public postaddPlaces = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -61,17 +61,17 @@ export default class ApiPlaces {
     }
   };
 
-  // Lấy 1
-  public getPlaces = async (req: NextApiRequest, res: NextApiResponse) => {
-    try {
-      const numberId: number = parseInt(req.query.id as string);
-      const resultPlaces = await Places.fetchOnePlaces(numberId);
-      res.json({ places: resultPlaces });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
-    }
-  };
+    // Lấy 1
+    public getPlaces = async (req: NextApiRequest, res: NextApiResponse) => {
+        try {
+            const numberId: number = parseInt(req.query.id as string);
+            const resultPlaces = await Places.fetchOnePlaces(numberId);
+            res.json({ places: resultPlaces });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
+        }
+    };
 
   // Update
   public updatePlaces = async (req: NextApiRequest, res: NextApiResponse) => {
