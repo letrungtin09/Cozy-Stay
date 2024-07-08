@@ -26,8 +26,14 @@ export default function Home() {
           <FillterCarousel />
         </section>
         </section> */}
-        <Cover></Cover>
-        <BestPlaces></BestPlaces>
+        <section className="cover slider">
+          <div className="carousel_cv h-[100vh] w-full overflow-hidden relative">
+            <AsNavFor></AsNavFor>
+          </div>
+        </section>
+        <section className="pt-[50px] pb-[20px] pl-[75px] pr-[75px]">
+          <BestPlace />
+        </section>
         <FilterCategory></FilterCategory>
         <RenderPlaces></RenderPlaces>
       </LayoutCustomer>

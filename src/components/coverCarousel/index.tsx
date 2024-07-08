@@ -136,16 +136,16 @@ const AsNavFor: React.FC = () => {
                         <div
                             ref={elementRef0}
                             className="content absolute top-[34%] w-[1140px] max-w-[70%] left-[44%] transform translate-x-[-50%] pr-[30%] box-border text-[#fff] drop-shadow-[0_5px_10px_#00004]">
-                            <div className="title text-[3rem] font-bold transform -translate-y-[-50px] filter blur-[20px] opacity-0">CĂN HỘ CAO CẤP</div>
-                            <div className="topic text-[1rem] font-bold leading-[1.3rem] text-main-color transform -translate-y-[-50px] filter blur-[20px] opacity-0">TẠI <span>HÀ NỘI</span>
+                            <div className="title text-[3rem] font-bold transform -translate-y-[-50px] blur-[20px]">CĂN HỘ CAO CẤP</div>
+                            <div className="topic text-[1rem] font-bold leading-[1.3rem] text-main-color transform -translate-y-[-50px] blur-[20px]">TẠI <span>HÀ NỘI</span>
                             </div>
-                            <div className="description transform -translate-y-[-60px] filter blur-[20px] opacity-0">
+                            <div className="description transform -translate-y-[-60px] blur-[20px]">
                                 Chỗ của chúng tôi cung cấp hầu hết nhu cầu của bạn để có một thời
                                 gian lưu trú thoải mái. Căn hộ của chúng tôi nằm ngay trung tâm An
                                 Thượng. Tuy nhiên, là một con đường yên tĩnh và bạn là trung tâm
                                 của mọi thứ.
                             </div>
-                            <div className="buttons grid grid-cols-2-130px mt-[20px] grid-rows-[40px] gap-[5px] transform -translate-y-[-60px] filter blur-[20px] opacity-0">
+                            <div className="buttons grid grid-cols-2-130px mt-[20px] grid-rows-[40px] gap-[5px] transform -translate-y-[-60px] blur-[20px]">
                                 <button className="bor border-0 bg-[#eee] tracking-[3px] font-[FontBanner] font-[500] text-[#000000]">Xem
                                     Thêm
                                 </button>
@@ -170,13 +170,13 @@ const AsNavFor: React.FC = () => {
                         <div
                             ref={elementRef1}
                             className="content absolute top-[34%] w-[1140px] max-w-[70%] left-[44%] transform translate-x-[-50%] pr-[30%] box-border text-[#fff] drop-shadow-[0_5px_10px_#00004]">
-                            <div className="title text-[3rem] font-bold transform -translate-y-[-50px] filter blur-[20px] opacity-0">CĂN HỘ CAO CẤP</div>
-                            <div className="topic text-[1rem] font-bold leading-[1.3rem] text-main-color transform -translate-y-[-50px] filter blur-[20px] opacity-0">TẠI <span>NHA TRANG</span>
+                            <div className="title text-[3rem] font-bold transform -translate-y-[-50px] blur-[20px]">CĂN HỘ CAO CẤP</div>
+                            <div className="topic text-[1rem] font-bold leading-[1.3rem] text-main-color transform -translate-y-[-50px] blur-[20px]">TẠI <span>NHA TRANG</span>
                             </div>
-                            <div className="description transform -translate-y-[-60px] filter blur-[20px] opacity-0">
+                            <div className="description transform -translate-y-[-60px] blur-[20px]">
                                 Chỗ lưu trú của chúng tôi tọa lạc ngay tại trung tâm thành phố Nha Trang, mang đến một không gian yên tĩnh và riêng tư cho du khách, trong khi vẫn có lợi thế tiện lợi và dễ dàng tiếp cận các hoạt động và tiện ích của khu vực.
                             </div>
-                            <div className="buttons grid grid-cols-2-130px mt-[20px] grid-rows-[40px] gap-[5px] transform -translate-y-[-60px] filter blur-[20px] opacity-0">
+                            <div className="buttons grid grid-cols-2-130px mt-[20px] grid-rows-[40px] gap-[5px] transform -translate-y-[-60px] blur-[20px]">
                                 <button className="bor border-0 bg-[#eee] tracking-[3px] font-[FontBanner] font-[500] text-[#000000]">
                                     Xem Thêm
                                 </button>
@@ -201,16 +201,16 @@ const AsNavFor: React.FC = () => {
                         <div
                             ref={elementRef2}
                             className="content absolute top-[34%] w-[1140px] max-w-[70%] left-[44%] transform translate-x-[-50%] pr-[30%] box-border text-[#fff] drop-shadow-[0_5px_10px_#00004]">
-                            <div className="title text-[3rem] font-bold transform -translate-y-[-50px] filter blur-[20px] opacity-0">CĂN HỘ CAO CẤP</div>
-                            <div className="topic text-[1rem] font-bold leading-[1.3rem] text-main-color transform -translate-y-[-50px] filter blur-[20px] opacity-0">TẠI <span>HÀ NỘI</span>
+                            <div className="title text-[3rem] font-bold transform -translate-y-[-50px] blur-[20px]">CĂN HỘ CAO CẤP</div>
+                            <div className="topic text-[1rem] font-bold leading-[1.3rem] text-main-color transform -translate-y-[-50px] blur-[20px]">TẠI <span>HÀ NỘI</span>
                             </div>
-                            <div className="description transform -translate-y-[-60px] filter blur-[20px] opacity-0">
+                            <div className="description transform -translate-y-[-60px] blur-[20px]">
                                 Chỗ của chúng tôi cung cấp hầu hết nhu cầu của bạn để có một thời
                                 gian lưu trú thoải mái. Căn hộ của chúng tôi nằm ngay trung tâm An
                                 Thượng. Tuy nhiên, là một con đường yên tĩnh và bạn là trung tâm
                                 của mọi thứ.
                             </div>
-                            <div className="buttons grid grid-cols-2-130px mt-[20px] grid-rows-[40px] gap-[5px] transform -translate-y-[-60px] filter blur-[20px] opacity-0">
+                            <div className="buttons grid grid-cols-2-130px mt-[20px] grid-rows-[40px] gap-[5px] transform -translate-y-[-60px] blur-[20px]">
                                 <button className="bor border-0 bg-[#eee] tracking-[3px] font-[FontBanner] font-[500] text-[#000000]">Xem
                                     Thêm
                                 </button>
@@ -235,16 +235,16 @@ const AsNavFor: React.FC = () => {
                         <div
                             ref={elementRef3}
                             className="content absolute top-[34%] w-[1140px] max-w-[70%] left-[44%] transform translate-x-[-50%] pr-[30%] box-border text-[#fff] drop-shadow-[0_5px_10px_#00004]">
-                            <div className="title text-[3rem] font-bold transform -translate-y-[-50px] filter blur-[20px] opacity-0">CĂN HỘ CAO CẤP</div>
-                            <div className="topic text-[1rem] font-bold leading-[1.3rem] text-main-color transform -translate-y-[-50px] filter blur-[20px] opacity-0">TẠI <span>HÀ NỘI</span>
+                            <div className="title text-[3rem] font-bold transform -translate-y-[-50px] blur-[20px]">CĂN HỘ CAO CẤP</div>
+                            <div className="topic text-[1rem] font-bold leading-[1.3rem] text-main-color transform -translate-y-[-50px] blur-[20px]">TẠI <span>HÀ NỘI</span>
                             </div>
-                            <div className="description transform -translate-y-[-60px] filter blur-[20px] opacity-0">
+                            <div className="description transform -translate-y-[-60px] blur-[20px]">
                                 Chỗ của chúng tôi cung cấp hầu hết nhu cầu của bạn để có một thời
                                 gian lưu trú thoải mái. Căn hộ của chúng tôi nằm ngay trung tâm An
                                 Thượng. Tuy nhiên, là một con đường yên tĩnh và bạn là trung tâm
                                 của mọi thứ.
                             </div>
-                            <div className="buttons grid grid-cols-2-130px mt-[20px] grid-rows-[40px] gap-[5px] transform -translate-y-[-60px] filter blur-[20px] opacity-0">
+                            <div className="buttons grid grid-cols-2-130px mt-[20px] grid-rows-[40px] gap-[5px] transform -translate-y-[-60px] blur-[20px]">
                                 <button className="bor border-0 bg-[#eee] tracking-[3px] font-[FontBanner] font-[500] text-[#000000]">Xem
                                     Thêm
                                 </button>
