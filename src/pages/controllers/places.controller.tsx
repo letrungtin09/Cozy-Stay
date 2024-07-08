@@ -18,38 +18,40 @@ export default class ApiPlaces {
       const address = req.body.address;
       const price = req.body.price;
       const quantityPeople = req.body.quantityPeople;
-      const idPartner = req.body.idPartner;
+      const idUser = req.body.idUser;
       const idCategory = req.body.idCategory;
       const longitude = req.body.longitude;
       const latitude = req.body.latitude;
-      const discount = req.body.discount;
-      const status = req.body.status;
-      const longDescription = req.body.longDescription;
+      const description = req.body.description;
       const quantityBedRoom = req.body.quantityBedRoom;
       const quantityBath = req.body.quantityBath;
-      const quantityBed = req.body.quantityBed;
+      const area = req.body.area;
       const title = req.body.title;
-      const reservationKind = req.body.reservationKind;
-      const kindroom = req.body.kindroom;
-      const image = req.body.image;
+      const kindRoom = req.body.kindRoom;
+      const image1 = req.body.image1;
+      const image2 = req.body.image2;
+      const image3 = req.body.image3;
+      const image4 = req.body.image4;
+      const image5 = req.body.image5;
       const data = {
         address: address,
         price: price,
         quantityPeople: quantityPeople,
-        idPartner: idPartner,
-        idCategory: idCategory,
+        image1: image1,
+        image2: image2,
+        image3: image3,
+        image4: image4,
+        image5: image5,
         longitude: longitude,
         latitude: latitude,
-        discount: discount,
-        status: status,
-        longDescription: longDescription,
+        description: description,
         quantityBedRoom: quantityBedRoom,
         quantityBath: quantityBath,
-        quantityBed: quantityBed,
+        area: area,
+        kindRoom: kindRoom,
         title: title,
-        reservationKind: reservationKind,
-        kindroom: kindroom,
-        image: image,
+        idUser: idUser,
+        idCategory: idCategory,
       };
       await Places.addNewPlaces(data);
       res.json({ thongbao: "Đã thêm Places" });
@@ -78,40 +80,42 @@ export default class ApiPlaces {
       const address = req.body.address;
       const price = req.body.price;
       const quantityPeople = req.body.quantityPeople;
-      const idPartner = req.body.idPartner;
+      const idUser = req.body.idUser;
       const idCategory = req.body.idCategory;
       const longitude = req.body.longitude;
       const latitude = req.body.latitude;
-      const discount = req.body.discount;
-      const status = req.body.status;
-      const longDescription = req.body.longDescription;
+      const description = req.body.description;
       const quantityBedRoom = req.body.quantityBedRoom;
       const quantityBath = req.body.quantityBath;
-      const quantityBed = req.body.quantityBed;
+      const area = req.body.area;
       const title = req.body.title;
-      const reservationKind = req.body.reservationKind;
-      const kindroom = req.body.kindroom;
-      const image = req.body.image;
+      const kindRoom = req.body.kindRoom;
+      const image1 = req.body.image1;
+      const image2 = req.body.image2;
+      const image3 = req.body.image3;
+      const image4 = req.body.image4;
+      const image5 = req.body.image5;
       const approveStatus = req.body.approveStatus;
       const data = {
         address: address,
         price: price,
         quantityPeople: quantityPeople,
-        idPartner: idPartner,
-        idCategory: idCategory,
+        image1: image1,
+        image2: image2,
+        image3: image3,
+        image4: image4,
+        image5: image5,
         longitude: longitude,
         latitude: latitude,
-        discount: discount,
-        status: status,
-        longDescription: longDescription,
+        description: description,
         quantityBedRoom: quantityBedRoom,
         quantityBath: quantityBath,
-        quantityBed: quantityBed,
+        area: area,
+        kindRoom: kindRoom,
         title: title,
-        reservationKind: reservationKind,
-        kindroom: kindroom,
-        image: image,
         approveStatus: approveStatus,
+        idUser: idUser,
+        idCategory: idCategory,
       };
       await Places.putUpDatePlaces(data, numberId);
       res.json({ thongbao: "Đã cập nhật Places" });

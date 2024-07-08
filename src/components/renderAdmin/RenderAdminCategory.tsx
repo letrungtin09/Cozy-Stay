@@ -20,7 +20,11 @@ const RenderAdminCategory = () => {
   const fetchData = async () => {
     try {
       const res = await ApiFunctions.getData(apiCategory);
-      setDataCategory(res.cate);
+      const dataRes = res.cate;
+      const sortData = dataRes.sort(function (a: any, b: any) {
+        return b.id - a.id;
+      });
+      setDataCategory(sortData);
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +60,7 @@ const RenderAdminCategory = () => {
           <thead>
             <th>id</th>
             <th>tên danh mục</th>
-            <th>mô tả danh mục</th>
+            <th>biểu tượng danh mục</th>
             <th>thao tác</th>
           </thead>
           <tbody className="infoCate">
@@ -64,7 +68,9 @@ const RenderAdminCategory = () => {
               <tr key={category.id}>
                 <td>{category.id}</td>
                 <td>{category.nameCategory}</td>
-                <td>{category.description}</td>
+                <td className="d-flex justify-center">
+                  <img src={category.icon} alt="" />
+                </td>
 
                 <td>
                   <div className="btn-action">
@@ -85,10 +91,6 @@ const RenderAdminCategory = () => {
                       />
                       Xóa
                     </button>
-                    {/* <a className="btn--operation btn--detail" href="#">
-                      <FontAwesomeIcon icon={faCircleInfo} />
-                      Chi tiết
-                    </a> */}
                   </div>
                 </td>
               </tr>

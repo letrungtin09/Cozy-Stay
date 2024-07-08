@@ -28,23 +28,21 @@ const FormUpdateCategory = () => {
   }, [apiCategory]);
 
   const { values, handleChange, setValues } = useHandleChange({
+    icon: "",
     nameCategory: "",
-    description: "",
   });
 
   useEffect(() => {
     setValues(dataCategory);
   }, [dataCategory]);
 
-  console.log(values);
-
   const router = useRouter();
 
   const updateCategory = async (e: any) => {
     e.preventDefault();
     const cateUpdate = {
+      icon: values.icon,
       nameCategory: values.nameCategory,
-      description: values.description,
     };
 
     try {
@@ -64,7 +62,7 @@ const FormUpdateCategory = () => {
   return (
     <section className="formInsertEdit">
       <div className="formInsertEdit__title">
-        <h1>SỬA MỚI DANH MỤC</h1>
+        <h1>CẬP NHẬT DANH MỤC</h1>
       </div>
       <div className="formInsertEdit__space"></div>
       <div className="formInsertEdit__content">
@@ -94,14 +92,13 @@ const FormUpdateCategory = () => {
           <div className="formInsertEdit__item">
             <label className="formInsertEdit__label">Mô tả danh mục</label>
             <br />
-            <textarea
-              className="formInsertEdit__input formInsertEdit__textarea"
-              cols={100}
-              rows={5}
-              name="description"
+            <input
+              className="formInsertEdit__input"
+              type="text"
+              name="icon"
               onChange={handleChange}
-              value={values.description}
-            ></textarea>
+              value={values.icon}
+            />
           </div>
 
           <div className="formInsertEdit__item formInsertEdit__btn">

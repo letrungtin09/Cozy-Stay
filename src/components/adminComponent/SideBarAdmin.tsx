@@ -8,6 +8,7 @@ import {
   faReceipt,
   faUserTie,
   faUserGear,
+  faKey,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
@@ -42,18 +43,18 @@ const SideBarAdmin = () => {
           <li>
             <Link className="cateAdmin" href="/admin/adminPlace">
               <FontAwesomeIcon icon={faHouseChimneyWindow} />
-              <span>Chỗ cho thuê</span>
+              <span>Chỗ ở cho thuê</span>
             </Link>
           </li>
           <li>
-            <Link className="cateAdmin" href="/admin/adminService">
-              <FontAwesomeIcon icon={faReceipt} /> <span>Dịch vụ</span>
+            <Link className="cateAdmin" href="/admin/adminConvenient">
+              <FontAwesomeIcon icon={faReceipt} /> <span>Tiện nghi</span>
             </Link>
           </li>
           <li>
-            <Link className="cateAdmin" href="/admin/adminAccount">
-              <FontAwesomeIcon icon={faUserTie} />
-              <span>Tài khoản</span>
+            <Link className="cateAdmin" href="/admin/adminRules">
+              <FontAwesomeIcon icon={faKey} />
+              <span>Nội quy nhà</span>
             </Link>
           </li>
         </ul>

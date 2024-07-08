@@ -10,11 +10,11 @@ const FormUpdatePlace = () => {
   const searchParams = useSearchParams();
   const id = searchParams!.get("id");
   const apiCategory = `${localUrl}/api/category`;
-  const apiPartner = `${localUrl}/api/partner`;
+  const apiUser = `${localUrl}/api/user`;
   const apiPlace = `${localUrl}/api/places?id=${id}`;
   const [dataPlace, setDataPlace] = useState<any>([]);
   const [dataCategory, setDataCategory] = useState<any[]>([]);
-  const [dataPartner, setDataPartner] = useState<any[]>([]);
+  const [dataUser, setDataUser] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchDataPlace = async () => {
@@ -43,90 +43,46 @@ const FormUpdatePlace = () => {
   }, [apiCategory]);
 
   useEffect(() => {
-    const fetchDataPartner = async () => {
+    const fetchDataUser = async () => {
       try {
-        const res = await ApiFunctions.getData(apiPartner);
-        setDataPartner(res.partner);
+        const res = await ApiFunctions.getData(apiUser);
+        setDataUser(res.user);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchDataPartner();
-  }, [apiPartner]);
+    fetchDataUser();
+  }, [apiUser]);
 
   const renderKindRoom = (value: number) => {
     if (value == 0) {
       return (
         <>
           <option value="0" selected>
-            Toàn bộ nhà
+            Phòng
           </option>
-          <option value="1">Một căn trong nhà</option>
-          <option value="2">Phòng chung</option>
+          <option value="1">Căn hộ</option>
+          <option value="2">Nhà</option>
         </>
       );
     } else if (value == 1) {
       return (
         <>
-          <option value="0">Toàn bộ nhà</option>
+          <option value="0">Phòng</option>
           <option value="1" selected>
-            Một căn trong nhà
+            Căn hộ
           </option>
-          <option value="2">Phòng chung</option>
+          <option value="2">Nhà</option>
         </>
       );
     } else if (value == 2) {
       return (
         <>
-          <option value="0">Toàn bộ nhà</option>
-          <option value="1">Một căn trong nhà</option>
+          <option value="0">Phòng</option>
+          <option value="1">Căn hộ</option>
           <option value="2" selected>
-            Phòng chung
-          </option>
-        </>
-      );
-    }
-  };
-
-  const renderReservationKind = (value: number) => {
-    if (value == 0) {
-      return (
-        <>
-          <option value="0" selected>
-            Tự động cho thuê
-          </option>
-          <option value="1">Chờ xác nhận</option>
-        </>
-      );
-    } else if (value == 1) {
-      return (
-        <>
-          <option value="0">Tự động cho thuê</option>
-          <option value="1" selected>
-            Chờ xác nhận
-          </option>
-        </>
-      );
-    }
-  };
-
-  const renderStatus = (value: number) => {
-    if (value == 0) {
-      return (
-        <>
-          <option value="0" selected>
-            Chưa có người ở
-          </option>
-          <option value="1">Đã có người ở</option>
-        </>
-      );
-    } else if (value == 1) {
-      return (
-        <>
-          <option value="0">Chưa có người ở</option>
-          <option value="1" selected>
-            Đã có người ở
+            Nhà
           </option>
         </>
       );
@@ -159,21 +115,22 @@ const FormUpdatePlace = () => {
     address: "",
     price: 0,
     quantityPeople: 0,
-    idPartner: 0,
-    idCategory: 0,
+    image1: "",
+    image2: "",
+    image3: "",
+    image4: "",
+    image5: "",
     longitude: "",
     latitude: "",
-    discount: 0,
-    status: 0,
-    longDescription: "",
+    description: "",
     quantityBedRoom: 0,
     quantityBath: 0,
-    quantityBed: 0,
+    area: 0,
+    kindRoom: 0,
     title: "",
-    reservationKind: 0,
-    kindroom: 0,
-    image: "",
     approveStatus: 0,
+    idUser: 0,
+    idCategory: 0,
   });
 
   useEffect(() => {
@@ -188,21 +145,22 @@ const FormUpdatePlace = () => {
       address: values.address,
       price: +values.price,
       quantityPeople: +values.quantityPeople,
-      idPartner: +values.idPartner,
-      idCategory: +values.idCategory,
-      longitude: values.longitude,
-      latitude: values.latitude,
-      discount: +values.discount,
-      status: +values.status,
-      longDescription: values.longDescription,
+      image1: "",
+      image2: "",
+      image3: "",
+      image4: "",
+      image5: "",
+      longitude: +values.longitude,
+      latitude: +values.latitude,
+      description: values.description,
       quantityBedRoom: +values.quantityBedRoom,
       quantityBath: +values.quantityBath,
-      quantityBed: +values.quantityBed,
+      area: +values.area,
+      kindRoom: +values.kindRoom,
       title: values.title,
-      reservationKind: +values.reservationKind,
-      kindroom: +values.kindroom,
-      image: values.image,
       approveStatus: +values.approveStatus,
+      idUser: +values.idUser,
+      idCategory: +values.idCategory,
     };
     console.log(placeUpdate);
 
@@ -262,7 +220,9 @@ const FormUpdatePlace = () => {
             />
           </div>
           <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Giá tiền cho 1 đêm</label>
+            <label className="formInsertEdit__label">
+              Giá tiền thuê 1 tháng
+            </label>
             <br />
             <input
               className="formInsertEdit__input"
@@ -272,18 +232,7 @@ const FormUpdatePlace = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Mức giảm giá</label>
-            <br />
-            <input
-              className="formInsertEdit__input"
-              type="text"
-              name="discount"
-              value={values.discount}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="formInsertEdit__item">
+          {/* <div className="formInsertEdit__item">
             <label className="formInsertEdit__label">Hình ảnh</label>
             <br />
             <input
@@ -293,7 +242,7 @@ const FormUpdatePlace = () => {
               value={values.image}
               onChange={handleChange}
             />
-          </div>
+          </div> */}
           <div className="formInsertEdit__item">
             <label className="formInsertEdit__label">Chủ nhà</label>
             <br />
@@ -303,17 +252,17 @@ const FormUpdatePlace = () => {
               onChange={handleChange}
             >
               <option value="0">Chọn chủ nhà</option>
-              {dataPartner.map((partner) =>
-                partner.id == values.idPartner ? (
+              {dataUser.map((user) =>
+                user.id == values.idUser ? (
                   <>
-                    <option key={partner.id} value={values.idPartner} selected>
-                      {partner.userName}
+                    <option key={user.id} value={values.idUser} selected>
+                      {user.userName}
                     </option>
                   </>
                 ) : (
                   <>
-                    <option key={partner.id} value={values.idPartner}>
-                      {partner.userName}
+                    <option key={user.id} value={values.idUser}>
+                      {user.userName}
                     </option>
                   </>
                 )
@@ -357,19 +306,7 @@ const FormUpdatePlace = () => {
             >
               {}
               <option value="">Chọn loại cho thuê</option>
-              {renderKindRoom(values.kindroom)}
-            </select>
-          </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Kiểu đặt phòng</label>
-            <br />
-            <select
-              className="formInsertEdit__input"
-              name="reservationKind"
-              onChange={handleChange}
-            >
-              <option value="">Chọn kiểu đặt phòng</option>
-              {renderReservationKind(values.reservationKind)}
+              {renderKindRoom(values.kindRoom)}
             </select>
           </div>
 
@@ -407,13 +344,13 @@ const FormUpdatePlace = () => {
             />
           </div>
           <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Số lượng giường ngủ</label>
+            <label className="formInsertEdit__label">Diện tích</label>
             <br />
             <input
               className="formInsertEdit__input"
               type="text"
-              name="quantityBed"
-              value={values.quantityBed}
+              name="area"
+              value={values.area}
               onChange={handleChange}
             />
           </div>
@@ -425,7 +362,7 @@ const FormUpdatePlace = () => {
               name="longDescription"
               cols={100}
               rows={5}
-              value={values.longDescription}
+              value={values.description}
               onChange={handleChange}
             ></textarea>
           </div>
@@ -450,18 +387,6 @@ const FormUpdatePlace = () => {
               value={values.latitude}
               onChange={handleChange}
             />
-          </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Trạng thái</label>
-            <br />
-            <select
-              className="formInsertEdit__input"
-              name="status"
-              onChange={handleChange}
-            >
-              <option value="">Thiết lập trạng thái</option>
-              {renderStatus(values.status)}
-            </select>
           </div>
           <div className="formInsertEdit__item">
             <label className="formInsertEdit__label">Phê duyệt</label>
