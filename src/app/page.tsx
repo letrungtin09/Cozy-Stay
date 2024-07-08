@@ -24,6 +24,11 @@ export default function Home() {
         <section className="filter mb-[30px]">
           <FillterCarousel />
         </section>
+        </section> */}
+        <Cover></Cover>
+        <BestPlaces></BestPlaces>
+        <FilterCategory></FilterCategory>
+        <RenderPlaces></RenderPlaces>
       </LayoutCustomer>
     </>
   );
