@@ -8,6 +8,7 @@ import { RenderPlaces } from "@/components/renderPlaces/RenderPlaces";
 import { Cover } from "@/components/renderPlaces/Cover";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import FillterCarousel from "@/components/fillterCarousel";
 
 export default function Home() {
   return (
@@ -25,8 +26,14 @@ export default function Home() {
           <FillterCarousel />
         </section>
         </section> */}
-        <Cover></Cover>
-        <BestPlaces></BestPlaces>
+        <section className="cover slider">
+          <div className="carousel_cv h-[100vh] w-full overflow-hidden relative">
+            <AsNavFor></AsNavFor>
+          </div>
+        </section>
+        <section className="pt-[50px] pb-[20px] pl-[75px] pr-[75px]">
+          <BestPlace />
+        </section>
         <FilterCategory></FilterCategory>
         <RenderPlaces></RenderPlaces>
       </LayoutCustomer>
