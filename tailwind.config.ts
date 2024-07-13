@@ -112,6 +112,13 @@ const config: Config = {
             filter: 'blur(0px)',
             opacity: '1',
           }
+        },
+        checkCode: {
+          'to': {
+            transform: 'translate(-50%,-50%)',
+            filter: 'blur(0px)',
+            opacity: '1',
+          }
         }
       },
       animation: {
@@ -120,6 +127,7 @@ const config: Config = {
         'wiggle-1.4s': 'wiggle 0.5s 1.2s linear 1 forwards',
         'wiggle-1.6s': 'wiggle 0.5s 1.4s linear 1 forwards',
         'wiggle-0.6s': 'wiggle 0.2s 0.4s linear 1 forwards',
+        'checkCode-1s': 'checkCode 0.5s 0.8s linear 1 forwards',
       },
       animationDelay: {
         '1.2': '1.2s',

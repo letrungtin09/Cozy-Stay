@@ -22,11 +22,12 @@
     "express": "^4.19.2",
     "mysql": "^2.18.1",
     "next": "^14.1.4",
+    "node-cache": "^5.1.2",
+    "nodemailer": "^6.9.14",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
-    "sharp": "^0.33.3",
     "react-slick": "^0.30.2",
     "sharp": "^0.33.3",
     "slick-carousel": "^1.8.1"

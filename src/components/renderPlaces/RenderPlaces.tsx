@@ -29,7 +29,7 @@ export const RenderPlaces = () => {
     fetchData();
   }, [apiPlaces]);
 
-  useEffect(() => {});
+  useEffect(() => { });
 
   return (
     <div className="places">

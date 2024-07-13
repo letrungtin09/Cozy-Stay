@@ -38,7 +38,7 @@ export default function Login() {
         } else if (response.status) {
           if (response.idUser) {
             window.sessionStorage.setItem(
-              "duytuong123",
+              "currentUser",
               JSON.stringify(response)
             );
           }

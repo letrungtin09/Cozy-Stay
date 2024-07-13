@@ -10,7 +10,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Dropdown from "react-bootstrap/Dropdown";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef, useEffect, useState } from "react";
+import { ModalPartner } from "./modalPartner";
+import { ModalGhost } from "./modalGhost";
+
 export default function HeaderComponent() {
+  const [showPartnerModal, setShowPartnerModal] = useState(false);
+  const [showGhostModal, setShowGhostModal] = useState(false);
+  const [roleUser, setRoleUser] = useState();
+  useEffect(() => {
+    // Kiểm tra xem người dùng đã đăng nhập hay chưa
+    const isLoggedIn = sessionStorage.getItem('currentUser');
+
+    if (!isLoggedIn) {
+      setShowGhostModal(true);
+    } else {
+      const userObject = JSON.parse(isLoggedIn);
+      const role = userObject.role;
+      setRoleUser(role);
+      setShowPartnerModal(true);
+    }
+  }, []);
+  const closePartnerModal = () => {
+    setShowPartnerModal(false);
+  };
+
+  const closeGhostModal = () => {
+    setShowGhostModal(false);
+  };
   return (
     <>
       <header>
@@ -21,7 +48,13 @@ export default function HeaderComponent() {
                 pathname: "/",
               }}
             >
-              <img className="logo-hd" src="images/CozyStay.png" alt="" />
+              <Image
+                src="/images/CozyStay.png"
+                alt="icon-logo"
+                width={2000}
+                height={2000}
+                priority={true}
+                className="logo-hd" />
             </Link>
           </div>
           <div className="col col-2">
@@ -43,43 +76,33 @@ export default function HeaderComponent() {
             </div>
           </div>
           <div className="col col-3">
-            <div className="register-host btn-height btn-header">
-              <FontAwesomeIcon icon={faHouseUser} />
-              <p>Trở thành chủ nhà</p>
-            </div>
+            {roleUser !== 2 && roleUser !== 1 && (
+              <div className="register-host btn-height btn-header">
+                <FontAwesomeIcon icon={faHouseUser} />
+                <p>Trở thành chủ nhà</p>
+              </div>
+            )}
             <div className="dropdown-header btn-height">
               <Dropdown>
                 <Dropdown.Toggle>
-                  <img
-                    src="images/icon-user.png"
-                    alt=""
-                    className="account-icon icon-header"
-                  />
-                  <img
-                    src="images/icon-menu.png"
-                    alt=""
-                    className="account-menu icon-header"
-                  />
+                  <Image
+                    src="/images/icon-user.png"
+                    alt="icon-user"
+                    width={2000}
+                    height={2000}
+                    priority={true}
+                    className="account-icon icon-header" />
+                  <Image
+                    src="/images/icon-menu.png"
+                    alt="icon-menu"
+                    width={2000}
+                    height={2000}
+                    priority={true}
+                    className="account-menu icon-header" />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item href="/wallet">Ví tiền của bạn</Dropdown.Item>
-                  <Dropdown.Item href="/updateAccount">
-                    Cập nhật tài khoản
-                  </Dropdown.Item>
-                  <Dropdown.Item href="/changePassword">
-                    Đổi mật khẩu
-                  </Dropdown.Item>
-                  <Dropdown.Item href="/myPlace?id=1">
-                    Phòng/nhà của bạn
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-5">
-                    Chuyển sang chế độ chủ nhà
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-6">
-                    Đăng xuất <FontAwesomeIcon icon={faArrowRightFromBracket} />
-                  </Dropdown.Item>
-                </Dropdown.Menu>
+                <ModalPartner isOpen={showPartnerModal} onClose={closePartnerModal} id={roleUser} />
+                <ModalGhost isOpen={showGhostModal} onClose={closeGhostModal} />
               </Dropdown>
             </div>
           </div>

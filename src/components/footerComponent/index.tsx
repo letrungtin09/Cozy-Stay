@@ -23,7 +23,11 @@ export default function FooterComponent() {
             <div className="single-footer-widget">
               <div className="footer-logo">
                 <a href="index.html">
-                  <img src="images/CozyStay.png" alt="" />
+                  <Image
+                    src="/images/CozyStay.png"
+                    width={2000}
+                    height={2000}
+                    alt="đâ" />
                 </a>
               </div>
               <p>

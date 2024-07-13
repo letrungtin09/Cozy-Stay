@@ -1,21 +1,107 @@
 "use client";
 import ApiFunctions from "@/lib/api";
 import { errorElement } from "@/lib/common";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import LayoutCustomer from "@/components/layoutCustomer";
 import localUrl from "@/lib/const";
+import VerifyEmailCode from "./checkEmailCode";
 
 export default function Register() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const fullNameRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  const [statusCheckCode, setStatusCheckCode] = useState(false);
+  const [emailName, setEmailName] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [passWord, setPassWord] = useState('');
+  const [codeSystem, setCodeSystem] = useState('');
+  const [statusVerify, setStatusVerify] = useState(false);
+
+  const handleCodeChange = (status: boolean) => {
+    setStatusCheckCode(status);
+  };
+
+  const handleCodeVerifyInput = (newCode: string) => {
+    checkMailsAndSendUser(emailName, newCode, fullName, passWord);
+  };
+
+  const checkMailsAndSendUser = (emailName: any, code: string, fullName: string, pass: string) => {
+    const urlSendVerify: string = `${localUrl}/api/verifyRegister`;
+    const dataVerify: any = {
+      emailName: emailName,
+      fullName: fullName,
+      passWord: pass
+    }
+    if (code && code == codeSystem) {
+      setStatusVerify(false);
+      ApiFunctions.postData(urlSendVerify, dataVerify)
+        .then((res) => {
+          if (res.status) {
+            window.location.href = "/auth/login";
+          }
+        });
+    } else {
+      setStatusVerify(true);
+    }
+  }
+  const handleResendEmail = () => {
+    const urlSendEmail: string = `${localUrl}/api/email`;
+    const dataEmail: any = {
+      emailName: emailName
+    }
+    ApiFunctions.postData(urlSendEmail, dataEmail)
+      .then((res) => {
+        if (res.status) {
+          setStatusVerify(false);
+          console.log(res.verifyCode)
+          console.log(dataEmail)
+          setCodeSystem(res.verifyCode);
+        }
+      });
+  }
+
+  const handleSendEmail = (email: any) => {
+    const urlSendEmail: string = `${localUrl}/api/email`;
+    const dataEmail: any = {
+      emailName: email
+    }
+    ApiFunctions.postData(urlSendEmail, dataEmail)
+      .then((res) => {
+        if (res.status) {
+          setStatusVerify(false);
+          handleCodeChange(true);
+          console.log(res.verifyCode)
+          console.log(dataEmail)
+          setCodeSystem(res.verifyCode);
+        }
+      });
+  }
+
+  const handleSendRegister = (userName: any, email: any, passWord: any) => {
+    const apiUrl: string = `${localUrl}/api/register`;
+    const data: FormValuesRegister = {
+      email: email
+    };
+    ApiFunctions.postData(apiUrl, data).then((res) => {
+      if (res.response) {
+        if (res.response.status == 409) {
+          errorElement(res.response.data.error, emailRef.current);
+        }
+      } else {
+        setEmailName(email);
+        setFullName(userName);
+        setPassWord(passWord);
+        handleSendEmail(email);
+      }
+    });
+  }
+
   const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
     if (document.querySelectorAll(".errorLogin"))
       document.querySelectorAll(".errorLogin").forEach((e) => e.remove());
     event.preventDefault();
-    const apiUrl: string = `${localUrl}/api/register`;
     const userName = fullNameRef.current?.value || "";
     const email = emailRef.current?.value || "";
     const passWord = passwordRef.current?.value || "";
@@ -26,20 +112,7 @@ export default function Register() {
       passWord !== "" &&
       passWord === confirmPassword
     ) {
-      const data: FormValuesRegister = {
-        userName: userName,
-        email: email,
-        password: passWord,
-      };
-      ApiFunctions.postData(apiUrl, data).then((res) => {
-        if (res.response) {
-          if (res.response.status == 409) {
-            errorElement(res.response.data.error, emailRef.current);
-          }
-        } else {
-          window.location.href = "/auth/login";
-        }
-      });
+      handleSendRegister(userName, email, passWord);
     } else {
       if (passWord == "")
         errorElement("Nhập password của bạn", passwordRef.current);
@@ -53,8 +126,9 @@ export default function Register() {
         errorElement("Nhập họ tên của bạn", fullNameRef.current);
     }
   };
+
   return (
-    <>
+    <div className="ds relative">
       <div className="form-gadgets register bg-[#f7f7f7] pt-[100px] pb-[30px]">
         <div className="form-container register__form flex items-end justify-center">
           <form
@@ -161,6 +235,8 @@ export default function Register() {
           </form>
         </div>
       </div>
-    </>
+
+      {statusCheckCode && <VerifyEmailCode onCodeChange={handleCodeChange} onCodeVerify={handleCodeVerifyInput} errorVerify={statusVerify} onResendCode={handleResendEmail} />}
+    </div>
   );
 }

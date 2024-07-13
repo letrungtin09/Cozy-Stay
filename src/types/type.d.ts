@@ -9,7 +9,5 @@ interface FormValuesLogin {
     types: bolean;
 }
 interface FormValuesRegister {
-    userName: string;
     email: string;
-    password: string;
 }
