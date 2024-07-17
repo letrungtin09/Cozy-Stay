@@ -32,6 +32,9 @@ export default class ApiUser {
       const avatar = req.body.avatar;
       const phoneNumber = req.body.phoneNumber;
       const role = req.body.role;
+      const address = req.body.address;
+      const info = req.body.info;
+      const dateRegister = req.body.dateRegister;
       const data = {
         userName: userName,
         email: email,
@@ -39,6 +42,9 @@ export default class ApiUser {
         avatar: avatar,
         phoneNumber: phoneNumber,
         role: role,
+        address: address,
+        info: info,
+        dateRegister: dateRegister,
       };
       await User.addNewUser(data);
       res.json({ thongbao: "Đã thêm User" });
@@ -70,6 +76,9 @@ export default class ApiUser {
       const avatar = req.body.avatar;
       const phoneNumber = req.body.phoneNumber;
       const role = req.body.role;
+      const address = req.body.address;
+      const info = req.body.info;
+      const dateRegister = req.body.dateRegister;
       const data = {
         userName: userName,
         email: email,
@@ -77,6 +86,9 @@ export default class ApiUser {
         avatar: avatar,
         phoneNumber: phoneNumber,
         role: role,
+        address: address,
+        info: info,
+        dateRegister: dateRegister,
       };
       await User.putUpDateUser(data, numberId);
       res.json({ thongbao: "Đã cập nhật User" });

@@ -2,16 +2,34 @@
 import FooterComponent from "@/components/footerComponent";
 import { faHouseMedical, faWifi } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [idU, setIdU] = useState();
+  const router = useRouter();
+  useEffect(() => {
+    // Kiểm tra xem người dùng đã đăng nhập hay chưa
+    const isLoggedIn = sessionStorage.getItem("currentUser");
+
+    if (!isLoggedIn) {
+      router.push("/auth/login");
+    } else {
+      const userObject = JSON.parse(isLoggedIn);
+      const id = userObject.idUser;
+      setIdU(id);
+    }
+  }, []);
+
   return (
     <>
       <header>
         <div className="headerSetup__container section-padding">
           <div className="headerSetup__logo">
-            <a href="#">
+            <Link href="/">
               <img src="images/CozyStay.png" alt="" />
-            </a>
+            </Link>
           </div>
           <div className="headerSetup__info">
             <div className="headerSetup__ques">
@@ -20,9 +38,9 @@ export default function Home() {
               </div>
             </div>
             <div className="headerSetup__btn">
-              <button className="btn-partner">
+              <Link className="btn-partner py-2" href={`/formSetup?id=${idU}`}>
                 <FontAwesomeIcon icon={faHouseMedical} /> Thiết lập ngay
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -40,9 +58,12 @@ export default function Home() {
                 <div className="price">10.000.000đ / tháng</div>
               </div>
               <div className="cozySetup__btn">
-                <button className="btn-partner">
+                <Link
+                  className="btn-partner py-3 px-4 uppercase"
+                  href={`/formSetup?id=${idU}`}
+                >
                   <FontAwesomeIcon icon={faHouseMedical} /> Thiết lập ngay
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -106,9 +127,12 @@ export default function Home() {
                 cấp, từ câu hỏi đầu tiên cho đến vị khách đầu tiên.
               </div>
               <div className="right-btn">
-                <button className="btn-partner">
+                <Link
+                  className="btn-partner py-2"
+                  href={`/formSetup?id=${idU}`}
+                >
                   <FontAwesomeIcon icon={faHouseMedical} /> Thiết lập ngay
-                </button>
+                </Link>
               </div>
             </div>
           </div>

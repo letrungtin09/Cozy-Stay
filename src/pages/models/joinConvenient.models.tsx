@@ -23,9 +23,9 @@ export default class JoinConvenient {
     }
   }
 
-  // Lấy 1 theo idPlace
+  // Lấy theo idPlace
   static async fetchPlaceJoinConvenient(id: number) {
-    const sqlGetItem = `SELECT * FROM join_convenient WHERE idPlace = ?`;
+    const sqlGetItem = `SELECT * FROM join_convenient WHERE idPlace = ? GROUP BY idConvenient`;
     try {
       const resultItem = await commonFunctions.handleDataBase(
         db,

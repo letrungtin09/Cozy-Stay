@@ -1,8 +1,74 @@
 "use client";
 import LayoutHouseOwner from "@/components/layoutHouseOwner";
+import ApiFunctions from "@/lib/api";
+import localUrl from "@/lib/const";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const searchParams = useSearchParams();
+  const id = searchParams!.get("idUser");
+  const apiPlaces = `${localUrl}/api/places?idUser=${id}`;
+  const [dataPlaces, setDataPlaces] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await ApiFunctions.getData(apiPlaces);
+        const dataRes = res.places;
+        const sortData = dataRes.sort(function (a: any, b: any) {
+          return b.id - a.id;
+        });
+        setDataPlaces(sortData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [apiPlaces]);
+
+  const PlaceStatus = (status: any) => {
+    if (status === 0) {
+      return (
+        <>
+          <div className="trang-thai text-center text-color-green-2 font-bold">
+            Chưa được thuê
+          </div>
+        </>
+      );
+    } else if (status === 1) {
+      return (
+        <>
+          <div className="trang-thai text-center text-orange-600 font-bold">
+            Đang được thuê
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div className="trang-thai text-center text-color-red-0 font-bold">
+            Tắt nhận khách
+          </div>
+        </>
+      );
+    }
+  };
+
+  const deletePlace = async (id: any) => {
+    const apiPlaces2 = `${localUrl}/api/places?id=${id}`;
+    try {
+      const res = await ApiFunctions.deleteData(apiPlaces2).then(() => {
+        alert("Xóa thành công !");
+        location.reload();
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <LayoutHouseOwner>
@@ -10,7 +76,10 @@ export default function Home() {
           <div className="content">
             <div className="col-1">
               <h1 className="title">Nhà/Phòng cho thuê của bạn</h1>
-              <Link className="btn-dk" href="/houseOwner/addPlace">
+              <Link
+                className="btn-dk"
+                href={`/houseOwner/addPlace?idUser=${id}`}
+              >
                 Thêm mới
               </Link>
             </div>
@@ -19,7 +88,7 @@ export default function Home() {
                 <thead>
                   <tr>
                     <th className="text-center" scope="col">
-                      STT
+                      ID
                     </th>
                     <th className="text-center" scope="col">
                       ẢNH ĐẠI DIỆN
@@ -28,7 +97,13 @@ export default function Home() {
                       TÊN PHÒNG/NHÀ
                     </th>
                     <th className="text-center" scope="col">
-                      TRẠNG THÁI
+                      TRẠNG THÁI CHO THUÊ
+                    </th>
+                    <th className="text-center" scope="col">
+                      TRẠNG THÁI HỦY
+                    </th>
+                    <th className="text-center" scope="col">
+                      TRẠNG THÁI XÉT DUYỆT
                     </th>
                     <th className="text-center" scope="col">
                       HÀNH ĐỘNG
@@ -36,89 +111,67 @@ export default function Home() {
                   </tr>
                 </thead>
                 <tbody className="s">
-                  <tr>
-                    <td className="text-center" scope="row">
-                      1
-                    </td>
-                    <td className="img-place-holder">
-                      <a href="#">
-                        <img src="/img/img-places-5.webp" alt="" />
-                      </a>
-                    </td>
-                    <td className="text-center">
-                      <a href="#">Căn hộ dịch vụ cao cấp tại Điện Bàn</a>
-                    </td>
-                    <td className="d-flex justify-center">
-                      <p className="con-trong"></p>
-                      <span className="trang-thai">Còn trống</span>
-                    </td>
-                    <td className="text-center">
-                      <button
-                        type="button"
-                        className="btn-update bg-red-600 px-3 py-2 text-color-white-0 rounded-lg m-2"
-                      >
-                        Xóa
-                      </button>
-                      <Link
-                        className="btn-update bg-sky-600 px-3 py-2.5 text-color-white-0 rounded-lg"
-                        href="/houseOwner/updatePlace?id=1"
-                      >
-                        Sửa
-                      </Link>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center" scope="row">
-                      2
-                    </td>
-                    <td className="img-place-holder">
-                      <a href="#">
-                        <img src="/img/img-places-6.webp" alt="" />
-                      </a>
-                    </td>
-                    <td className="text-center">
-                      <a href="#">Căn hộ dịch vụ cao cấp tại Vũng Tàu</a>
-                    </td>
-                    <td className="d-flex justify-center">
-                      <p className="yeu-cau-thuc-hien"></p>
-
-                      <span className="trang-thai">Còn trống</span>
-                    </td>
-                    <td className="text-center">
-                      <button type="button" className="btn btn-danger">
-                        Xóa
-                      </button>
-                      <button type="button" className="btn btn-warning">
-                        Sửa
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center" scope="row">
-                      3
-                    </td>
-                    <td className="img-place-holder">
-                      <a href="#">
-                        <img src="/img/img-places-7.webp" alt="" />
-                      </a>
-                    </td>
-                    <td className="text-center">
-                      <a href="#">Căn hộ gia đình tại Phú Quốc</a>
-                    </td>
-                    <td className="d-flex justify-center">
-                      <p className="dang-thuc-hien"></p>
-
-                      <span className="trang-thai">Đang thực hiện</span>
-                    </td>
-                    <td className="text-center">
-                      <button type="button" className="btn btn-danger">
-                        Xóa
-                      </button>
-                      <button type="button" className="btn btn-warning">
-                        Sửa
-                      </button>
-                    </td>
-                  </tr>
+                  {dataPlaces.map((place) => (
+                    <tr key={place.id}>
+                      <td className="text-center" scope="row">
+                        {place.id}
+                      </td>
+                      <td className="img-place-holder">
+                        <a href="#">
+                          <img src={`images/places/${place.image1}`} alt="" />
+                        </a>
+                      </td>
+                      <td className="text-center">
+                        <a href="#">{place.title}</a>
+                      </td>
+                      <td className="">{PlaceStatus(place.status)}</td>
+                      <td className="">
+                        {place.statusCancel == 0 ? (
+                          <>
+                            <div className="trang-thai text-center text-color-green-2 font-bold">
+                              Không
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="trang-thai text-center text-color-red-0 font-bold">
+                              Báo hủy
+                            </div>
+                          </>
+                        )}
+                      </td>
+                      <td className="">
+                        {place.approveStatus == 0 ? (
+                          <>
+                            <div className="trang-thai text-center text-color-red-0 font-bold">
+                              Chưa xét duyệt
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="trang-thai text-center text-color-green-2 font-bold">
+                              Đã xét duyệt
+                            </div>
+                          </>
+                        )}
+                      </td>
+                      <td className="text-center">
+                        <button
+                          type="button"
+                          className="btn-update bg-red-600 px-3 py-2 text-color-white-0 rounded-lg m-2"
+                          onClick={() => deletePlace(place.id)}
+                        >
+                          Xóa
+                        </button>
+                        <Link
+                          className="btn-update bg-sky-600 px-3 py-2.5 text-color-white-0 rounded-lg"
+                          href={`/houseOwner/updatePlace?id=${place.id}&idUser=${id}`}
+                        >
+                          Sửa
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

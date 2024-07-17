@@ -924,7 +924,7 @@ footer .footer-copyright .footer-social a i:hover {
   cursor: pointer;
 }
 .places .places__container .places__item .places__slider {
-  width: 320px;
+  width: 324px;
   height: 300px;
   position: relative;
   overflow: hidden;
@@ -945,7 +945,7 @@ footer .footer-copyright .footer-social a i:hover {
   .places__list
   .places__img
   img {
-  width: 320px;
+  width: 324px;
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
@@ -1024,10 +1024,10 @@ footer .footer-copyright .footer-social a i:hover {
 }
 .places .places__container .places__item .places__detail {
   margin-top: 10px;
-  padding: 0 5px;
+  padding: 0px 5px;
 }
 .places .places__container .places__item .places__detail span {
-  margin-right: 15px;
+  margin-right: 10px;
   font-size: 15px;
 }
 .places .places__container .places__item .places__detail .places__top {
@@ -1040,6 +1040,8 @@ footer .footer-copyright .footer-social a i:hover {
   .places__detail
   .places__top
   .name-place {
+  font-size: 16px;
+  color: #3fa97f;
   margin: 0;
   font-weight: bold;
 }
@@ -1048,9 +1050,10 @@ footer .footer-copyright .footer-social a i:hover {
 }
 .places .places__container .places__item .places__detail .places__center span {
   font-size: 14px;
+  color: rgba(70, 70, 70, 0.7);
 }
-.places .places__container .places__item .places__detail .places__center i {
-  margin-right: 3px;
+.places .places__container .places__item .places__detail .places__center svg {
+  color: rgba(34, 34, 34, 0.7);
 }
 .places
   .places__container
@@ -1058,7 +1061,7 @@ footer .footer-copyright .footer-social a i:hover {
   .places__detail
   .places__center
   .area-place {
-  margin-right: 15px;
+  margin-right: 10px;
 }
 .places
   .places__container
@@ -1066,6 +1069,8 @@ footer .footer-copyright .footer-social a i:hover {
   .places__detail
   .places__bottom
   .price-place {
+  color: #3fa97f;
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -1165,6 +1170,14 @@ footer .footer-copyright .footer-social a i:hover {
 }
 .formInsertEdit .formInsertEdit__btn {
   margin-top: 10px;
+}
+.formInsertEdit .manageConvenient,
+.formInsertEdit .manageRules {
+  margin-bottom: 20px;
+}
+.formInsertEdit .addConvenient,
+.formInsertEdit .addRules {
+  margin-bottom: 10px;
 }
 
 .login .login__form form .login__content {
@@ -2923,6 +2936,7 @@ footer .footer-copyright .footer-social a i:hover {
 
 .houserholder-container {
   padding-top: 130px;
+  padding-bottom: 50px;
 }
 .houserholder-container .content {
   display: flex;
@@ -3009,7 +3023,7 @@ footer .footer-copyright .footer-social a i:hover {
   a:hover {
   color: #4ccd99 !important;
 }
-.houserholder-container
+/* .houserholder-container
   .content
   .col-2
   .table-list-house
@@ -3018,7 +3032,7 @@ footer .footer-copyright .footer-social a i:hover {
   td:nth-child(4) {
   display: flex;
   align-items: center;
-}
+} */
 .houserholder-container
   .content
   .col-2
@@ -3063,4 +3077,142 @@ footer .footer-copyright .footer-social a i:hover {
   border-radius: 180%;
   margin: 0;
   margin-right: 10px;
+}
+
+.convenient-container {
+  padding-top: 130px;
+}
+.convenient-container .content {
+  display: flex;
+  justify-content: center;
+}
+.convenient-container .content .col-1 {
+  width: 60%;
+}
+.convenient-container .content .col-1 h1 {
+  font-size: 32px;
+}
+.convenient-container .content .col-1 .list-item-now {
+  display: flex;
+  justify-content: space-between;
+}
+.convenient-container .content .col-1 .list-item-now ul li {
+  list-style: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 30px 0;
+}
+.convenient-container .content .col-1 .list-item-now ul li p {
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+.convenient-container .content .col-2 {
+  width: 30%;
+  border-left: 1px solid rgb(221, 221, 221);
+  padding-left: 10px;
+}
+.convenient-container .content .col-2 h1 {
+  font-size: 32px;
+}
+.convenient-container .content .col-2 .list-item-add .list-item-add-col li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.convenient-container
+  .content
+  .col-2
+  .list-item-add
+  .list-item-add-col
+  li
+  .name-item {
+  list-style: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 20px 0;
+}
+.convenient-container
+  .content
+  .col-2
+  .list-item-add
+  .list-item-add-col
+  li
+  .name-item
+  p {
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+.convenient-container .content .col-2 .list-item-add .list-item-add-col li i {
+  cursor: pointer;
+}
+
+.rules-container {
+  padding-top: 130px;
+}
+.rules-container .content {
+  display: flex;
+  justify-content: center;
+}
+.rules-container .content .col-1 {
+  width: 60%;
+}
+.rules-container .content .col-1 h1 {
+  font-size: 32px;
+}
+.rules-container .content .col-1 .list-item-now {
+  display: flex;
+  justify-content: space-between;
+}
+.rules-container .content .col-1 .list-item-now ul li {
+  list-style: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 30px 0;
+}
+.rules-container .content .col-1 .list-item-now ul li p {
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+.rules-container .content .col-2 {
+  width: 30%;
+  border-left: 1px solid rgb(221, 221, 221);
+  padding-left: 10px;
+}
+.rules-container .content .col-2 h1 {
+  font-size: 32px;
+}
+.rules-container .content .col-2 .list-item-add .list-item-add-col li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.rules-container
+  .content
+  .col-2
+  .list-item-add
+  .list-item-add-col
+  li
+  .name-item {
+  list-style: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 20px 0;
+}
+.rules-container
+  .content
+  .col-2
+  .list-item-add
+  .list-item-add-col
+  li
+  .name-item
+  p {
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+.rules-container .content .col-2 .list-item-add .list-item-add-col li i {
+  cursor: pointer;
 }

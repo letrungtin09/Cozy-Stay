@@ -20,7 +20,7 @@ export default function HeaderComponent() {
   const [roleUser, setRoleUser] = useState();
   useEffect(() => {
     // Kiểm tra xem người dùng đã đăng nhập hay chưa
-    const isLoggedIn = sessionStorage.getItem('currentUser');
+    const isLoggedIn = sessionStorage.getItem("currentUser");
 
     if (!isLoggedIn) {
       setShowGhostModal(true);
@@ -54,7 +54,8 @@ export default function HeaderComponent() {
                 width={2000}
                 height={2000}
                 priority={true}
-                className="logo-hd" />
+                className="logo-hd"
+              />
             </Link>
           </div>
           <div className="col col-2">
@@ -78,8 +79,10 @@ export default function HeaderComponent() {
           <div className="col col-3">
             {roleUser !== 2 && roleUser !== 1 && (
               <div className="register-host btn-height btn-header">
-                <FontAwesomeIcon icon={faHouseUser} />
-                <p>Trở thành chủ nhà</p>
+                <Link className="d-flex items-center" href={"/cozySetup"}>
+                  <FontAwesomeIcon icon={faHouseUser} />
+                  <p>Trở thành chủ nhà</p>
+                </Link>
               </div>
             )}
             <div className="dropdown-header btn-height">
@@ -91,17 +94,23 @@ export default function HeaderComponent() {
                     width={2000}
                     height={2000}
                     priority={true}
-                    className="account-icon icon-header" />
+                    className="account-icon icon-header"
+                  />
                   <Image
                     src="/images/icon-menu.png"
                     alt="icon-menu"
                     width={2000}
                     height={2000}
                     priority={true}
-                    className="account-menu icon-header" />
+                    className="account-menu icon-header"
+                  />
                 </Dropdown.Toggle>
 
-                <ModalPartner isOpen={showPartnerModal} onClose={closePartnerModal} id={roleUser} />
+                <ModalPartner
+                  isOpen={showPartnerModal}
+                  onClose={closePartnerModal}
+                  id={roleUser}
+                />
                 <ModalGhost isOpen={showGhostModal} onClose={closeGhostModal} />
               </Dropdown>
             </div>
