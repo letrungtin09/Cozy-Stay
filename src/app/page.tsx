@@ -2,13 +2,8 @@
 import AsNavFor from "@/components/coverCarousel";
 import BestPlace from "@/components/bestPlaces";
 import LayoutCustomer from "@/components/layoutCustomer";
-import { BestPlaces } from "@/components/renderPlaces/BestPlaces";
 import { FilterCategory } from "@/components/renderCategory/FilterCategory";
 import { RenderPlaces } from "@/components/renderPlaces/RenderPlaces";
-import { Cover } from "@/components/renderPlaces/Cover";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import FillterCarousel from "@/components/fillterCarousel";
 
 export default function Home() {
   return (

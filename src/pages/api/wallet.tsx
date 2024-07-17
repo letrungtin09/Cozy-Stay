@@ -15,15 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     case "POST":
       // Thêm một sản phẩm mới
-      await apiWallet.postaddWallet(req, res);
-      break;
-    case "PUT":
-      // Cập nhật một sản phẩm
-      await apiWallet.updateWallet(req, res);
-      break;
-    case "DELETE":
-      // Xóa một sản phẩm
-      await apiWallet.deleteWallet(req, res);
+      await apiWallet.postAddWallet(req, res);
       break;
     default:
       res.status(405).json({ error: "Phương thức không được hỗ trợ" });

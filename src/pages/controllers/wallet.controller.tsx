@@ -13,13 +13,15 @@ export default class ApiWallet {
   };
 
   // Thêm
-  public postaddWallet = async (req: NextApiRequest, res: NextApiResponse) => {
+  public postAddWallet = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const nameWallet: string = req.body.nameWallet;
-      const description: string = req.body.description;
+      const numberId: number = parseInt(req.query.id as string);
+      const status: number = parseInt(req.query.status as string);
+      const moneyNumber: number = parseInt(req.query.moneyNumber as string);
       const data = {
-        nameWallet: nameWallet,
-        description: description,
+        changeMoney: moneyNumber,
+        transactionType: status,
+        idUser: numberId
       };
       await Wallet.addNewWallet(data);
       res.json({ thongbao: "Đã thêm Wallet" });
@@ -38,38 +40,6 @@ export default class ApiWallet {
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Wallet" });
-    }
-  };
-
-  // Update
-  public updateWallet = async (req: NextApiRequest, res: NextApiResponse) => {
-    try {
-      const numberId: number = parseInt(req.query.id as string);
-      const nameWallet: string = req.body.nameWallet;
-      const description: string = req.body.description;
-      const data = {
-        nameWallet: nameWallet,
-        description: description,
-      };
-      await Wallet.putUpDateWallet(data, numberId);
-      res.json({ thongbao: "Đã cập nhật Wallet" });
-    } catch (error) {
-      console.error(error);
-      res
-        .status(500)
-        .json({ error: "Đã xảy ra lỗi khi update dữ liệu Wallet" });
-    }
-  };
-
-  // Delete
-  public deleteWallet = async (req: NextApiRequest, res: NextApiResponse) => {
-    try {
-      const numberId: number = parseInt(req.query.id as string);
-      await Wallet.delWallet(numberId);
-      res.json({ thongbao: "Đã xóa thành công" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Đã xảy ra lỗi khi xóa dữ liệu Wallet" });
     }
   };
 }

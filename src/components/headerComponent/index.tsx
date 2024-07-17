@@ -13,21 +13,20 @@ import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import { ModalPartner } from "./modalPartner";
 import { ModalGhost } from "./modalGhost";
+import UserCurrent from '@/lib/currentUser';
 
 export default function HeaderComponent() {
   const [showPartnerModal, setShowPartnerModal] = useState(false);
   const [showGhostModal, setShowGhostModal] = useState(false);
   const [roleUser, setRoleUser] = useState();
-  useEffect(() => {
-    // Kiểm tra xem người dùng đã đăng nhập hay chưa
-    const isLoggedIn = sessionStorage.getItem('currentUser');
+  const currentUser = UserCurrent.CheckUser();
 
-    if (!isLoggedIn) {
+  useEffect(() => {
+
+    if (currentUser === false) {
       setShowGhostModal(true);
     } else {
-      const userObject = JSON.parse(isLoggedIn);
-      const role = userObject.role;
-      setRoleUser(role);
+      setRoleUser(currentUser);
       setShowPartnerModal(true);
     }
   }, []);

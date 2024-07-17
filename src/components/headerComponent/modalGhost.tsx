@@ -2,7 +2,7 @@ import * as React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Link from "next/link";
 
-export const ModalGhost = ({ isOpen, onClose }) => {
+export const ModalGhost = ({ isOpen, onClose }: any) => {
     if (!isOpen) return null;
 
     return (

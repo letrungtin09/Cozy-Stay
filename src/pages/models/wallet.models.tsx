@@ -4,7 +4,6 @@ export default class Wallet {
   // Trả về tất cả Wallet
   static async fetchAllWallet() {
     const sqlItem = `SELECT * FROM wallet`;
-
     try {
       const resultItems = await commonFunctions.getDataBase(db, sqlItem);
       return resultItems;
@@ -38,34 +37,4 @@ export default class Wallet {
     }
   }
 
-  // Sửa Wallet
-  static async putUpDateWallet(data: any, id: number) {
-    const sql = `UPDATE wallet SET ? WHERE id = ${id}`;
-    try {
-      await commonFunctions.handleDataBase(db, sql, data);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  // Xóa Wallet
-  static async delWallet(id: number) {
-    const sqlDeleteData = `DELETE FROM wallet WHERE id=?`;
-    try {
-      await commonFunctions.handleDataBase(db, sqlDeleteData, id);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  // Nạp tiền
-  static async inputMoneyWallet(data: any) {
-    const sql =
-      "INSERT INTO wallet(`inputMoney`, `transactionType`, `idUser`) VALUES (?,'Nạp tiền',?)";
-    try {
-      await commonFunctions.handleDataBase(db, sql, data);
-    } catch (err) {
-      throw err;
-    }
-  }
 }

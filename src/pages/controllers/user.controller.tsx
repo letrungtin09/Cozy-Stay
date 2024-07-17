@@ -29,16 +29,10 @@ export default class ApiUser {
       const userName = req.body.userName;
       const email = req.body.email;
       const password = req.body.password;
-      const avatar = req.body.avatar;
-      const phoneNumber = req.body.phoneNumber;
-      const role = req.body.role;
       const data = {
         userName: userName,
         email: email,
         password: password,
-        avatar: avatar,
-        phoneNumber: phoneNumber,
-        role: role,
       };
       await User.addNewUser(data);
       res.json({ thongbao: "Đã thêm User" });
@@ -65,18 +59,18 @@ export default class ApiUser {
     try {
       const numberId: number = parseInt(req.query.id as string);
       const userName = req.body.userName;
-      const email = req.body.email;
-      const password = req.body.password;
       const avatar = req.body.avatar;
       const phoneNumber = req.body.phoneNumber;
       const role = req.body.role;
+      const address = req.body.address;
+      const info = req.body.info;
       const data = {
         userName: userName,
-        email: email,
-        password: password,
         avatar: avatar,
         phoneNumber: phoneNumber,
         role: role,
+        address: address,
+        info: info
       };
       await User.putUpDateUser(data, numberId);
       res.json({ thongbao: "Đã cập nhật User" });
@@ -86,6 +80,36 @@ export default class ApiUser {
     }
   };
 
+  // Update TotalMoney
+  public updateTotalMoney = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const numberId: number = parseInt(req.query.id as string);
+      const totalMoney = req.body.totalMoney;
+      const data = {
+        totalMoney: totalMoney
+      };
+      await User.putUpDateUser(data, numberId);
+      res.json({ thongbao: "Đã cập nhật tổng tiền" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi update dữ liệu User" });
+    }
+  };
+  // Update passWord
+  public updatePassWord = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const numberId: number = parseInt(req.query.id as string);
+      const password = req.body.password;
+      const data = {
+        password: password
+      };
+      await User.putUpDateUser(data, numberId);
+      res.json({ thongbao: "Đã cập nhật password" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi update dữ liệu User" });
+    }
+  };
   // Delete
   public deleteUser = async (req: NextApiRequest, res: NextApiResponse) => {
     try {

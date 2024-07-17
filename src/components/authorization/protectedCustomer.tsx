@@ -1,19 +1,20 @@
 'use client'; // Add this line to ensure the component is a Client Component
 
+import UserCurrent from '@/lib/currentUser';
 import { useRouter } from 'next/navigation'; // Use next/navigation
 import { useEffect, useState } from 'react';
-
 const ProtectedCustomer = ({ children }: any) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isAuthorized, setIsAuthorized] = useState(false);
     const router = useRouter();
+    const currentUser = UserCurrent.CheckUser();
 
     useEffect(() => {
         const checkAuth = async () => {
-            const isLoggedIn = sessionStorage.getItem('currentUser');
-            if (!isLoggedIn) {
-                setIsAuthorized(true);
+            if (currentUser === false) {
                 await router.push('/auth/login');
+            } else {
+                setIsAuthorized(true);
             }
             setIsLoading(false);
         };

@@ -8,7 +8,7 @@ import {
     faLocationDot,
     faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
-export const ModalPartner = ({ isOpen, onClose, id }) => {
+export const ModalPartner = ({ isOpen, onClose, id }: any) => {
     if (!isOpen) return null;
     const removeSession = () => {
         sessionStorage.removeItem('currentUser');
