@@ -48,7 +48,7 @@ export default class ApiJoinConvenient {
     res: NextApiResponse
   ) => {
     try {
-      const numberId: number = parseInt(req.query.id as string);
+      const numberId: number = parseInt(req.query.idPlace as string);
       const resultJoinConvenient =
         await JoinConvenient.fetchPlaceJoinConvenient(numberId);
       res.json({ joinConvenient: resultJoinConvenient });

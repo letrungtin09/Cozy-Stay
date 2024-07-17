@@ -24,6 +24,9 @@ export default function HeaderHouseOwner() {
                 <a href="#"> Nhà/Phòng cho thuê </a>
               </li>
               <li>
+                <a href="#">Đơn đặt chỗ</a>
+              </li>
+              <li>
                 <a href="#">Ví tiền</a>
               </li>
               <li>

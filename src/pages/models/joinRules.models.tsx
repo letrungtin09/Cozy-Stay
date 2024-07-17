@@ -24,13 +24,13 @@ export default class JoinRules {
   }
 
   // Lấy 1 theo idPlace
-  static async fetchPlaceJoinRules(id: number) {
-    const sqlGetItem = `SELECT * FROM join_rules WHERE idPlace = ?`;
+  static async fetchPlaceJoinRules(idPlace: number) {
+    const sqlGetItem = `SELECT * FROM join_rules WHERE idPlace = ? GROUP BY idRules`;
     try {
       const resultItem = await commonFunctions.handleDataBase(
         db,
         sqlGetItem,
-        id
+        idPlace
       );
       return resultItem;
     } catch (err) {

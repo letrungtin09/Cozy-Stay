@@ -23,14 +23,14 @@ export default class JoinConvenient {
     }
   }
 
-  // Lấy 1 theo idPlace
-  static async fetchPlaceJoinConvenient(id: number) {
-    const sqlGetItem = `SELECT * FROM join_convenient WHERE idPlace = ?`;
+  // Lấy theo idPlace
+  static async fetchPlaceJoinConvenient(idPlace: number) {
+    const sqlGetItem = `SELECT * FROM join_convenient WHERE idPlace = ? GROUP BY idConvenient`;
     try {
       const resultItem = await commonFunctions.handleDataBase(
         db,
         sqlGetItem,
-        id
+        idPlace
       );
       return resultItem;
     } catch (err) {

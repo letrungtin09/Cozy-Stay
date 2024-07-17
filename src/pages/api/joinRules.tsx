@@ -6,7 +6,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (req.method) {
     case "GET":
-      if (req.query.id) {
+      if (req.query.idPlace) {
         await apiJoinRules.getJoinRules(req, res);
       } else {
         // Lấy tất cả các sản phẩm
