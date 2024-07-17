@@ -13,14 +13,21 @@ export default function Home() {
   const searchParams = useSearchParams();
   const id = searchParams!.get("id");
   const idUser = searchParams!.get("idUser");
+  const idPlace = searchParams!.get("idPlace");
   const apiCategory = `${localUrl}/api/category`;
   const apiPlace = `${localUrl}/api/places?id=${id}`;
   const apiUser = `${localUrl}/api/user?idUser=${idUser}`;
-  const apiJoinConvenient = `${localUrl}/api/joinConvenient?idPlace=${id}`;
+  const apiJoinConvenient = `${localUrl}/api/joinConvenient?idPlace=${idPlace}`;
+  const apiConvenient = `${localUrl}/api/convenient`;
+  const apiJoinRules = `${localUrl}/api/joinRules?idPlace=${idPlace}`;
+  const apiRules = `${localUrl}/api/rules`;
   const [dataPlace, setDataPlace] = useState<any>([]);
   const [dataCategory, setDataCategory] = useState<any[]>([]);
   const [dataUser, setDataUser] = useState<any>([]);
   const [dataJoinConvenient, setDataJoinConvenient] = useState<any[]>([]);
+  const [dataConvenient, setDataConvenient] = useState<any[]>([]);
+  const [dataJoinRules, setDataJoinRules] = useState<any[]>([]);
+  const [dataRules, setDataRules] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchDataPlace = async () => {
@@ -66,7 +73,6 @@ export default function Home() {
       try {
         const res = await ApiFunctions.getData(apiJoinConvenient);
         setDataJoinConvenient(res.joinConvenient);
-        console.log(res.joinConvenient);
       } catch (error) {
         console.error(error);
       }
@@ -74,6 +80,47 @@ export default function Home() {
 
     fetchDataJoinConvenient();
   }, [apiJoinConvenient]);
+
+  useEffect(() => {
+    const fetchDataConvenient = async () => {
+      try {
+        const res = await ApiFunctions.getData(apiConvenient);
+        setDataConvenient(res.convenient);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchDataConvenient();
+  }, [apiConvenient]);
+
+  useEffect(() => {
+    const fetchDataJoinRules = async () => {
+      try {
+        const res = await ApiFunctions.getData(apiJoinRules);
+        setDataJoinRules(res.joinRules);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchDataJoinRules();
+  }, [apiJoinRules]);
+
+  useEffect(() => {
+    const fetchDataRules = async () => {
+      try {
+        const res = await ApiFunctions.getData(apiRules);
+        setDataRules(res.rules);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchDataRules();
+  }, [apiRules]);
+
+  const showConvenient = () => {};
 
   const renderKindRoom = (value: number) => {
     if (value == 0) {
@@ -388,32 +435,35 @@ export default function Home() {
                 <div className="manageConvenient mt-2">
                   <Link
                     className="px-5 py-2 bg-color-green-0 text-color-white-0 rounded-md transition-all font-bold hover:bg-color-green-2"
-                    href={""}
+                    href={`/houseOwner/addConvenient?idPlace=${idPlace}`}
                   >
                     Thêm tiện nghi
                   </Link>
                 </div>
                 <div className="addConvenient d-flex w-70% flex-wrap">
-                  <div className="addConvenient__item w-50% mb-3">
-                    <FontAwesomeIcon icon={faJoint} />
-                    <span className="ml-3 font-medium">Wifi</span>
-                  </div>
-                  <div className="addConvenient__item w-50% mb-3">
-                    <FontAwesomeIcon icon={faJoint} />
-                    <span className="ml-3 font-medium">Wifi</span>
-                  </div>
-                  <div className="addConvenient__item w-50% mb-3">
-                    <FontAwesomeIcon icon={faJoint} />
-                    <span className="ml-3 font-medium">Wifi</span>
-                  </div>
-                  <div className="addConvenient__item w-50% mb-3">
-                    <FontAwesomeIcon icon={faJoint} />
-                    <span className="ml-3 font-medium">Wifi</span>
-                  </div>
-                  <div className="addConvenient__item w-50% mb-3">
-                    <FontAwesomeIcon icon={faJoint} />
-                    <span className="ml-3 font-medium">Wifi</span>
-                  </div>
+                  {dataJoinConvenient.map((join) =>
+                    dataConvenient.map((con) =>
+                      join.idConvenient == con.id ? (
+                        <>
+                          <div
+                            className="addConvenient__item w-50% mb-3 d-flex items-center"
+                            key={join.id}
+                          >
+                            <img
+                              className="w-6"
+                              src={`images/iconSvg/iconConvenient/${con.icon}`}
+                              alt=""
+                            />
+                            <span className="ml-3 font-medium">
+                              {con.nameConvenient}
+                            </span>
+                          </div>
+                        </>
+                      ) : (
+                        <></>
+                      )
+                    )
+                  )}
                 </div>
               </div>
               <div className="formInsertEdit__item">
@@ -422,32 +472,35 @@ export default function Home() {
                 <div className="manageRules mt-2">
                   <Link
                     className="px-5 py-2 bg-color-green-0 text-color-white-0 rounded-md transition-all font-bold hover:bg-color-green-2"
-                    href={""}
+                    href={`/houseOwner/addRules?idPlace=${idPlace}`}
                   >
                     Thêm nội quy
                   </Link>
                 </div>
                 <div className="addRules d-flex w-70% flex-wrap">
-                  <div className="addRules__item w-50% mb-3">
-                    <FontAwesomeIcon icon={faJoint} />
-                    <span className="ml-3 font-medium">Wifi</span>
-                  </div>
-                  <div className="addRules__item w-50% mb-3">
-                    <FontAwesomeIcon icon={faJoint} />
-                    <span className="ml-3 font-medium">Wifi</span>
-                  </div>
-                  <div className="addRules__item w-50% mb-3">
-                    <FontAwesomeIcon icon={faJoint} />
-                    <span className="ml-3 font-medium">Wifi</span>
-                  </div>
-                  <div className="addRules__item w-50% mb-3">
-                    <FontAwesomeIcon icon={faJoint} />
-                    <span className="ml-3 font-medium">Wifi</span>
-                  </div>
-                  <div className="addRules__item w-50% mb-3">
-                    <FontAwesomeIcon icon={faJoint} />
-                    <span className="ml-3 font-medium">Wifi</span>
-                  </div>
+                  {dataJoinRules.map((join) =>
+                    dataRules.map((ru) =>
+                      join.idRules == ru.id ? (
+                        <>
+                          <div
+                            className="addRules__item w-50% mb-3 d-flex items-center"
+                            key={join.id}
+                          >
+                            <img
+                              className="w-6"
+                              src={`images/iconSvg/iconRules/${ru.icon}`}
+                              alt=""
+                            />
+                            <span className="ml-3 font-medium">
+                              {ru.nameRules}
+                            </span>
+                          </div>
+                        </>
+                      ) : (
+                        <></>
+                      )
+                    )
+                  )}
                 </div>
               </div>
 

@@ -4,32 +4,75 @@ import useHandleChange from "@/hooks/useHandleChange";
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const apiUser = `${localUrl}/api/user`;
-  const apiPlace = `${localUrl}/api/places`;
-  const [dataUser, setDataUser] = useState<any[]>([]);
-  const [dataPlace, setDataPlace] = useState<any>([]);
+  const searchParams = useSearchParams();
+  const idPlace = searchParams!.get("idPlace");
+  const apiJoinRules = `${localUrl}/api/joinRules?idPlace=${idPlace}`;
+  const apiRules = `${localUrl}/api/rules`;
+  const [dataJoinRules, setDataJoinRules] = useState<any[]>([]);
+  const [dataRules, setDataRules] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await ApiFunctions.getData(apiUser);
-        setDataUser(res.user);
+        const res = await ApiFunctions.getData(apiRules);
+        setDataRules(res.rules);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, [apiUser]);
+  }, [apiRules]);
+
+  useEffect(() => {
+    const fetchDataJoinConvenient = async () => {
+      try {
+        const res = await ApiFunctions.getData(apiJoinRules);
+        setDataJoinRules(res.joinRules);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchDataJoinConvenient();
+  }, [apiJoinRules]);
+
+  const { values, handleChange } = useHandleChange({
+    idPlace: 0,
+    idConvenient: 0,
+  });
+
+  const addConvenient = async (e: any) => {
+    e.preventDefault();
+    const conNew = {
+      idPlace: idPlace,
+      idConvenient: 0,
+    };
+    console.log(conNew);
+
+    try {
+      const res = await ApiFunctions.postData(apiJoinRules, conNew)
+        .then(() => {
+          alert("Thêm mới thành công !");
+          // router.push(`/houseOwner/managePlaces?idUser=${id}`);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
       <LayoutHouseOwner>
-        <section className="rules-container pl-52 pr-52 pb-14">
+        <section className="convenient-container pl-52 pr-52 pb-14">
           <div className="content">
             <div className="col-1">
               <div className="mr-14">
@@ -41,83 +84,65 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="list-item-now">
-                  <ul className="list-item-now-col-1">
-                    <li>
-                      <i className="fa-solid fa-kitchen-set"></i>
-                      <p>Bếp</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-water-ladder"></i>
-                      <p>Bể bơi</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-bath"></i>
-                      <p>Bồn tắm nước nóng</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-gauge"></i>
-                      <p>Máy giặt</p>
-                    </li>
-                  </ul>
-                  <ul className="list-item-now-col-2">
-                    <li>
-                      <i className="fa-solid fa-square-parking"></i>
-                      <p>Chỗ đỗ xe có thu phí trong khuôn viên</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-square-parking"></i>
-                      <p>Chỗ đỗ xe miễn phí tại nơi ở</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-briefcase"></i>
-                      <p>Không gian riêng để làm việc</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-dumbbell"></i>
-                      <p>Thiết bị tập thể dục</p>
-                    </li>
-                  </ul>
+                  <div className="list-item-now-col-1 mt-3">
+                    {dataJoinRules.map((join) =>
+                      dataRules.map((rules) =>
+                        join.idRules == rules.id ? (
+                          <>
+                            <div
+                              className="item-convenient d-flex items-center mb-4"
+                              key={join.id}
+                            >
+                              <img
+                                className="w-6"
+                                src={`images/iconSvg/iconRules/${rules.icon}`}
+                                alt=""
+                              />
+                              <span className="ml-3 font-medium">
+                                {rules.nameRules}
+                              </span>
+                            </div>
+                          </>
+                        ) : (
+                          <></>
+                        )
+                      )
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
             <div className="col-2">
               <div className="ml-9">
                 <div className="title">
-                  <h1 className="mb-4">Thêm nội quy</h1>
+                  <h1 className="mb-4">Thêm nội quy nhà</h1>
                   <p className="text-gray-500">
                     Thêm các nội quy vào mục cho thuê
                   </p>
                 </div>
                 <div className="list-item-add">
-                  <ul className="list-item-add-col">
-                    <li>
-                      <div className="name-item">
-                        <i className="fa-solid fa-kitchen-set"></i>
-                        <p>Bàn bi-da</p>
-                      </div>
-                      <div className="icon-add">
-                        <i className="fa-solid fa-circle-plus"></i>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="name-item">
-                        <i className="fa-solid fa-kitchen-set"></i>
-                        <p>Bàn bóng bàn</p>
-                      </div>
-                      <div className="icon-add">
-                        <i className="fa-solid fa-circle-plus"></i>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="name-item">
-                        <i className="fa-solid fa-kitchen-set"></i>
-                        <p>Bàn là</p>
-                      </div>
-                      <div className="icon-add">
-                        <i className="fa-solid fa-circle-plus"></i>
-                      </div>
-                    </li>
-                  </ul>
+                  <form onSubmit={addConvenient}>
+                    <select
+                      className="formInsertEdit__input w-90% p-2 bg-color-gray-0"
+                      name="idConvenient"
+                      onChange={handleChange}
+                    >
+                      <option value="0">Chọn nội quy</option>
+                      {dataRules.map((rules) => (
+                        <option key={rules.id} value={rules.id}>
+                          {rules.nameRules}
+                        </option>
+                      ))}
+                    </select>
+                    <br></br>
+                    <button
+                      name="btn-insert"
+                      className="btn-form mt-2 rounded-lg bg-color-green-0 px-3 py-1 text-white font-bold"
+                      id="btnInsert"
+                    >
+                      Thêm mới
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>

@@ -4,27 +4,70 @@ import useHandleChange from "@/hooks/useHandleChange";
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const apiUser = `${localUrl}/api/user`;
-  const apiPlace = `${localUrl}/api/places`;
-  const [dataUser, setDataUser] = useState<any[]>([]);
-  const [dataPlace, setDataPlace] = useState<any>([]);
+  const searchParams = useSearchParams();
+  const idPlace = searchParams!.get("idPlace");
+  const apiJoinConvenient = `${localUrl}/api/joinConvenient?idPlace=${idPlace}`;
+  const apiConvenient = `${localUrl}/api/convenient`;
+  const [dataJoinConvenient, setDataJoinConvenient] = useState<any[]>([]);
+  const [dataConvenient, setDataConvenient] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await ApiFunctions.getData(apiUser);
-        setDataUser(res.user);
+        const res = await ApiFunctions.getData(apiConvenient);
+        setDataConvenient(res.convenient);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, [apiUser]);
+  }, [apiConvenient]);
+
+  useEffect(() => {
+    const fetchDataJoinConvenient = async () => {
+      try {
+        const res = await ApiFunctions.getData(apiJoinConvenient);
+        setDataJoinConvenient(res.joinConvenient);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchDataJoinConvenient();
+  }, [apiJoinConvenient]);
+
+  const { values, handleChange } = useHandleChange({
+    idPlace: 0,
+    idConvenient: 0,
+  });
+
+  const addConvenient = async (e: any) => {
+    e.preventDefault();
+    const conNew = {
+      idPlace: idPlace,
+      idConvenient: 0,
+    };
+    console.log(conNew);
+
+    try {
+      const res = await ApiFunctions.postData(apiJoinConvenient, conNew)
+        .then(() => {
+          alert("Thêm mới thành công !");
+          // router.push(`/houseOwner/managePlaces?idUser=${id}`);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -41,42 +84,31 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="list-item-now">
-                  <ul className="list-item-now-col-1">
-                    <li>
-                      <i className="fa-solid fa-kitchen-set"></i>
-                      <p>Bếp</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-water-ladder"></i>
-                      <p>Bể bơi</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-bath"></i>
-                      <p>Bồn tắm nước nóng</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-gauge"></i>
-                      <p>Máy giặt</p>
-                    </li>
-                  </ul>
-                  <ul className="list-item-now-col-2">
-                    <li>
-                      <i className="fa-solid fa-square-parking"></i>
-                      <p>Chỗ đỗ xe có thu phí trong khuôn viên</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-square-parking"></i>
-                      <p>Chỗ đỗ xe miễn phí tại nơi ở</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-briefcase"></i>
-                      <p>Không gian riêng để làm việc</p>
-                    </li>
-                    <li>
-                      <i className="fa-solid fa-dumbbell"></i>
-                      <p>Thiết bị tập thể dục</p>
-                    </li>
-                  </ul>
+                  <div className="list-item-now-col-1 mt-3">
+                    {dataJoinConvenient.map((join) =>
+                      dataConvenient.map((con) =>
+                        join.idConvenient == con.id ? (
+                          <>
+                            <div
+                              className="item-convenient d-flex items-center mb-4"
+                              key={join.id}
+                            >
+                              <img
+                                className="w-6"
+                                src={`images/iconSvg/iconConvenient/${con.icon}`}
+                                alt=""
+                              />
+                              <span className="ml-3 font-medium">
+                                {con.nameConvenient}
+                              </span>
+                            </div>
+                          </>
+                        ) : (
+                          <></>
+                        )
+                      )
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -89,35 +121,28 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="list-item-add">
-                  <ul className="list-item-add-col">
-                    <li>
-                      <div className="name-item">
-                        <i className="fa-solid fa-kitchen-set"></i>
-                        <p>Bàn bi-da</p>
-                      </div>
-                      <div className="icon-add">
-                        <i className="fa-solid fa-circle-plus"></i>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="name-item">
-                        <i className="fa-solid fa-kitchen-set"></i>
-                        <p>Bàn bóng bàn</p>
-                      </div>
-                      <div className="icon-add">
-                        <i className="fa-solid fa-circle-plus"></i>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="name-item">
-                        <i className="fa-solid fa-kitchen-set"></i>
-                        <p>Bàn là</p>
-                      </div>
-                      <div className="icon-add">
-                        <i className="fa-solid fa-circle-plus"></i>
-                      </div>
-                    </li>
-                  </ul>
+                  <form onSubmit={addConvenient}>
+                    <select
+                      className="formInsertEdit__input w-90% p-2 bg-color-gray-0"
+                      name="idConvenient"
+                      onChange={handleChange}
+                    >
+                      <option value="0">Chọn tiện nghi</option>
+                      {dataConvenient.map((con) => (
+                        <option key={con.id} value={con.id}>
+                          {con.nameConvenient}
+                        </option>
+                      ))}
+                    </select>
+                    <br></br>
+                    <button
+                      name="btn-insert"
+                      className="btn-form mt-2 rounded-lg bg-color-green-0 px-3 py-1 text-white font-bold"
+                      id="btnInsert"
+                    >
+                      Thêm mới
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>

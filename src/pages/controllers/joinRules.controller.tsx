@@ -42,7 +42,7 @@ export default class ApiJoinRules {
   // Lấy 1
   public getJoinRules = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const numberId: number = parseInt(req.query.id as string);
+      const numberId: number = parseInt(req.query.idPlace as string);
       const resultJoinRules = await JoinRules.fetchPlaceJoinRules(numberId);
       res.json({ joinRules: resultJoinRules });
     } catch (error) {

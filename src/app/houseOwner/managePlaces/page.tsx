@@ -165,7 +165,7 @@ export default function Home() {
                         </button>
                         <Link
                           className="btn-update bg-sky-600 px-3 py-2.5 text-color-white-0 rounded-lg"
-                          href={`/houseOwner/updatePlace?id=${place.id}&idUser=${id}`}
+                          href={`/houseOwner/updatePlace?id=${place.id}&idUser=${id}&idPlace=${place.id}`}
                         >
                           Sửa
                         </Link>
