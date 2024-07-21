@@ -12,7 +12,7 @@ const ProtectedPartner = ({ children }: any) => {
 
     useEffect(() => {
         const checkAuth = async () => {
-            if (currentUser === false) {
+            if (currentUser !== false) {
                 if (currentUser != 1) {
                     await router.push('/');
                 } else {

@@ -3,13 +3,13 @@ import LayoutHouseOwner from "@/components/layoutHouseOwner";
 import useHandleChange from "@/hooks/useHandleChange";
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
+import UserCurrent from "@/lib/currentUser";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const searchParams = useSearchParams();
-  const id = searchParams!.get("idUser");
+  const id = UserCurrent.GetUserId();
   const apiUser = `${localUrl}/api/user?idUser=${id}`;
   const apiCategory = `${localUrl}/api/category`;
   const apiPlace = `${localUrl}/api/places`;
@@ -97,7 +97,7 @@ export default function Home() {
       reservationKind: 1,
       approveStatus: 0,
       statusCancel: 0,
-      idUser: +dataUser.id,
+      idUser: id,
       idCategory: +dataPlace.idCategory,
     };
     console.log(placeNew);
@@ -230,7 +230,7 @@ export default function Home() {
                     name="idUser"
                     onChange={handleChange}
                   >
-                    <option value={dataUser.id}>{dataUser.userName}</option>
+                    <option value={id}>{id}</option>
                   </select>
                 </div>
                 <div className="formInsertEdit__item">

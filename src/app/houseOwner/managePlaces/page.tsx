@@ -2,13 +2,13 @@
 import LayoutHouseOwner from "@/components/layoutHouseOwner";
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
+import UserCurrent from "@/lib/currentUser";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const searchParams = useSearchParams();
-  const id = searchParams!.get("idUser");
+  const id = UserCurrent.GetUserId();
   const apiPlaces = `${localUrl}/api/places?idUser=${id}`;
   const [dataPlaces, setDataPlaces] = useState<any[]>([]);
 

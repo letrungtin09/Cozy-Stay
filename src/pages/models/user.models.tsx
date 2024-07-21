@@ -59,7 +59,18 @@ export default class User {
       throw err;
     }
   }
+  // Nạp thêm tiền
+  static async putSuccessTotalMoney(moneyChange: number, id: number) {
+    const sql = `UPDATE user SET totalMoney = totalMoney + ? WHERE id = ?`;
 
+    try {
+      // Gọi hàm xử lý cơ sở dữ liệu và truyền các tham số
+      await commonFunctions.handleDataBase(db, sql, [moneyChange, id]);
+    } catch (err) {
+      // Xử lý lỗi
+      throw err;
+    }
+  }
   // Xóa User
   static async delUser(id: number) {
     const sqlDeleteData = `DELETE FROM user WHERE id=?`;

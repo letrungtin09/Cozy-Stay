@@ -97,18 +97,16 @@ export default class ApiUser {
   // Update TotalMoney
   public updateTotalMoney = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const numberId: number = parseInt(req.query.id as string);
-      const totalMoney = req.body.totalMoney;
-      const data = {
-        totalMoney: totalMoney
-      };
-      await User.putUpDateUser(data, numberId);
+      let numberId: number = parseInt(req.body.id as string);
+      let moneyChange: number = req.body.moneyChange as number;
+      await User.putSuccessTotalMoney(moneyChange, numberId);
       res.json({ thongbao: "Đã cập nhật tổng tiền" });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Đã xảy ra lỗi khi update dữ liệu User" });
     }
   };
+
   // Update passWord
   public updatePassWord = async (req: NextApiRequest, res: NextApiResponse) => {
     try {

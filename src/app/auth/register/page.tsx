@@ -18,13 +18,23 @@ export default function Register() {
   const [passWord, setPassWord] = useState('');
   const [codeSystem, setCodeSystem] = useState('');
   const [statusVerify, setStatusVerify] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadVerify, setIsLoadVerify] = useState(false);
 
   const handleCodeChange = (status: boolean) => {
     setStatusCheckCode(status);
   };
 
+  const handleButton = (status: boolean) => {
+    setIsLoading(status);
+  };
+
   const handleCodeVerifyInput = (newCode: string) => {
     checkMailsAndSendUser(emailName, newCode, fullName, passWord);
+  };
+
+  const handleButtonVerify = (status: boolean) => {
+    setIsLoadVerify(status);
   };
 
   const checkMailsAndSendUser = (emailName: any, code: string, fullName: string, pass: string) => {
@@ -45,6 +55,7 @@ export default function Register() {
     } else {
       setStatusVerify(true);
     }
+    setIsLoadVerify(false);
   }
   const handleResendEmail = () => {
     const urlSendEmail: string = `${localUrl}/api/email`;
@@ -55,8 +66,6 @@ export default function Register() {
       .then((res) => {
         if (res.status) {
           setStatusVerify(false);
-          console.log(res.verifyCode)
-          console.log(dataEmail)
           setCodeSystem(res.verifyCode);
         }
       });
@@ -72,8 +81,6 @@ export default function Register() {
         if (res.status) {
           setStatusVerify(false);
           handleCodeChange(true);
-          console.log(res.verifyCode)
-          console.log(dataEmail)
           setCodeSystem(res.verifyCode);
         }
       });
@@ -99,6 +106,9 @@ export default function Register() {
   }
 
   const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isLoading) return;
+    handleButton(true);
+
     if (document.querySelectorAll(".errorLogin"))
       document.querySelectorAll(".errorLogin").forEach((e) => e.remove());
     event.preventDefault();
@@ -195,7 +205,7 @@ export default function Register() {
               <br />
             </div>
             <div className="register__btn mt-[10px]">
-              <button className="btn--register w-full py-[7px] px-0 rounded-[50px] border-none bg-color-green-0 text-color-white-0 font-bold transition-all duration-[0.3s] hover:bg-color-green-2">
+              <button disabled={isLoading} className="btn--register w-full py-[7px] px-0 rounded-[50px] border-none bg-color-green-0 text-color-white-0 font-bold transition-all duration-[0.3s] hover:bg-color-green-2">
                 Đăng ký
               </button>
             </div>
@@ -236,7 +246,14 @@ export default function Register() {
         </div>
       </div>
 
-      {statusCheckCode && <VerifyEmailCode onCodeChange={handleCodeChange} onCodeVerify={handleCodeVerifyInput} errorVerify={statusVerify} onResendCode={handleResendEmail} />}
+      {statusCheckCode && <VerifyEmailCode
+        onCodeChange={handleCodeChange}
+        onCodeVerify={handleCodeVerifyInput}
+        errorVerify={statusVerify}
+        onResendCode={handleResendEmail}
+        onHandleButton={handleButton}
+        isActive={isLoadVerify}
+        setIsActive={handleButtonVerify} />}
     </div>
   );
 }

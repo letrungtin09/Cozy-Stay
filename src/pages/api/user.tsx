@@ -18,8 +18,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       await apiUser.postaddUser(req, res);
       break;
     case "PUT":
-      // Cập nhật một sản phẩm
-      await apiUser.updateUser(req, res);
+      if (req.body.moneyChange) {
+        await apiUser.updateTotalMoney(req, res);
+      } else {
+        // Cập nhật một sản phẩm
+        await apiUser.updateUser(req, res);
+      }
       break;
     case "DELETE":
       // Xóa một sản phẩm

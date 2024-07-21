@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const VerifyEmailCode: React.FC = ({ onCodeChange, onCodeVerify, errorVerify, onResendCode }: any) => {
+const VerifyEmailCode: React.FC = ({ onCodeChange, onCodeVerify, errorVerify, onResendCode, onHandleButton, isActive, setIsActive }: any) => {
     const [code, setCode] = useState('');
     const [countdown, setCountdown] = useState(0); // State để lưu bộ đếm
     const [counting, setCounting] = useState(false);
@@ -25,6 +25,9 @@ const VerifyEmailCode: React.FC = ({ onCodeChange, onCodeVerify, errorVerify, on
     }, [counting, countdown]);
 
     const handleSubmit = (e: any) => {
+        if (isActive) return;
+        setIsActive(true)
+
         e.preventDefault();
         // Xử lý mã xác minh ở đây
         onCodeVerify(code)
@@ -35,6 +38,7 @@ const VerifyEmailCode: React.FC = ({ onCodeChange, onCodeVerify, errorVerify, on
         if (confirm("Bạn có muốn hủy việc nhập mã xác nhận?")) {
             onCodeChange(false);
         }
+        onHandleButton(false);
     };
 
     const handleResendCode = (e: any) => {
@@ -75,6 +79,7 @@ const VerifyEmailCode: React.FC = ({ onCodeChange, onCodeVerify, errorVerify, on
                     <div className="flex items-center justify-between">
                         <button
                             type="submit"
+                            disabled={isActive}
                             className="bg-btnColorGreen hover:bg-btnColorGreen-hover text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
                         >
                             Xác nhận
