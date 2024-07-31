@@ -90,7 +90,7 @@ const FormUpdateCategory = () => {
             />
           </div>
           <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Mô tả danh mục</label>
+            <label className="formInsertEdit__label">Biểu tượng danh mục</label>
             <br />
             <input
               className="formInsertEdit__input"

@@ -16,6 +16,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { viVN } from "@mui/x-date-pickers/locales";
+import "moment/locale/en-gb";
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -209,38 +213,6 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                  <div className="detailInfo__line"></div>
-                  <div className="detailInfo__timeOrder">
-                    <div className="info-title">
-                      <h3>Bạn muốn thuê bao lâu</h3>
-                    </div>
-                    <div className="timeOrder-container">
-                      <div className="timeOrder-numberMonth">
-                        <div className="timeOrder-date">Số tháng</div>
-                        <div className="timeOrder-number">
-                          <span className="sub-month">
-                            <FontAwesomeIcon icon={faMinus} />
-                          </span>
-                          <span className="number-month">1</span>
-                          <span className="plus-month">
-                            <FontAwesomeIcon icon={faPlus} />
-                          </span>
-                        </div>
-                      </div>
-                      <div className="timeOrder-editDate timeOrder-btw">
-                        <div className="timeOrder-date">Ngày bắt đầu</div>
-                        <div className="timeOrder-calendar">
-                          <input type="date" name="" id="" />
-                        </div>
-                      </div>
-                      <div className="timeOrder-editDate">
-                        <div className="timeOrder-date">Ngày kết thúc</div>
-                        <div className="timeOrder-calendar">
-                          <span className="timeOrder-endDate">14/06/2024</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div className="col-5">
@@ -257,18 +229,53 @@ export default function Home() {
                           </span>{" "}
                           / tháng
                         </div>
-                        <div className="detailInfo__time">
-                          <div className="detailInfo__date date-start">
-                            <div className="date-title">Nhận phòng</div>
-                            <div className="date-time">08/06/2024</div>
+                        <div className="timeOrder-numberMonth d-flex justify-between mb-[15px]">
+                          <div className="timeOrder-date font-bold">
+                            Số tháng thuê
                           </div>
-                          <div className="detailInfo__date date-end">
-                            <div className="date-title">Trả phòng</div>
+                          <div className="timeOrder-number">
+                            <span className="sub-month">
+                              <FontAwesomeIcon icon={faMinus} />
+                            </span>
+                            <span className="number-month mx-[30px]">1</span>
+                            <span className="plus-month">
+                              <FontAwesomeIcon icon={faPlus} />
+                            </span>
+                          </div>
+                        </div>
+                        <div className="detailInfo__time">
+                          <div className="detailInfo__date date-start d-flex justify-between items-center mb-[15px]">
+                            <div className="date-title font-bold w-[35%]">
+                              Ngày bắt đầu
+                            </div>
+                            <div className="date-time w-[50%]">
+                              <LocalizationProvider
+                                dateAdapter={AdapterMoment}
+                                localeText={
+                                  viVN.components.MuiLocalizationProvider
+                                    .defaultProps.localeText
+                                }
+                                adapterLocale="en-gb"
+                              >
+                                <DatePicker
+                                  slotProps={{
+                                    textField: {
+                                      size: "small",
+                                    },
+                                  }}
+                                />
+                              </LocalizationProvider>
+                            </div>
+                          </div>
+                          <div className="detailInfo__date date-end d-flex justify-between mb-[15px]">
+                            <div className="date-title font-bold">
+                              Ngày kết thúc
+                            </div>
                             <div className="date-time">08/07/2024</div>
                           </div>
                         </div>
-                        <div className="detailInfo__quantityGuest">
-                          <div className="guest-title">
+                        <div className="detailInfo__quantityGuest d-flex justify-between mb-[20px]">
+                          <div className="guest-title font-bold">
                             Số lượng khách tối đa
                           </div>
                           <div className="guest-number">
@@ -314,7 +321,7 @@ export default function Home() {
             </div>
           </section>
           <div className="detailInfo__line"></div>
-          <section className="detailComment">
+          <section className="detailComment py-[30px]">
             <div className="info-title">
               <h3>Bình luận từ khách hàng</h3>
             </div>
