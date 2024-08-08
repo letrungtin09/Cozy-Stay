@@ -84,7 +84,17 @@ export default class ApiPlaces {
       res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
     }
   };
-
+  // Lấy theo IDcate
+  public getCatePlaces = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const cateId: number = parseInt(req.query.cateId as string);
+      const resultPlaces = await Places.fetchIdCatePlaces(cateId);
+      res.json({ places: resultPlaces });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
+    }
+  };
   // Update
   public updatePlaces = async (req: NextApiRequest, res: NextApiResponse) => {
     try {

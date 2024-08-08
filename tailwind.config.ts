@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
-
-const config: Config = {
+const withMT = require("@material-tailwind/react/utils/withMT");
+const config: Config = withMT({
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -36,6 +36,9 @@ const config: Config = {
         'color-red-0': '#dd4c3b',
         'color-footer-1': '#818998',
         'color-line-footer': 'rgba(34, 34, 34, 0.3)',
+      },
+      cursor: {
+        'custom': 'url(/images/iconSvg/3844431_in_magnifier_plus_search_zoom_icon.svg), auto',
       },
       width: {
         '10%': '10%',
@@ -119,6 +122,11 @@ const config: Config = {
             filter: 'blur(0px)',
             opacity: '1',
           }
+        },
+        botWidth: {
+          'to': {
+            width: '100%'
+          }
         }
       },
       animation: {
@@ -128,13 +136,15 @@ const config: Config = {
         'wiggle-1.6s': 'wiggle 0.5s 1.4s linear 1 forwards',
         'wiggle-0.6s': 'wiggle 0.2s 0.4s linear 1 forwards',
         'checkCode-1s': 'checkCode 0.5s 0.8s linear 1 forwards',
+        'botWidth-1s': 'botWidth 0.3s 0.2s linear 1 forwards',
       },
       animationDelay: {
         '1.2': '1.2s',
         '1.5': '1.5s',
       },
       translate: {
-        '!50px': '-50px'
+        '!50px': '-50px',
+
       }
     },
   },
@@ -144,5 +154,5 @@ const config: Config = {
     },
   },
   plugins: [require('@tailwindcss/typography')],
-};
+});
 export default config;

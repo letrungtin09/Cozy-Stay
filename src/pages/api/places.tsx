@@ -10,6 +10,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         await apiPlaces.getPlaces(req, res);
       } else if (req.query.idUser) {
         await apiPlaces.getUserPlaces(req, res);
+      } else if (req.query.cateId) {
+        await apiPlaces.getCatePlaces(req, res);
       } else {
         // Lấy tất cả các sản phẩm
         await apiPlaces.getAllPlaces(req, res);

@@ -7,16 +7,90 @@
     border-radius: 50%;
 }
 
+.next-arrow,
+.prev-arrow {
+    box-shadow: 0px 0px 20px 28px #fafafa;
+    width: 0;
+}
+
 .next-arrow::before {
-    background-image: url('/path/to/next-icon.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
+    content: "";
+    background-image: url(/images/iconSvg/4781843_arrows_chevron_direction_left_move_icon.svg);
+    background-size: cover;
     background-position: center;
+    width: 30px;
+    /* Điều chỉnh chiều rộng nếu cần */
+    height: 30px;
+    /* Điều chỉnh chiều cao nếu cần */
+    display: block;
+    font-size: 0;
+    /* Ẩn nội dung văn bản */
+    font-family: none;
+    color: transparent;
+    /* Đường viền dày hơn để dễ nhìn */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Đảm bảo mũi tên nằm giữa */
+    cursor: pointer;
+    /* Thay đổi con trỏ thành con trỏ pointer */
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #2222224d;
+    transition: all 0.3s;
 }
 
 .prev-arrow::before {
-    background-image: url('/path/to/prev-icon.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
+    content: "";
+    background-image: url(/images/iconSvg/4781844_arrow_back_chevron_direction_left_icon.svg);
+    background-size: cover;
     background-position: center;
+    width: 30px;
+    /* Điều chỉnh chiều rộng nếu cần */
+    height: 30px;
+    /* Điều chỉnh chiều cao nếu cần */
+    display: block;
+    font-size: 0;
+    /* Ẩn nội dung văn bản */
+    font-family: none;
+    color: transparent;
+    /* Đường viền dày hơn để dễ nhìn */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Đảm bảo mũi tên nằm giữa */
+    cursor: pointer;
+    /* Thay đổi con trỏ thành con trỏ pointer */
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #2222224d;
+    transition: all 0.3s;
+}
+
+.prev-arrow:hover::before,
+.next-arrow:hover::before {
+    background-color: rgb(245, 245, 245);
+    box-shadow: 0 4px 6px rgba(92, 91, 91, 0.2);
+    /* Thêm bóng cho chiều sâu */
+    width: 32px;
+    height: 32px;
+}
+
+.slick-disabled {
+    display: none;
+}
+
+.arrowCustomer::before {
+    position: absolute;
+    font-size: 30px;
+    color: #4ccd99;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.slick-slide {
+    padding-right: 10px;
 }

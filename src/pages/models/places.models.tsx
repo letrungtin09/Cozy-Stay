@@ -37,7 +37,20 @@ export default class Places {
       throw err;
     }
   }
-
+  // lấy theo cateid 
+  static async fetchIdCatePlaces(id: number) {
+    const sqlGetItem = `SELECT * FROM places WHERE idCategory  = ?`;
+    try {
+      const resultItem = await commonFunctions.handleDataBase(
+        db,
+        sqlGetItem,
+        id
+      );
+      return resultItem;
+    } catch (err) {
+      throw err;
+    }
+  }
   // Lấy 1 theo idUser
   static async fetchUserPlaces(idUser: number) {
     const sqlGetItem = `SELECT * FROM places WHERE idUser = ?`;
