@@ -32,12 +32,16 @@ export default function Home() {
   const apiJoinRules = `${localUrl}/api/joinRules?idPlace=${id}`;
   const apiRules = `${localUrl}/api/rules`;
   const [dataPlace, setDataPlace] = useState<any>([]);
+  const [dataJoinConvenient, setDataJoinConvenient] = useState<any[]>([]);
+  const [dataConvenient, setDataConvenient] = useState<any[]>([]);
+  const [dataJoinRules, setDataJoinRules] = useState<any[]>([]);
+  const [dataRules, setDataRules] = useState<any[]>([]);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
 
   const changeOverLAy = () => {
-    setOverlayVisible(prev => {
+    setOverlayVisible((prev) => {
       const newStatus = !prev; // Đảo trạng thái
-      document.body.classList.toggle('overflow-hidden', newStatus);
+      document.body.classList.toggle("overflow-hidden", newStatus);
       return newStatus;
     });
   };
@@ -124,12 +128,20 @@ export default function Home() {
   return (
     <>
       <LayoutCustomer>
-        {isOverlayVisible && <DetailShowAllImage onChangeOverLay={changeOverLAy} lishImage={dataPlace.image} />}
+        {isOverlayVisible && (
+          <DetailShowAllImage
+            onChangeOverLay={changeOverLAy}
+            lishImage={dataPlace.image}
+          />
+        )}
 
         <div className="detailContent flex justify-center">
           <div className="w-[1120px]">
-
-            <DetailImage dataPlaceTitle={dataPlace.title} dataPlaceImg={dataPlace.image} onChangeOverLay={changeOverLAy} />
+            <DetailImage
+              dataPlaceTitle={dataPlace.title}
+              dataPlaceImg={dataPlace.image}
+              onChangeOverLay={changeOverLAy}
+            />
 
             <section className="detailInfo">
               <div className="row">
@@ -164,7 +176,9 @@ export default function Home() {
                         <img src="images/admin.jpg" alt="" />
                       </div>
                       <div className="partner-info">
-                        <div className="partner-name">Chủ nhà: Sahra Nguyen</div>
+                        <div className="partner-name">
+                          Chủ nhà: Sahra Nguyen
+                        </div>
                         <div className="partner-intro">
                           Chủ nhà uy tín, dày dặn kinh nghiệm được đánh giá cao
                         </div>
@@ -347,7 +361,9 @@ export default function Home() {
                             <span className="pay-money">1.500.000đ</span>
                           </div>
                           <div className="detailInfo__feePay">
-                            <span className="pay-text">Phí dịch vụ CozyStay</span>
+                            <span className="pay-text">
+                              Phí dịch vụ CozyStay
+                            </span>
                             <span className="pay-money">150.000đ</span>
                           </div>
                           <div className="detailInfo__line"></div>
@@ -361,9 +377,9 @@ export default function Home() {
                             <img src="images/CS.png" alt="" />
                           </div>
                           <div className="warning-text">
-                            Để bảo vệ khoản thanh toán và quyền lợi của bạn, tuyệt
-                            đối không chuyển tiền hoặc liên lạc bên ngoài trang
-                            web CozyStay.
+                            Để bảo vệ khoản thanh toán và quyền lợi của bạn,
+                            tuyệt đối không chuyển tiền hoặc liên lạc bên ngoài
+                            trang web CozyStay.
                           </div>
                         </div>
                       </div>
@@ -504,9 +520,10 @@ export default function Home() {
                         Giới thiệu chủ nhà
                       </div>
                       <div className="detailPartner__introText">
-                        Tôi thích đi du lịch và trải nghiệm cuộc sống ở những nơi
-                        tôi đến. Tôi nói tiếng Việt và tiếng Anh.Chỗ ở của chúng
-                        tôi nằm ở Quận Phú Nhuận. Cách sân bay Tân Sơn 5km.
+                        Tôi thích đi du lịch và trải nghiệm cuộc sống ở những
+                        nơi tôi đến. Tôi nói tiếng Việt và tiếng Anh.Chỗ ở của
+                        chúng tôi nằm ở Quận Phú Nhuận. Cách sân bay Tân Sơn
+                        5km.
                       </div>
                     </div>
                   </div>
