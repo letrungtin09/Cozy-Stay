@@ -9,6 +9,9 @@ import {
   faUserTie,
   faUserGear,
   faKey,
+  faChartLine,
+  faChartSimple,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
@@ -35,6 +38,24 @@ const SideBarAdmin = () => {
       <div className="navbar-admin">
         <ul>
           <li>
+            <Link className="cateAdmin" href="/admin/statisticIncome">
+              <FontAwesomeIcon icon={faChartSimple} />
+              <span>Thống kê doanh thu</span>
+            </Link>
+          </li>
+          <li>
+            <Link className="cateAdmin" href="/admin/statisticBill">
+              <FontAwesomeIcon icon={faChartSimple} />
+              <span>Thống kê đơn đặt chỗ</span>
+            </Link>
+          </li>
+          <li>
+            <Link className="cateAdmin" href="/admin/statisticPlace">
+              <FontAwesomeIcon icon={faChartSimple} />
+              <span>Thống kê chỗ ở</span>
+            </Link>
+          </li>
+          <li>
             <Link className="cateAdmin" href="/admin/adminCategory">
               <FontAwesomeIcon icon={faTableList} />
               <span>Danh mục chỗ ở</span>
@@ -44,6 +65,12 @@ const SideBarAdmin = () => {
             <Link className="cateAdmin" href="/admin/adminPlace">
               <FontAwesomeIcon icon={faHouseChimneyWindow} />
               <span>Chỗ ở cho thuê</span>
+            </Link>
+          </li>
+          <li>
+            <Link className="cateAdmin" href="/admin/adminAccount?all">
+              <FontAwesomeIcon icon={faUser} />
+              <span>Tài khoản</span>
             </Link>
           </li>
           <li>

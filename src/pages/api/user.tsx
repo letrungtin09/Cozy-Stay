@@ -8,6 +8,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       if (req.query.id) {
         await apiUser.getUser(req, res);
+      } else if (req.query.all) {
+        await apiUser.getAllUser(req, res);
       } else {
         // Lấy tất cả các sản phẩm
         await apiUser.getAllPartner(req, res);

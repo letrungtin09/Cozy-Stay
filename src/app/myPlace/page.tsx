@@ -191,18 +191,30 @@ export default function Home() {
                           </span>{" "}
                           / tháng
                         </div>
+                        <div className="timeOrder-numberMonth d-flex justify-between mb-[15px]">
+                          <div className="timeOrder-date font-bold">
+                            Số tháng thuê
+                          </div>
+                          <div className="timeOrder-number">
+                            <span className="number-month mx-[30px]">1</span>
+                          </div>
+                        </div>
                         <div className="detailInfo__time">
-                          <div className="detailInfo__date date-start">
-                            <div className="date-title">Nhận phòng</div>
+                          <div className="detailInfo__date date-start d-flex justify-between items-center mb-[15px]">
+                            <div className="date-title font-bold w-[35%]">
+                              Ngày bắt đầu
+                            </div>
                             <div className="date-time">08/06/2024</div>
                           </div>
-                          <div className="detailInfo__date date-end">
-                            <div className="date-title">Trả phòng</div>
+                          <div className="detailInfo__date date-end d-flex justify-between mb-[15px]">
+                            <div className="date-title font-bold">
+                              Ngày kết thúc
+                            </div>
                             <div className="date-time">08/07/2024</div>
                           </div>
                         </div>
-                        <div className="detailInfo__quantityGuest">
-                          <div className="guest-title">
+                        <div className="detailInfo__quantityGuest d-flex justify-between mb-[20px]">
+                          <div className="guest-title font-bold">
                             Số lượng khách tối đa
                           </div>
                           <div className="guest-number">
@@ -211,24 +223,6 @@ export default function Home() {
                         </div>
                         <div className="detailInfo__btnOrder">
                           <button className="btn-order">Hủy đặt phòng</button>
-                        </div>
-                        <div className="detailInfo__feePay mb-0">
-                          <span className="pay-text">
-                            {new Intl.NumberFormat("de-DE").format(
-                              dataPlace.price
-                            )}
-                            đ x 1 tháng
-                          </span>
-                          <span className="pay-money">1.500.000đ</span>
-                        </div>
-                        <div className="detailInfo__feePay">
-                          <span className="pay-text">Phí dịch vụ CozyStay</span>
-                          <span className="pay-money">150.000đ</span>
-                        </div>
-                        <div className="detailInfo__line"></div>
-                        <div className="detailInfo__total">
-                          <span className="pay-total">Tổng tiền</span>
-                          <span className="pay-totalMoney">1.650.000đ</span>
                         </div>
                       </div>
                       <div className="detailInfo__warning">

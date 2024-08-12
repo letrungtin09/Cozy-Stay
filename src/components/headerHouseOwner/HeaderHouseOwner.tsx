@@ -3,8 +3,10 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import UserCurrent from "@/lib/currentUser";
 
 export default function HeaderHouseOwner() {
+  const id = UserCurrent.GetUserId();
   return (
     <>
       <header className="header-houserholder">
@@ -21,16 +23,20 @@ export default function HeaderHouseOwner() {
           <div className="col col-2">
             <ul className="menu-holder">
               <li>
-                <a href="#"> Nhà/Phòng cho thuê </a>
+                <Link href={`/houseOwner/managePlaces?idUser=${id}`}>
+                  Nhà/phòng cho thuê
+                </Link>
               </li>
               <li>
-                <a href="#">Đơn đặt chỗ</a>
+                <Link href={`/houseOwner/managePlaces?idUser=${id}`}>
+                  Đơn đặt chỗ
+                </Link>
               </li>
               <li>
-                <a href="#">Ví tiền</a>
+                <Link href={`/houseOwner/wallet`}>Ví tiền</Link>
               </li>
               <li>
-                <a href="#">Thu nhập</a>
+                <Link href={`/houseOwner/income`}>Thu nhập</Link>
               </li>
             </ul>
           </div>
@@ -51,7 +57,7 @@ export default function HeaderHouseOwner() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-5">
+                  <Dropdown.Item href="/">
                     Chuyển sang chế độ thuê
                   </Dropdown.Item>
                   <Dropdown.Item href="/updateAccount">

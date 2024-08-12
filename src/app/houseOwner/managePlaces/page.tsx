@@ -75,7 +75,7 @@ export default function Home() {
         <section className="houserholder-container section-padding">
           <div className="content">
             <div className="col-1">
-              <h1 className="title">Nhà/Phòng cho thuê của bạn</h1>
+              <h1 className="title font-bold">Nhà/Phòng cho thuê của bạn</h1>
               <Link
                 className="btn-dk"
                 href={`/houseOwner/addPlace?idUser=${id}`}
@@ -156,19 +156,23 @@ export default function Home() {
                         )}
                       </td>
                       <td className="text-center">
-                        <button
-                          type="button"
-                          className="btn-update bg-red-600 px-3 py-2 text-color-white-0 rounded-lg m-2"
-                          onClick={() => deletePlace(place.id)}
-                        >
-                          Xóa
-                        </button>
-                        <Link
-                          className="btn-update bg-sky-600 px-3 py-2.5 text-color-white-0 rounded-lg"
-                          href={`/houseOwner/updatePlace?id=${place.id}&idUser=${id}&idPlace=${place.id}`}
-                        >
-                          Sửa
-                        </Link>
+                        <div className="flex">
+                          <button className="mr-[5px]">
+                            <Link
+                              className=" bg-blue-600 px-3 py-2.5 text-color-white-0 rounded-lg"
+                              href={`/houseOwner/updatePlace?id=${place.id}&idUser=${id}&idPlace=${place.id}`}
+                            >
+                              Sửa
+                            </Link>
+                          </button>
+                          <button
+                            type="button"
+                            className=" bg-red-600 px-3 py-2 text-color-white-0 rounded-lg"
+                            onClick={() => deletePlace(place.id)}
+                          >
+                            Xóa
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}

@@ -13,10 +13,10 @@ export default function Register() {
   const fullNameRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const [statusCheckCode, setStatusCheckCode] = useState(false);
-  const [emailName, setEmailName] = useState('');
-  const [fullName, setFullName] = useState('');
-  const [passWord, setPassWord] = useState('');
-  const [codeSystem, setCodeSystem] = useState('');
+  const [emailName, setEmailName] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [passWord, setPassWord] = useState("");
+  const [codeSystem, setCodeSystem] = useState("");
   const [statusVerify, setStatusVerify] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadVerify, setIsLoadVerify] = useState(false);
@@ -37,59 +37,61 @@ export default function Register() {
     setIsLoadVerify(status);
   };
 
-  const checkMailsAndSendUser = (emailName: any, code: string, fullName: string, pass: string) => {
+  const checkMailsAndSendUser = (
+    emailName: any,
+    code: string,
+    fullName: string,
+    pass: string
+  ) => {
     const urlSendVerify: string = `${localUrl}/api/verifyRegister`;
     const dataVerify: any = {
       emailName: emailName,
       fullName: fullName,
-      passWord: pass
-    }
+      passWord: pass,
+    };
     if (code && code == codeSystem) {
       setStatusVerify(false);
-      ApiFunctions.postData(urlSendVerify, dataVerify)
-        .then((res) => {
-          if (res.status) {
-            window.location.href = "/auth/login";
-          }
-        });
+      ApiFunctions.postData(urlSendVerify, dataVerify).then((res) => {
+        if (res.status) {
+          window.location.href = "/auth/login";
+        }
+      });
     } else {
       setStatusVerify(true);
     }
     setIsLoadVerify(false);
-  }
+  };
   const handleResendEmail = () => {
     const urlSendEmail: string = `${localUrl}/api/email`;
     const dataEmail: any = {
-      emailName: emailName
-    }
-    ApiFunctions.postData(urlSendEmail, dataEmail)
-      .then((res) => {
-        if (res.status) {
-          setStatusVerify(false);
-          setCodeSystem(res.verifyCode);
-        }
-      });
-  }
+      emailName: emailName,
+    };
+    ApiFunctions.postData(urlSendEmail, dataEmail).then((res) => {
+      if (res.status) {
+        setStatusVerify(false);
+        setCodeSystem(res.verifyCode);
+      }
+    });
+  };
 
   const handleSendEmail = (email: any) => {
     const urlSendEmail: string = `${localUrl}/api/email`;
     const dataEmail: any = {
-      emailName: email
-    }
-    ApiFunctions.postData(urlSendEmail, dataEmail)
-      .then((res) => {
-        if (res.status) {
-          setStatusVerify(false);
-          handleCodeChange(true);
-          setCodeSystem(res.verifyCode);
-        }
-      });
-  }
+      emailName: email,
+    };
+    ApiFunctions.postData(urlSendEmail, dataEmail).then((res) => {
+      if (res.status) {
+        setStatusVerify(false);
+        handleCodeChange(true);
+        setCodeSystem(res.verifyCode);
+      }
+    });
+  };
 
   const handleSendRegister = (userName: any, email: any, passWord: any) => {
     const apiUrl: string = `${localUrl}/api/register`;
     const data: FormValuesRegister = {
-      email: email
+      email: email,
     };
     ApiFunctions.postData(apiUrl, data).then((res) => {
       if (res.response) {
@@ -103,7 +105,7 @@ export default function Register() {
         handleSendEmail(email);
       }
     });
-  }
+  };
 
   const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
     if (isLoading) return;
@@ -139,7 +141,7 @@ export default function Register() {
 
   return (
     <div className="ds relative">
-      <div className="form-gadgets register bg-[#f7f7f7] pt-[100px] pb-[30px]">
+      <div className="form-gadgets register bg-[#f7f7f7] pt-[130px] pb-[50px]">
         <div className="form-container register__form flex items-end justify-center">
           <form
             onSubmit={handleRegister}
@@ -205,7 +207,10 @@ export default function Register() {
               <br />
             </div>
             <div className="register__btn mt-[10px]">
-              <button disabled={isLoading} className="btn--register w-full py-[7px] px-0 rounded-[50px] border-none bg-color-green-0 text-color-white-0 font-bold transition-all duration-[0.3s] hover:bg-color-green-2">
+              <button
+                disabled={isLoading}
+                className="btn--register w-full py-[7px] px-0 rounded-[50px] border-none bg-color-green-0 text-color-white-0 font-bold transition-all duration-[0.3s] hover:bg-color-green-2"
+              >
                 Đăng ký
               </button>
             </div>
@@ -246,14 +251,17 @@ export default function Register() {
         </div>
       </div>
 
-      {statusCheckCode && <VerifyEmailCode
-        onCodeChange={handleCodeChange}
-        onCodeVerify={handleCodeVerifyInput}
-        errorVerify={statusVerify}
-        onResendCode={handleResendEmail}
-        onHandleButton={handleButton}
-        isActive={isLoadVerify}
-        setIsActive={handleButtonVerify} />}
+      {statusCheckCode && (
+        <VerifyEmailCode
+          onCodeChange={handleCodeChange}
+          onCodeVerify={handleCodeVerifyInput}
+          errorVerify={statusVerify}
+          onResendCode={handleResendEmail}
+          onHandleButton={handleButton}
+          isActive={isLoadVerify}
+          setIsActive={handleButtonVerify}
+        />
+      )}
     </div>
   );
 }

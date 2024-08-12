@@ -54,7 +54,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="form-gadgets login bg-[#f7f7f7] pt-[100px] pb-[30px]">
+      <div className="form-gadgets login bg-[#f7f7f7] pt-[130px] pb-[50px]">
         <div className="form-container login__form flex items-end justify-center">
           <form
             onSubmit={handleLogin}
@@ -108,11 +108,11 @@ export default function Login() {
                 Đăng nhập
               </button>
             </div>
-            <div className="login__forget py-[10px] px-0 border-[1px] border-color-gray-0 text-center">
+            <div className="login__forget py-[10px] px-0 text-center">
               <span>
                 hoặc
                 <Link
-                  href="forgotPassword.html"
+                  href="/auth/forgotPassword"
                   className="t no-underline text-[#4ccd99] font-bold transition duration-[0.3s] hover:text-color-green-2"
                 >
                   {" "}
@@ -132,24 +132,6 @@ export default function Login() {
                   Đăng ký
                 </Link>
               </span>
-            </div>
-            <div className="login__social">
-              <div className="login__facebook">
-                <Link
-                  href="#"
-                  className="border-[1px] border-[#3b5998] rounded-[50px] mt-[5px] mb-[10px] text-[#3b5998] transition duration-[0.3s] inline-block w-full text-center no-underline py-[7px] px-0 capitalize font-[500] hover:bg-color-blue-1 hover:text-color-white-0"
-                >
-                  Đăng nhập bằng Facebook
-                </Link>
-              </div>
-              <div className="login__google">
-                <Link
-                  href="#"
-                  className="inline-block w-full text-center no-underline py-[7px] px-0 capitalize font-[500] border-[1px] border-[#dd4c3b] rounded-[50px] text-[#dd4c3b] transition duration-[0.3s] hover:bg-color-red-0 hover:text-color-white-0"
-                >
-                  Đăng nhập bằng Google
-                </Link>
-              </div>
             </div>
           </form>
         </div>
