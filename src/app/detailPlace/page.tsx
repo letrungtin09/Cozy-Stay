@@ -241,42 +241,28 @@ export default function Home() {
                         <h3>Nơi này có những gì cho bạn</h3>
                       </div>
                       <div className="services-detail">
-                        <div className="services-item">
-                          <div className="services-icon">
-                            <FontAwesomeIcon icon={faWifi} />
-                          </div>
-                          <div className="services-name">Wifi</div>
-                        </div>
-                        <div className="services-item">
-                          <div className="services-icon">
-                            <FontAwesomeIcon icon={faWifi} />
-                          </div>
-                          <div className="services-name">Wifi</div>
-                        </div>
-                        <div className="services-item">
-                          <div className="services-icon">
-                            <FontAwesomeIcon icon={faWifi} />
-                          </div>
-                          <div className="services-name">Thang máy</div>
-                        </div>
-                        <div className="services-item">
-                          <div className="services-icon">
-                            <FontAwesomeIcon icon={faWifi} />
-                          </div>
-                          <div className="services-name">Bếp</div>
-                        </div>
-                        <div className="services-item">
-                          <div className="services-icon">
-                            <FontAwesomeIcon icon={faWifi} />
-                          </div>
-                          <div className="services-name">Máy giặt miễn phí</div>
-                        </div>
-                        <div className="services-item">
-                          <div className="services-icon">
-                            <FontAwesomeIcon icon={faWifi} />
-                          </div>
-                          <div className="services-name">Máy sấy miễn phí</div>
-                        </div>
+                        {dataJoinConvenient.map((join) =>
+                          dataConvenient.map((con) =>
+                            join.idConvenient == con.id ? (
+                              <>
+                                <div className="services-item">
+                                  <div className="services-icon">
+                                    <img
+                                      className="w-6"
+                                      src={`images/iconSvg/iconConvenient/${con.icon}`}
+                                      alt=""
+                                    />
+                                  </div>
+                                  <div className="services-name">
+                                    {con.nameConvenient}
+                                  </div>
+                                </div>
+                              </>
+                            ) : (
+                              <></>
+                            )
+                          )
+                        )}
                       </div>
                     </div>
                   </div>
@@ -531,44 +517,28 @@ export default function Home() {
                 <div className="detailPartner__rulePlace">
                   <div className="detailPartner__title">Nội quy cho thuê</div>
                   <div className="detailPartner__allRule">
-                    <div className="detailPartner__item">
-                      <div className="detailPartner__icon">
-                        <FontAwesomeIcon icon={faArrowRight} />
-                      </div>
-                      <div className="detailPartner__rule">Tối đa 10 khách</div>
-                    </div>
-                    <div className="detailPartner__item">
-                      <div className="detailPartner__icon">
-                        <FontAwesomeIcon icon={faArrowRight} />
-                      </div>
-                      <div className="detailPartner__rule">
-                        Cho phép hút thuốc
-                      </div>
-                    </div>
-                    <div className="detailPartner__item">
-                      <div className="detailPartner__icon">
-                        <FontAwesomeIcon icon={faArrowRight} />
-                      </div>
-                      <div className="detailPartner__rule">
-                        Cho phép chụp ảnh vì mục đích thương mại
-                      </div>
-                    </div>
-                    <div className="detailPartner__item">
-                      <div className="detailPartner__icon">
-                        <FontAwesomeIcon icon={faArrowRight} />
-                      </div>
-                      <div className="detailPartner__rule">
-                        Không được tổ chức tiệc hoặc sự kiện
-                      </div>
-                    </div>
-                    <div className="detailPartner__item">
-                      <div className="detailPartner__icon">
-                        <FontAwesomeIcon icon={faArrowRight} />
-                      </div>
-                      <div className="detailPartner__rule">
-                        Không được phép mang theo thú cưng
-                      </div>
-                    </div>
+                    {dataJoinRules.map((join) =>
+                      dataRules.map((ru) =>
+                        join.idRules == ru.id ? (
+                          <>
+                            <div className="detailPartner__item">
+                              <div className="detailPartner__icon">
+                                <img
+                                  className="w-6"
+                                  src={`images/iconSvg/iconRules/${ru.icon}`}
+                                  alt=""
+                                />
+                              </div>
+                              <div className="detailPartner__rule">
+                                {ru.nameRules}
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <></>
+                        )
+                      )
+                    )}
                   </div>
                   <div className="detailPartner__warning">
                     <div className="warning-logo">
