@@ -14,12 +14,34 @@ import { useRef, useEffect, useState } from "react";
 import { ModalPartner } from "./modalPartner";
 import { ModalGhost } from "./modalGhost";
 import UserCurrent from '@/lib/currentUser';
+import ApiFunctions from "@/lib/api";
+import localUrl from "@/lib/const";
 
 export default function HeaderComponent() {
   const [showPartnerModal, setShowPartnerModal] = useState(false);
   const [showGhostModal, setShowGhostModal] = useState(false);
   const [roleUser, setRoleUser] = useState();
   const currentUser = UserCurrent.CheckUser();
+  const idUser = UserCurrent.GetUserId();
+  const [avatar, setAvatar] = useState();
+
+  useEffect(() => {
+    const fetchPartnerData = async () => {
+      try {
+        const apiPartner = `${localUrl}/api/user?id=${idUser}`;
+        const resPartner = await ApiFunctions.getData(apiPartner);
+
+        // Kiểm tra nếu có dữ liệu
+        if (resPartner && resPartner.user && resPartner.user[0]) {
+          setAvatar(resPartner.user[0].avatar);
+        }
+      } catch (error) {
+        console.error('Lỗi khi lấy dữ liệu:', error);
+      }
+    };
+
+    fetchPartnerData();
+  }, []);
 
   useEffect(() => {
 
@@ -30,6 +52,7 @@ export default function HeaderComponent() {
       setShowPartnerModal(true);
     }
   }, []);
+
   const closePartnerModal = () => {
     setShowPartnerModal(false);
   };
@@ -87,14 +110,21 @@ export default function HeaderComponent() {
             <div className="dropdown-header btn-height">
               <Dropdown>
                 <Dropdown.Toggle>
-                  <Image
-                    src="/images/icon-user.png"
+                  {showPartnerModal ? (<Image
+                    src={`/images/${avatar}`}
                     alt="icon-user"
                     width={2000}
                     height={2000}
                     priority={true}
                     className="account-icon icon-header"
-                  />
+                  />) : (<Image
+                    src="/images/icon-user.png"
+                    alt="icon-menu"
+                    width={2000}
+                    height={2000}
+                    priority={true}
+                    className="account-menu icon-header"
+                  />)}
                   <Image
                     src="/images/icon-menu.png"
                     alt="icon-menu"

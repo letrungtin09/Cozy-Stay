@@ -107,6 +107,19 @@ export default class ApiUser {
     }
   };
 
+  // Update TotalMoney
+  public updateMinusMoney = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      let numberId: number = parseInt(req.body.id as string);
+      let moneyChange: number = req.body.moneyRental as number;
+      await User.putMinusMoney(moneyChange, numberId);
+      res.json({ thongbao: "Đã trừ tổng tiền" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi update dữ liệu User" });
+    }
+  };
+
   // Update passWord
   public updatePassWord = async (req: NextApiRequest, res: NextApiResponse) => {
     try {

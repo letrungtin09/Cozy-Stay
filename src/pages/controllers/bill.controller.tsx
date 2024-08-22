@@ -17,23 +17,19 @@ export default class ApiBill {
     try {
       const dateStart = req.body.dateStart;
       const dateEnd = req.body.dateEnd;
-      const status = req.body.status;
-      const serviceFee = req.body.serviceFee;
+      const rentalMonth = req.body.rentalMonth;
       const total = req.body.total;
+      const code = req.body.code;
       const idPlace = req.body.idPlace;
       const idUser = req.body.idUser;
-      const imageBefore = req.body.imageBefore;
-      const code = req.body.code;
       const data = {
         dateStart: dateStart,
         dateEnd: dateEnd,
-        status: status,
-        serviceFee: serviceFee,
+        rentalMonth: rentalMonth,
         total: total,
+        code: code,
         idPlace: idPlace,
         idUser: idUser,
-        imageBefore: imageBefore,
-        code: code,
       };
       await Bill.addNewBill(data);
       res.json({ thongbao: "Đã thêm Bill" });
@@ -55,35 +51,16 @@ export default class ApiBill {
     }
   };
 
-  // Update
-  public updateBill = async (req: NextApiRequest, res: NextApiResponse) => {
+  // lấy places theo iduser vs idplace
+  public getBillByIdUserAndIdPlaces = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const numberId: number = parseInt(req.query.id as string);
-      const dateStart = req.body.dateStart;
-      const dateEnd = req.body.dateEnd;
-      const status = req.body.status;
-      const serviceFee = req.body.serviceFee;
-      const total = req.body.total;
-      const idPlace = req.body.idPlace;
-      const idUser = req.body.idUser;
-      const imageBefore = req.body.imageBefore;
-      const code = req.body.code;
-      const data = {
-        dateStart: dateStart,
-        dateEnd: dateEnd,
-        status: status,
-        serviceFee: serviceFee,
-        total: total,
-        idPlace: idPlace,
-        idUser: idUser,
-        imageBefore: imageBefore,
-        code: code,
-      };
-      await Bill.putUpDateBill(data, numberId);
-      res.json({ thongbao: "Đã cập nhật Bill" });
+      const idPlace = parseInt(req.query.idPlace as string);
+      const idUser = parseInt(req.query.idUser as string);
+      const resultBill = await Bill.fetchIduserAndIdPlaces(idPlace, idUser);
+      res.json({ bill: resultBill });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Đã xảy ra lỗi khi update dữ liệu Bill" });
+      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Bill" });
     }
   };
 
