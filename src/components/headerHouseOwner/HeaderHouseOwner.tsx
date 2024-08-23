@@ -28,9 +28,7 @@ export default function HeaderHouseOwner() {
                 </Link>
               </li>
               <li>
-                <Link href={`/houseOwner/managePlaces?idUser=${id}`}>
-                  Đơn đặt chỗ
-                </Link>
+                <Link href={`/houseOwner/manageBill`}>Đơn đặt chỗ</Link>
               </li>
               <li>
                 <Link href={`/houseOwner/wallet`}>Ví tiền</Link>

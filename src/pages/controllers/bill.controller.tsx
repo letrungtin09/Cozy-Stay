@@ -52,7 +52,10 @@ export default class ApiBill {
   };
 
   // lấy places theo iduser vs idplace
-  public getBillByIdUserAndIdPlaces = async (req: NextApiRequest, res: NextApiResponse) => {
+  public getBillByIdUserAndIdPlaces = async (
+    req: NextApiRequest,
+    res: NextApiResponse
+  ) => {
     try {
       const idPlace = parseInt(req.query.idPlace as string);
       const idUser = parseInt(req.query.idUser as string);
@@ -61,6 +64,25 @@ export default class ApiBill {
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Bill" });
+    }
+  };
+
+  // Change status
+  public changeStatusBill = async (
+    req: NextApiRequest,
+    res: NextApiResponse
+  ) => {
+    try {
+      const numberId: number = parseInt(req.query.id as string);
+      const status = req.body.status;
+      const data = { status: status };
+      await Bill.changeStatusBill(data, numberId);
+      res.json({ thongbao: "Đã thay đổi trạng thái Bill" });
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .json({ error: "Đã xảy ra lỗi khi thay đổi trạng thái Bill" });
     }
   };
 

@@ -42,7 +42,10 @@ export default class Bill {
   static async fetchIduserAndIdPlaces(idPlaces: number, idUser: number) {
     const sqlGetItem = `SELECT * FROM bill WHERE idPlace = ? AND idUser = ?`;
     try {
-      const resultItem = await commonFunctions.handleDataBase(db, sqlGetItem, [idPlaces, idUser]);
+      const resultItem = await commonFunctions.handleDataBase(db, sqlGetItem, [
+        idPlaces,
+        idUser,
+      ]);
       return resultItem;
     } catch (err) {
       throw err;
@@ -51,6 +54,16 @@ export default class Bill {
 
   // Sửa Bill
   static async putUpDateBill(data: any, id: number) {
+    const sql = `UPDATE bill SET ? WHERE id = ${id}`;
+    try {
+      await commonFunctions.handleDataBase(db, sql, data);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  // Xác nhận Bill
+  static async changeStatusBill(data: any, id: number) {
     const sql = `UPDATE bill SET ? WHERE id = ${id}`;
     try {
       await commonFunctions.handleDataBase(db, sql, data);

@@ -21,7 +21,7 @@ export default class ApiWallet {
       const data = {
         changeMoney: moneyNumber,
         transactionType: status,
-        idUser: numberId
+        idUser: numberId,
       };
       const newWallet = await Wallet.addNewWallet(data);
       res.json({ thongbao: "Đã thêm Wallet", data: newWallet });
@@ -41,16 +41,25 @@ export default class ApiWallet {
       res.json({ thongbao: "Đã cập nhật Wallet" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Đã xảy ra lỗi khi update dữ liệu Wallet1 " });
+      res
+        .status(500)
+        .json({ error: "Đã xảy ra lỗi khi update dữ liệu Wallet1 " });
     }
   };
   // UpdateSuccess linkQr and role
-  public updateSuccessPayment = async (req: NextApiRequest, res: NextApiResponse) => {
+  public updateSuccessPayment = async (
+    req: NextApiRequest,
+    res: NextApiResponse
+  ) => {
     try {
       let numberId: number = parseInt(req.body.id as string);
       let transactionType: number = req.body.transactionType as number;
       let linkQrId: string = req.body.linkQrId as string;
-      const resul = await Wallet.putUpdateSuccessPayment(transactionType, linkQrId, numberId);
+      const resul = await Wallet.putUpdateSuccessPayment(
+        transactionType,
+        linkQrId,
+        numberId
+      );
       if (resul.affectedRows > 0) {
         const walletSuccess = await Wallet.fetchWalletbyId(numberId);
         res.json({ thongbao: resul, data: walletSuccess[0].changeMoney });
@@ -59,7 +68,9 @@ export default class ApiWallet {
       }
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Đã xảy ra lỗi khi update dữ liệu Wallet1 " });
+      res
+        .status(500)
+        .json({ error: "Đã xảy ra lỗi khi update dữ liệu Wallet1 " });
     }
   };
   // Lấy 1
@@ -77,9 +88,11 @@ export default class ApiWallet {
   public deleteWallet = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const numberId: number = parseInt(req.query.id as string);
-      const linkId = Array.isArray(req.query.linkQrId) ? req.query.linkQrId[0] : req.query.linkQrId;
+      const linkId = Array.isArray(req.query.linkQrId)
+        ? req.query.linkQrId[0]
+        : req.query.linkQrId;
       if (isNaN(numberId) || !linkId) {
-        return res.status(400).json({ error: 'Thiếu id hoặc linkQrId' });
+        return res.status(400).json({ error: "Thiếu id hoặc linkQrId" });
       }
       await Wallet.delWallet(numberId, linkId);
       res.json({ thongbao: "Đã xóa thành công" });

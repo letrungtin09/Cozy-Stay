@@ -118,7 +118,7 @@ export default function Home() {
                       </td>
                       <td className="img-place-holder">
                         <a href="#">
-                          <img src={`images/places/${place.image1}`} alt="" />
+                          <img src={`images/places/${place.image}`} alt="" />
                         </a>
                       </td>
                       <td className="text-center">
