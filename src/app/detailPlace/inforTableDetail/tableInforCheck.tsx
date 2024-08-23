@@ -86,6 +86,7 @@ export default function TableInforCheck({ dataPlace }: any) {
     const addForBill = async () => {
         if (!idUser) window.location.href = "/auth/login";
         const totalMoney = (dataPlace.price * monthNumberLease) + (dataPlace.price * monthNumberLease * 0.05);
+        const serviceFeeMoney = dataPlace.price * monthNumberLease * 0.05;
         const userConfirmed = window.confirm(`Xác nhận thanh toán ${new Intl.NumberFormat("de-DE").format(totalMoney)} vnđ để sử dụng căn nhà này trong ${monthNumberLease} tháng ?`);
         if (userConfirmed) {
             if (!dateStart || !dateEnd) return;
@@ -96,6 +97,7 @@ export default function TableInforCheck({ dataPlace }: any) {
                 dateEnd: dateEnd.format('YYYY-MM-DD'),
                 rentalMonth: monthNumberLease,
                 total: totalMoney,
+                serviceFee: serviceFeeMoney,
                 code: randomCode,
                 idPlace: dataPlace.id,
                 idUser: idUser

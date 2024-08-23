@@ -39,30 +39,51 @@ const DetailComment: React.FC<DetailCommentProps> = ({ idPlace }) => {
             try {
                 const urlComment: string = `${localUrl}/api/comment?idPlace=${idPlace}`;
                 const res = await ApiFunctions.getData(urlComment);
-                setCommentData(res.places);
 
-                // Fetch user details for each comment
-                const userPromises = res.places.map((comment: Comment) =>
-                    ApiFunctions.getData(`${localUrl}/api/user?id=${comment.idUser}`)
-                        .then(res => ({
-                            id: comment.idUser,
-                            userName: res.user[0].userName,
-                            avatar: res.user[0].avatar
-                        }))
-                );
-                const users = await Promise.all(userPromises);
-                const userMap = users.reduce((acc: Record<number, User>, user) => {
-                    acc[user.id] = user;
-                    return acc;
-                }, {});
-                setUserData(userMap);
+                if (res.places && res.places.length > 0) {
+                    // Set comments data
+                    setCommentData(res.places);
 
+                    // Fetch user details for each comment
+                    const userPromises = res.places.map((comment: Comment) =>
+                        ApiFunctions.getData(`${localUrl}/api/user?id=${comment.idUser}`)
+                            .then(res => ({
+                                id: comment.idUser,
+                                userName: res.user[0]?.userName || 'Unknown',
+                                avatar: res.user[0]?.avatar || '/images/default-avatar.jpg'
+                            }))
+                    );
+
+                    const users = await Promise.all(userPromises);
+
+                    // Map users to userMap
+                    const userMap = users.reduce((acc: Record<number, User>, user) => {
+                        acc[user.id] = user;
+                        return acc;
+                    }, {});
+
+                    // Set user data
+                    setUserData(userMap);
+                } else {
+                    // No comments available
+                    setCommentData([]);
+                    setUserData({});
+                }
             } catch (error) {
+                // Handle error
                 console.error("Lỗi khi gọi API:", error);
+                // Optionally, you could set empty state or show error message
+                setCommentData([]);
+                setUserData({});
             }
         };
 
         fetchComments();
+
+        // Optional cleanup function if needed
+        return () => {
+            // Clean up logic if needed
+        };
     }, [idPlace]);
 
     // Hàm xử lý khi nhấn nút "Xem thêm"

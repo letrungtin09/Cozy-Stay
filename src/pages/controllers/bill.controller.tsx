@@ -19,6 +19,7 @@ export default class ApiBill {
       const dateEnd = req.body.dateEnd;
       const rentalMonth = req.body.rentalMonth;
       const total = req.body.total;
+      const serviceFee = req.body.serviceFee;
       const code = req.body.code;
       const idPlace = req.body.idPlace;
       const idUser = req.body.idUser;
@@ -27,6 +28,7 @@ export default class ApiBill {
         dateEnd: dateEnd,
         rentalMonth: rentalMonth,
         total: total,
+        serviceFee: serviceFee,
         code: code,
         idPlace: idPlace,
         idUser: idUser,
