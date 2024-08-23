@@ -8,14 +8,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const DetailPartner: React.FC = ({ dataJoinRules, dataRules, dataParner }: any) => {
-
+    const nextPartner = () => {
+        window.location.href = `houseOwnerInfo?id=${dataParner.user[0].id}`
+    }
     return (
         <section className="detailPartner">
             <div className="info-title">
                 <h3>Gặp gỡ chủ nhà</h3>
             </div>
             <div className="detailPartner__content">
-                <div className="detailPartner__info">
+                <div className="detailPartner__info cursor-pointer" onClick={nextPartner}>
                     <div>
                         <div className="detailPartner__personal">
                             <div className="detailPartner__left">
@@ -102,7 +104,7 @@ const DetailPartner: React.FC = ({ dataJoinRules, dataRules, dataParner }: any) 
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 }
 export default DetailPartner;

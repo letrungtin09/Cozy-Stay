@@ -5,6 +5,7 @@ import "./globals.css";
 import "@/styles/main.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
 
 const inter = Inter({ subsets: ["latin"] });
 
