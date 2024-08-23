@@ -1,5 +1,7 @@
 "use client";
 import LayoutCustomer from "@/components/layoutCustomer";
+import ApiFunctions from "@/lib/api";
+import localUrl from "@/lib/const";
 import {
   faBath,
   faBed,
@@ -7,9 +9,43 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const searchParams = useSearchParams();
+  const id = searchParams!.get("id");
+  const apiUser = `${localUrl}/api/user?id=${id}`;
+  const apiPlace = `${localUrl}/api/places?idUser=${id}`;
+  const [dataUser, setDataUser] = useState<any>([]);
+  const [dataPlace, setDataPlace] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchDataUser = async () => {
+      try {
+        const res = await ApiFunctions.getData(apiUser);
+        setDataUser(res.user[0]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchDataUser();
+  }, [apiUser]);
+
+  useEffect(() => {
+    const fetchDataPlace = async () => {
+      try {
+        const res = await ApiFunctions.getData(apiPlace);
+        setDataPlace(res.places);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchDataPlace();
+  }, [apiPlace]);
   return (
     <>
       <LayoutCustomer>
@@ -18,14 +54,16 @@ export default function Home() {
             <div className="houseOwnerInfo__personal__top d-flex justify-between mb-[15px]">
               <div className="houseOwnerInfo__personal__avatar">
                 <div className="d-flex justify-center">
-                  <img
-                    className="w-20 rounded-[50%] border-[1px]"
-                    src="images/admin.jpg"
-                    alt=""
+                  <Image
+                    className="w-[90px] h-[100px] rounded-[50%] border-[1px] object-cover"
+                    src={`/images/${dataUser.avatar}`}
+                    alt="avatarHouseOwner"
+                    width={2000}
+                    height={2000}
                   />
                 </div>
                 <div className="text-center font-bold text-color-green-2">
-                  Kateryna
+                  {dataUser.userName}
                 </div>
                 <div className="text-center">Chủ nhà cho thuê</div>
               </div>
@@ -65,247 +103,90 @@ export default function Home() {
                   Tôi thích đi du lịch và trải nghiệm cuộc sống ở những nơi tôi
                   đến. Tôi nói tiếng Việt và tiếng Anh.Chỗ ở của chúng tôi nằm ở
                   Quận Phú Nhuận. Cách sân bay Tân Sơn 5km.
+                  {dataUser.info}
                 </div>
               </div>
             </div>
           </div>
           <div className="houseOwnerInfo__places w-[67%]">
             <div className="text-[20px] font-bold mb-[20px]">
-              Mục cho thuê của Kateryna
+              Mục cho thuê của {dataUser.userName}
             </div>
             <div className="d-flex justify-between flex-wrap gap-y-[30px]">
-              <div className="places__item w-[31%]">
-                <Link
-                  href={{
-                    pathname: "/detailPlace",
-                    query: { id: "" },
-                  }}
-                >
-                  <div className="places__slider">
-                    <div className="places__list">
-                      <div className="places__img">
-                        <img
-                          className="rounded-[10px] mb-[7px]"
-                          src={`images/places/place1/image1.webp`}
-                          alt=""
-                        />
+              {dataPlace.map((place) => {
+                let imageArray = [];
+
+                try {
+                  if (place.image) {
+                    imageArray = JSON.parse(place.image);
+                  }
+                } catch (error) {
+                  console.error("JSON parsing error:", error);
+                }
+                return (
+                  <div className="places__item w-[31%]" key={place.id}>
+                    <Link
+                      href={{
+                        pathname: "/detailPlace",
+                        query: { id: place.id },
+                      }}
+                    >
+                      <div className="places__slider">
+                        <div className="places__list">
+                          <div className="places__img">
+                            <Image
+                              className="rounded-[10px] mb-[7px] w-[100%] h-[170px] object-cover"
+                              src={`/images/places/${imageArray[0]}`}
+                              alt="imagePlaces"
+                              width={2000}
+                              height={2000}
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="places__detail">
-                    <div className="places__top">
-                      <div className="name-place font-bold text-color-green-2 mb-[5px]">
-                        Phòng cho thuê quận Phú Nhuận sạch đẹp
+
+                      <div className="places__detail">
+                        <div className="places__top">
+                          <div className="name-place font-bold text-color-green-2 mb-[5px]">
+                            Phòng cho thuê quận Phú Nhuận sạch đẹp
+                          </div>
+                        </div>
+                        <div className="places__center mb-[5px]">
+                          <span className="star-place text-[14px] text-[#464646b3]">
+                            <FontAwesomeIcon
+                              className="text-[#222222b3]"
+                              icon={faChartArea}
+                            />{" "}
+                            30m
+                            <sup>2</sup>
+                          </span>
+                          <span className="area-place mx-[25px] text-[14px] text-[#464646b3]">
+                            <FontAwesomeIcon
+                              className="text-[#222222b3]"
+                              icon={faBed}
+                            />{" "}
+                            2 phòng ngủ
+                          </span>
+                          <span className="bed-place text-[14px] text-[#464646b3]">
+                            <FontAwesomeIcon
+                              className="text-[#222222b3]"
+                              icon={faBath}
+                            />{" "}
+                            2 phòng tắm
+                          </span>
+                        </div>
+                        <div className="places__bottom">
+                          <span>
+                            <span className="price-place text-[18px] font-bold text-color-green-2">
+                              1.500.000đ / tháng
+                            </span>
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="places__center mb-[5px]">
-                      <span className="star-place text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faChartArea}
-                        />{" "}
-                        30m
-                        <sup>2</sup>
-                      </span>
-                      <span className="area-place mx-[25px] text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faBed}
-                        />{" "}
-                        2 phòng ngủ
-                      </span>
-                      <span className="bed-place text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faBath}
-                        />{" "}
-                        2 phòng tắm
-                      </span>
-                    </div>
-                    <div className="places__bottom">
-                      <span>
-                        <span className="price-place text-[18px] font-bold text-color-green-2">
-                          1.500.000đ / tháng
-                        </span>
-                      </span>
-                    </div>
+                    </Link>
                   </div>
-                </Link>
-              </div>
-              <div className="places__item w-[31%]">
-                <Link
-                  href={{
-                    pathname: "/detailPlace",
-                    query: { id: "" },
-                  }}
-                >
-                  <div className="places__slider">
-                    <div className="places__list">
-                      <div className="places__img">
-                        <img
-                          className="rounded-[10px] mb-[7px]"
-                          src={`images/places/place1/image1.webp`}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="places__detail">
-                    <div className="places__top">
-                      <div className="name-place font-bold text-color-green-2 mb-[5px]">
-                        Phòng cho thuê quận Phú Nhuận sạch đẹp
-                      </div>
-                    </div>
-                    <div className="places__center mb-[5px]">
-                      <span className="star-place text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faChartArea}
-                        />{" "}
-                        30m
-                        <sup>2</sup>
-                      </span>
-                      <span className="area-place mx-[25px] text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faBed}
-                        />{" "}
-                        2 phòng ngủ
-                      </span>
-                      <span className="bed-place text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faBath}
-                        />{" "}
-                        2 phòng tắm
-                      </span>
-                    </div>
-                    <div className="places__bottom">
-                      <span>
-                        <span className="price-place text-[18px] font-bold text-color-green-2">
-                          1.500.000đ / tháng
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-              <div className="places__item w-[31%]">
-                <Link
-                  href={{
-                    pathname: "/detailPlace",
-                    query: { id: "" },
-                  }}
-                >
-                  <div className="places__slider">
-                    <div className="places__list">
-                      <div className="places__img">
-                        <img
-                          className="rounded-[10px] mb-[7px]"
-                          src={`images/places/place1/image1.webp`}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="places__detail">
-                    <div className="places__top">
-                      <div className="name-place font-bold text-color-green-2 mb-[5px]">
-                        Phòng cho thuê quận Phú Nhuận sạch đẹp
-                      </div>
-                    </div>
-                    <div className="places__center mb-[5px]">
-                      <span className="star-place text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faChartArea}
-                        />{" "}
-                        30m
-                        <sup>2</sup>
-                      </span>
-                      <span className="area-place mx-[25px] text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faBed}
-                        />{" "}
-                        2 phòng ngủ
-                      </span>
-                      <span className="bed-place text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faBath}
-                        />{" "}
-                        2 phòng tắm
-                      </span>
-                    </div>
-                    <div className="places__bottom">
-                      <span>
-                        <span className="price-place text-[18px] font-bold text-color-green-2">
-                          1.500.000đ / tháng
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-              <div className="places__item w-[31%]">
-                <Link
-                  href={{
-                    pathname: "/detailPlace",
-                    query: { id: "" },
-                  }}
-                >
-                  <div className="places__slider">
-                    <div className="places__list">
-                      <div className="places__img">
-                        <img
-                          className="rounded-[10px] mb-[7px]"
-                          src={`images/places/place1/image1.webp`}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="places__detail">
-                    <div className="places__top">
-                      <div className="name-place font-bold text-color-green-2 mb-[5px]">
-                        Phòng cho thuê quận Phú Nhuận sạch đẹp
-                      </div>
-                    </div>
-                    <div className="places__center mb-[5px]">
-                      <span className="star-place text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faChartArea}
-                        />{" "}
-                        30m
-                        <sup>2</sup>
-                      </span>
-                      <span className="area-place mx-[25px] text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faBed}
-                        />{" "}
-                        2 phòng ngủ
-                      </span>
-                      <span className="bed-place text-[14px] text-[#464646b3]">
-                        <FontAwesomeIcon
-                          className="text-[#222222b3]"
-                          icon={faBath}
-                        />{" "}
-                        2 phòng tắm
-                      </span>
-                    </div>
-                    <div className="places__bottom">
-                      <span>
-                        <span className="price-place text-[18px] font-bold text-color-green-2">
-                          1.500.000đ / tháng
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -8,6 +8,10 @@ body {
   box-sizing: border-box;
 }
 
+.css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+  color: #3fa97f;
+}
+
 .section-padding {
   padding-left: 75px;
   padding-right: 75px;

@@ -27,7 +27,8 @@ export default function FooterComponent() {
                     src="/images/CozyStay.png"
                     width={2000}
                     height={2000}
-                    alt="đâ" />
+                    alt="đâ"
+                  />
                 </a>
               </div>
               <p>
