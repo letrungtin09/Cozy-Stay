@@ -12,6 +12,18 @@ export default class ApiComment {
     }
   };
 
+  // Lấy theo IdPlaces
+  public getCommentByIdPlaces = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const idPlace: number = parseInt(req.query.idPlace as string);
+      const resultPlaces = await Comment.fetchCommentByIdPlaces(idPlace);
+      res.json({ places: resultPlaces });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
+    }
+  };
+
   // Thêm
   public postaddComment = async (req: NextApiRequest, res: NextApiResponse) => {
     try {

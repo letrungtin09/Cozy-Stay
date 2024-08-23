@@ -33,6 +33,7 @@ const config: Config = withMT({
         'color-blue-0': '#18a0c6',
         'color-blue-1': '#3b5998',
         'color-blue-2': 'rgba(24, 160, 198, 0.3)',
+        'color-yellow-button': '#e9c714',
         'color-red-0': '#dd4c3b',
         'color-footer-1': '#818998',
         'color-line-footer': 'rgba(34, 34, 34, 0.3)',

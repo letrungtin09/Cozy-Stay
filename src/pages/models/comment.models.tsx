@@ -13,6 +13,21 @@ export default class Comment {
     }
   }
 
+  // lấy theo idPlaces 
+  static async fetchCommentByIdPlaces(id: number) {
+    const sqlGetItem = `SELECT * FROM comment WHERE idPlace  = ?`;
+    try {
+      const resultItem = await commonFunctions.handleDataBase(
+        db,
+        sqlGetItem,
+        id
+      );
+      return resultItem;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   // Thêm Comment
   static async addNewComment(data: any) {
     const sql = "INSERT INTO comment SET ?";

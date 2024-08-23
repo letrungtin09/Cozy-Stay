@@ -38,6 +38,17 @@ export default class Bill {
     }
   }
 
+  // Lấy 1 theo iduser vs idplaces
+  static async fetchIduserAndIdPlaces(idPlaces: number, idUser: number) {
+    const sqlGetItem = `SELECT * FROM bill WHERE idPlace = ? AND idUser = ?`;
+    try {
+      const resultItem = await commonFunctions.handleDataBase(db, sqlGetItem, [idPlaces, idUser]);
+      return resultItem;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   // Sửa Bill
   static async putUpDateBill(data: any, id: number) {
     const sql = `UPDATE bill SET ? WHERE id = ${id}`;

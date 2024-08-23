@@ -20,7 +20,7 @@ const DetailShowAllImage: React.FC = ({ onChangeOverLay, lishImage }: any) => {
                 </button>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 relative">
                     {imageList.map((image: any, index: number) => (
-                        <div key={index} className="relative group">
+                        <div key={image} className="relative group">
                             <Image
                                 className="w-full h-[500px] rounded-lg object-cover transition-transform duration-300 transform group-hover:scale-110"
                                 src={`/images/places/${image}`}

@@ -6,8 +6,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (req.method) {
     case "GET":
-      if (req.query.id) {
-        await apiComment.getComment(req, res);
+      if (req.query.idPlace) {
+        await apiComment.getCommentByIdPlaces(req, res);
       } else {
         // Lấy tất cả các sản phẩm
         await apiComment.getAllComment(req, res);
