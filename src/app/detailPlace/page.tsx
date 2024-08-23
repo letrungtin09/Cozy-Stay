@@ -22,6 +22,7 @@ import { viVN } from "@mui/x-date-pickers/locales";
 import "moment/locale/en-gb";
 import DetailImage from "./detailImg";
 import DetailShowAllImage from "./detailShowAllImg";
+import Link from "next/link";
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -470,49 +471,62 @@ export default function Home() {
               </div>
               <div className="detailPartner__content">
                 <div className="detailPartner__info">
-                  <div>
-                    <div className="detailPartner__personal">
-                      <div className="detailPartner__left">
-                        <div className="detailPartner__avatar">
-                          <img src="images/admin.jpg" alt="" />
+                  <Link href={`/houseOwnerInfo?id=${dataPlace.idUser}`}>
+                    <div>
+                      <div className="detailPartner__personal">
+                        <div className="detailPartner__left">
+                          <div className="detailPartner__avatar">
+                            <img src="images/admin.jpg" alt="" />
+                          </div>
+                          <div className="detailPartner__name">
+                            Sarah Nguyen
+                          </div>
+                          <div className="detailPartner__role">
+                            Chủ nhà cho thuê
+                          </div>
                         </div>
-                        <div className="detailPartner__name">Sarah Nguyen</div>
-                        <div className="detailPartner__role">
-                          Chủ nhà cho thuê
+                        <div className="detailPartner__right">
+                          <div>
+                            <div className="detailPartner__confirm">
+                              <span>Thông tin đã xác minh</span>
+                            </div>
+                            <div className="detailPartner__confirm">
+                              <FontAwesomeIcon
+                                className="text-color-green-0"
+                                icon={faCheck}
+                              />{" "}
+                              <span>Danh tính</span>
+                            </div>
+                            <div className="detailPartner__confirm">
+                              <FontAwesomeIcon
+                                className="text-color-green-0"
+                                icon={faCheck}
+                              />{" "}
+                              <span>Địa chỉ email</span>
+                            </div>
+                            <div className="detailPartner__confirm mb-0">
+                              <FontAwesomeIcon
+                                className="text-color-green-0"
+                                icon={faCheck}
+                              />{" "}
+                              <span>Số điện thoại</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div className="detailPartner__right">
-                        <div>
-                          <div className="detailPartner__confirm">
-                            <span>Thông tin đã xác minh</span>
-                          </div>
-                          <div className="detailPartner__confirm">
-                            <FontAwesomeIcon icon={faCheck} />{" "}
-                            <span>Danh tính</span>
-                          </div>
-                          <div className="detailPartner__confirm">
-                            <FontAwesomeIcon icon={faCheck} />{" "}
-                            <span>Địa chỉ email</span>
-                          </div>
-                          <div className="detailPartner__confirm mb-0">
-                            <FontAwesomeIcon icon={faCheck} />{" "}
-                            <span>Số điện thoại</span>
-                          </div>
+                      <div className="detailPartner__intro">
+                        <div className="detailPartner__introTitle">
+                          Giới thiệu chủ nhà
+                        </div>
+                        <div className="detailPartner__introText">
+                          Tôi thích đi du lịch và trải nghiệm cuộc sống ở những
+                          nơi tôi đến. Tôi nói tiếng Việt và tiếng Anh.Chỗ ở của
+                          chúng tôi nằm ở Quận Phú Nhuận. Cách sân bay Tân Sơn
+                          5km.
                         </div>
                       </div>
                     </div>
-                    <div className="detailPartner__intro">
-                      <div className="detailPartner__introTitle">
-                        Giới thiệu chủ nhà
-                      </div>
-                      <div className="detailPartner__introText">
-                        Tôi thích đi du lịch và trải nghiệm cuộc sống ở những
-                        nơi tôi đến. Tôi nói tiếng Việt và tiếng Anh.Chỗ ở của
-                        chúng tôi nằm ở Quận Phú Nhuận. Cách sân bay Tân Sơn
-                        5km.
-                      </div>
-                    </div>
-                  </div>
+                  </Link>
                 </div>
                 <div className="detailPartner__rulePlace">
                   <div className="detailPartner__title">Nội quy cho thuê</div>
