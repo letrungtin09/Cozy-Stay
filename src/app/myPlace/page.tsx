@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const idUser = UserCurrent.GetUserId();
-  const emailCurentUser = UserCurrent.GetUserEmail();
   const apiBill = `${localUrl}/api/bill?idUserAll=${idUser}`;
   const [idPlaces, setIdPlaces] = useState<number[]>([]);
   const [idPlacesAndIdbill, setIdPlacesAndIdbill] = useState<number[]>([]);
@@ -150,7 +149,7 @@ export default function Home() {
                         onClick={(e) => {
                           e.preventDefault(); // Ngăn hành vi mặc định
                           e.stopPropagation(); // Ngăn chặn sự kiện click lan truyền
-                          RefundGenerate.canCelBill(place.id, idPlacesAndIdbill, emailCurentUser);
+                          RefundGenerate.canCelBill(place.id, idPlacesAndIdbill);
                         }}
                       >
                         Hủy đặt phòng
