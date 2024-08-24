@@ -20,4 +20,21 @@ export default class ApiEmail {
                 .json({ error: "Đã xảy ra lỗi khi gửi email" });
         }
     };
+
+    public sendEmailRefundController = async (req: NextApiRequest, res: NextApiResponse) => {
+        try {
+            let email = req.body.currentEmailNameRefund;
+            let moneyNumber = req.body.moneyNumber;
+            let idBill = req.body.idBill;
+            if (email) {
+                await EmailModels.sendEmailRefundModels(email, moneyNumber, idBill);
+                res.status(200).json({ status: true, message: 'đã gửi email hoàn tiền' });
+            }
+        } catch (error) {
+            console.error(error);
+            res
+                .status(500)
+                .json({ error: "Đã xảy ra lỗi khi gửi email" });
+        }
+    };
 }

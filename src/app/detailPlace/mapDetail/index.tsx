@@ -7,7 +7,6 @@ import MapBoxComponent from "./mapBox";
 
 const DetailMap: React.FC = ({ dataPlace }: any) => {
 
-    console.log(dataPlace?.latitude)
     const getAddress = (address: string) => {
         if (typeof address === 'string' && address.includes(", ")) {
             const parts = address.split(", ");

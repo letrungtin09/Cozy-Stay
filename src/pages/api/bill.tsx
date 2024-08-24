@@ -9,9 +9,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (req.query.id) {
         await apiBill.getBill(req, res);
       } else if (req.query.idPlace && req.query.idUser) {
-        // Lấy tất cả các sản phẩm
         await apiBill.getBillByIdUserAndIdPlaces(req, res);
+      } else if (req.query.idUserAll) {
+        // Lấy theo user
+        await apiBill.getBillByIdUser(req, res);
       } else {
+        // Lấy tất cả các sản phẩm
         await apiBill.getAllBill(req, res);
       }
       break;

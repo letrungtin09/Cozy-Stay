@@ -12,7 +12,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         await apiPlaces.getUserPlaces(req, res);
       } else if (req.query.cateId) {
         await apiPlaces.getCatePlaces(req, res);
-      } else {
+      } else if (req.query.idPlaces) {
+        await apiPlaces.getArrayPlaces(req, res);
+      }
+      else {
         // Lấy tất cả các sản phẩm
         await apiPlaces.getAllPlaces(req, res);
       }

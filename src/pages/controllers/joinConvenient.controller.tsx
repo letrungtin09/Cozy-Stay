@@ -18,6 +18,24 @@ export default class ApiJoinConvenient {
     }
   };
 
+  // Lấy dựa theo 1 mảng idPlaces
+  public getArrayConvenient = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      // Lấy mảng idPlace từ query string và chuyển đổi nó thành mảng số nguyên
+      const ids: number[] = JSON.parse(req.query.idArPlaces as string);
+
+      // Gọi hàm fetchPlacesByIds với mảng ids
+      const resultPlaces = await JoinConvenient.fetchJoinConvenientbyIdplaces(ids);
+
+      // Trả kết quả places dưới dạng JSON
+      res.json({ joinConvenient: resultPlaces });
+    } catch (error) {
+      // In lỗi ra console và trả về phản hồi lỗi
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
+    }
+  };
+
   // Thêm
   public postaddJoinConvenient = async (
     req: NextApiRequest,

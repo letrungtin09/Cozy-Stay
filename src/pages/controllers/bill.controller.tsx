@@ -12,6 +12,18 @@ export default class ApiBill {
     }
   };
 
+  // Lấy theo IdUser
+  public getBillByIdUser = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const idUserAll: number = parseInt(req.query.idUserAll as string);
+      const resultPlaces = await Bill.fetchBillByIdUser(idUserAll);
+      res.json({ bill: resultPlaces });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
+    }
+  };
+
   // Thêm
   public postaddBill = async (req: NextApiRequest, res: NextApiResponse) => {
     try {

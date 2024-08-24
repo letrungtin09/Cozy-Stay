@@ -7,7 +7,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
 
         case "POST":
-            await apiEmail.sendEmailController(req, res);
+            if (req.body.emailName) {
+                await apiEmail.sendEmailController(req, res);
+            } else if (req.body.currentEmailNameRefund) {
+                await apiEmail.sendEmailRefundController(req, res);
+            }
             break;
         default:
             res.status(405).json({ error: "Phương thức không được hỗ trợ" });

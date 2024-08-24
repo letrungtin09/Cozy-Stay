@@ -110,7 +110,7 @@ export default function TableInforCheck({ dataPlace }: any) {
                     if (res.thongbao) {
                         await handleSendWallet(idUser, 0, totalMoney);
                         await minusTotalMoney(totalMoney);
-                        window.location.href = "/myPlace";
+                        window.location.href = `/myPlace`;
                     } else {
                         // Xử lý lỗi nếu phản hồi không thành công
                         console.error("Lỗi khi gửi dữ liệu hóa đơn:", res);

@@ -48,7 +48,7 @@ export default function TableInforWaitingAndSucces({ bill }: any) {
                                     className="btn-order"
                                     onClick={() => { window.location.href = "/myPlace"; }}
                                 >
-                                    Xem phòng/nhà của bạn <FontAwesomeIcon icon={faArrowRight} />
+                                    Xem chi tiết phòng/nhà của bạn <FontAwesomeIcon icon={faArrowRight} />
                                 </button>
                             ) : null}
                         </div>

@@ -139,6 +139,7 @@ export default function HeaderComponent() {
                   isOpen={showPartnerModal}
                   onClose={closePartnerModal}
                   id={roleUser}
+                  idUser={idUser}
                 />
                 <ModalGhost isOpen={showGhostModal} onClose={closeGhostModal} />
               </Dropdown>

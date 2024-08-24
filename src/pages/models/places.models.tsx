@@ -13,6 +13,19 @@ export default class Places {
     }
   }
 
+  static async fetchPlacesByIds(ids: number[]) {
+    // Tạo câu truy vấn SQL với điều kiện id nằm trong mảng ids
+    const sqlGetItems = `SELECT * FROM places WHERE id IN (${ids.map(() => '?').join(',')})`;
+
+    try {
+      // Thực thi truy vấn với mảng ids
+      const resultItems = await commonFunctions.handleDataBase(db, sqlGetItems, ids);
+      return resultItems;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   // Thêm Places
   static async addNewPlaces(data: any) {
     const sql = "INSERT INTO places SET ?";

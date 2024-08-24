@@ -27,6 +27,21 @@ const GetUserId = () => {
         return null;
     }
 };
-const UserCurrent = { CheckUser, GetUserId };
+
+const GetUserEmail = () => {
+    if (typeof window !== 'undefined') {
+        const isLoggedIn = sessionStorage.getItem('currentUser');
+        if (isLoggedIn) {
+            const userObject = JSON.parse(isLoggedIn);
+            const email = userObject.email;
+            return email;
+        } else {
+            return false;
+        }
+    } else {
+        return null;
+    }
+};
+const UserCurrent = { CheckUser, GetUserId, GetUserEmail };
 
 export default UserCurrent;

@@ -2,368 +2,170 @@
 import LayoutCustomer from "@/components/layoutCustomer";
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
+import UserCurrent from "@/lib/currentUser";
+import RefundGenerate from "@/lib/refund";
 import {
-  faArrowRight,
-  faCheck,
-  faDoorOpen,
-  faHouse,
-  faHouseChimneyWindow,
-  faMinus,
-  faPlus,
-  faWifi,
+  faArrowRight
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const searchParams = useSearchParams();
-  const id = searchParams!.get("id");
-  const apiPlace = `${localUrl}/api/places?id=${id}`;
-  const [dataPlace, setDataPlace] = useState<any>([]);
+  const idUser = UserCurrent.GetUserId();
+  const emailCurentUser = UserCurrent.GetUserEmail();
+  const apiBill = `${localUrl}/api/bill?idUserAll=${idUser}`;
+  const [idPlaces, setIdPlaces] = useState<number[]>([]);
+  const [idPlacesAndIdbill, setIdPlacesAndIdbill] = useState<number[]>([]);
+  const [sttPlaces, setSttPlaces] = useState<number[]>([]);
+  const [dataPlaces, setDataPlaces] = useState<any>([]);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const toggleExpand = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
 
   useEffect(() => {
-    const fetchDataPlace = async () => {
+    const fetchDataBill = async () => {
       try {
-        const res = await ApiFunctions.getData(apiPlace);
-        setDataPlace(res.places[0]);
+        const res = await ApiFunctions.getData(apiBill);
+        if (res?.bill?.length > 0) {
+          const idPlaceArray = res.bill.map((item: any) => item.idPlace); // Lấy idPlace từ res.bill
+
+          const idPlaceStt = res.bill.reduce((acc: Record<number, number>, item: any) => {
+            acc[item.idPlace] = item.status;
+            return acc;
+          }, {});
+
+          const idPlaceWithBill = res.bill.reduce((acc: Record<number, number>, item: any) => {
+            acc[item.idPlace] = item.id;
+            return acc;
+          }, {});
+          setIdPlacesAndIdbill(idPlaceWithBill)
+          setSttPlaces(idPlaceStt);
+          setIdPlaces(idPlaceArray); // Lưu vào state
+        } else {
+          console.warn("No bill data found");
+        }
       } catch (error) {
-        console.error(error);
+        console.error("Lỗi khi gọi API:", error);
       }
     };
 
-    fetchDataPlace();
-  }, [apiPlace]);
+    fetchDataBill();
+  }, [apiBill]);
+  useEffect(() => {
+    console.log(sttPlaces)
+  }, [sttPlaces]);
+  useEffect(() => {
+    // Kiểm tra nếu mảng idPlaces có giá trị và các giá trị là số nguyên hợp lệ
+    if (Array.isArray(idPlaces) && idPlaces.length > 0 && idPlaces.every(id => Number.isInteger(id))) {
+      const apiPlaces = `${localUrl}/api/places?idPlaces=${JSON.stringify(idPlaces)}`;
 
-  const PlaceKindRoom = (kind: any) => {
-    let placeKindRoom: string = "";
-    if (kind === 0) {
-      placeKindRoom = "phòng";
-    } else if (kind === 1) {
-      placeKindRoom = "căn hộ";
-    } else {
-      placeKindRoom = "nhà";
+      const fetchDataPlaces = async () => {
+        try {
+          const res = await ApiFunctions.getData(apiPlaces);
+          setDataPlaces(res.places)
+        } catch (error) {
+          console.error("Lỗi khi gọi API:", error);
+        }
+      };
+      fetchDataPlaces();
     }
+  }, [idPlaces]);
 
-    return placeKindRoom;
-  };
+  if (!dataPlaces) {
+    return <div>Loading...</div>; // Hiển thị khi dữ liệu chưa tải xong
+  }
 
   return (
     <>
       <LayoutCustomer>
-        <div className="detailContent">
-          <section className="detailImg">
-            <div className="detailImg__title">
-              <h1>
-                <FontAwesomeIcon icon={faHouse} /> Phòng/nhà của bạn
-              </h1>
+        <div className="houseOwnerInfo pt-[140px] px-[100px] pb-14 d-flex">
+          <div className="houseOwnerInfo__places">
+            <div className="text-[20px] font-bold mb-[20px]">
+              Phòng/nhà của bạn
             </div>
-            <div className="detailImg__imgs">
-              <div className="detailImg__imgs__left">
-                <img src={`images/places/${dataPlace.image1}`} alt="" />
-              </div>
-              <div className="detailImg__imgs__right">
-                <div className="right-1">
-                  <img src={`images/places/${dataPlace.image2}`} alt="" />
-                  <img src={`images/places/${dataPlace.image3}`} alt="" />
-                </div>
-                <div className="right-2">
-                  <img src={`images/places/${dataPlace.image4}`} alt="" />
-                  <img src={`images/places/${dataPlace.image5}`} alt="" />
-                </div>
-              </div>
-            </div>
-          </section>
-          <section className="detailInfo">
-            <div className="row">
-              <div className="col-7">
-                <div className="detailInfo__left">
-                  <div className="detailInfo__head">
-                    <div className="detailInfo__title">{dataPlace.title}</div>
-                    <div className="detailInfo__quantity">
-                      <span className="quantity-guest">
-                        {dataPlace.area}m<sup>2</sup>
-                      </span>{" "}
-                      ·{" "}
-                      <span className="quantity-guest">
-                        {dataPlace.quantityPeople} khách
-                      </span>{" "}
-                      ·{" "}
-                      <span className="quantity-bedRoom">
-                        {dataPlace.quantityBedRoom} phòng ngủ
-                      </span>{" "}
-                      ·{" "}
-                      <span className="quantity-bathRoom">
-                        {dataPlace.quantityBath} phòng tắm
-                      </span>
-                    </div>
-                  </div>
-                  <div className="detailInfo__line"></div>
-                  <div className="detailInfo__comment">
-                    <div className="info-title">
-                      <h3>Cảm nghĩ của bạn về nơi này</h3>
-                    </div>
-                    <div className="comment-show">
-                      <div className="comment-avatar">
-                        <img src="images/user.jpg" alt="" />
-                      </div>
-                      <div className="comment-content">
-                        <div className="comment-text">
-                          <div className="comment-name">Trung Tín</div>
-                          Căn nhà rộng rãi, tất cả đều siêu sạch sẽ và được
-                          trang bị rất phong cách. Chủ nhà luôn thân thiện và
-                          chu đáo, đồng thời kín đáo. Tôi chắc chắn một ngày nào
-                          đó chúng tôi sẽ trở lại!
-                        </div>
-                        <div className="comment-action">
-                          <div className="comment-date">22/07/2024</div>
-                          <div className="comment-btn">
-                            <button className="btn-editCmt">Chỉnh sửa</button>
-                            <button className="btn-deleteCmt">Xóa</button>
-                          </div>
-                        </div>
+            <div className="d-flex flex-wrap gap-y-[30px]">
+              {dataPlaces.map((place: any, index: number) => {
+                let imageList = []
+                if (place.image) {
+                  imageList = JSON.parse(place.image)
+                }
+                return (
+                  <Link
+                    key={index}
+                    href={{
+                      pathname: "/detailPlace",
+                      query: { id: place.id },
+                    }}
+                    className="relative cursor-pointer flex w-[300px] mr-[18px] max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg"
+                  >
+                    <div
+                      className="relative mx-4 mt-4 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
+                      <Image
+                        src={`/images/places/${imageList[0]}`}
+                        alt="ui/ux review check"
+                        width={1000}
+                        height={1000}
+                        className="h-[200px] object-cover"
+                      />
+                      <div
+                        className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-tr from-transparent via-transparent to-black/60">
                       </div>
                     </div>
-                    <div className="comment-form">
-                      <form>
-                        <input type="text" placeholder="Viết bình luận..." />
-                        <button>Gửi bình luận</button>
-                      </form>
-                    </div>
-                  </div>
-                  <div className="detailInfo__line"></div>
-                  <div className="detailInfo__services">
-                    <div className="info-title">
-                      <h3>Nơi này có những gì cho bạn</h3>
-                    </div>
-                    <div className="services-detail">
-                      <div className="services-item">
-                        <div className="services-icon">
-                          <FontAwesomeIcon icon={faWifi} />
-                        </div>
-                        <div className="services-name">Wifi</div>
+                    <div className="py-3 px-6">
+                      <div className="flex items-center justify-between mb-2">
+                        <h5 className="block font-sans text-xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
+                          {place.title}
+                        </h5>
                       </div>
-                      <div className="services-item">
-                        <div className="services-icon">
-                          <FontAwesomeIcon icon={faWifi} />
-                        </div>
-                        <div className="services-name">Wifi</div>
-                      </div>
-                      <div className="services-item">
-                        <div className="services-icon">
-                          <FontAwesomeIcon icon={faWifi} />
-                        </div>
-                        <div className="services-name">Thang máy</div>
-                      </div>
-                      <div className="services-item">
-                        <div className="services-icon">
-                          <FontAwesomeIcon icon={faWifi} />
-                        </div>
-                        <div className="services-name">Bếp</div>
-                      </div>
-                      <div className="services-item">
-                        <div className="services-icon">
-                          <FontAwesomeIcon icon={faWifi} />
-                        </div>
-                        <div className="services-name">Máy giặt miễn phí</div>
-                      </div>
-                      <div className="services-item">
-                        <div className="services-icon">
-                          <FontAwesomeIcon icon={faWifi} />
-                        </div>
-                        <div className="services-name">Máy sấy miễn phí</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-5">
-                <div className="detailInfo__right">
-                  <div className="detailInfo__fixed">
-                    <div className="detailInfo__position">
-                      <div className="detailInfo__order">
-                        <div className="detailInfo__price">
-                          <span className="price-place">
-                            {new Intl.NumberFormat("de-DE").format(
-                              dataPlace.price
-                            )}
-                            đ
-                          </span>{" "}
-                          / tháng
-                        </div>
-                        <div className="timeOrder-numberMonth d-flex justify-between mb-[15px]">
-                          <div className="timeOrder-date font-bold">
-                            Số tháng thuê
-                          </div>
-                          <div className="timeOrder-number">
-                            <span className="number-month mx-[30px]">1</span>
-                          </div>
-                        </div>
-                        <div className="detailInfo__time">
-                          <div className="detailInfo__date date-start d-flex justify-between items-center mb-[15px]">
-                            <div className="date-title font-bold w-[35%]">
-                              Ngày bắt đầu
-                            </div>
-                            <div className="date-time">08/06/2024</div>
-                          </div>
-                          <div className="detailInfo__date date-end d-flex justify-between mb-[15px]">
-                            <div className="date-title font-bold">
-                              Ngày kết thúc
-                            </div>
-                            <div className="date-time">08/07/2024</div>
-                          </div>
-                        </div>
-                        <div className="detailInfo__quantityGuest d-flex justify-between mb-[20px]">
-                          <div className="guest-title font-bold">
-                            Số lượng khách tối đa
-                          </div>
-                          <div className="guest-number">
-                            {dataPlace.quantityPeople} khách
-                          </div>
-                        </div>
-                        <div className="detailInfo__btnOrder">
-                          <button className="btn-order">Hủy đặt phòng</button>
-                        </div>
-                      </div>
-                      <div className="detailInfo__warning">
-                        <div className="warning-logo">
-                          <img src="images/CS.png" alt="" />
-                        </div>
-                        <div className="warning-text">
-                          Để bảo vệ khoản thanh toán và quyền lợi của bạn, tuyệt
-                          đối không chuyển tiền hoặc liên lạc bên ngoài trang
-                          web CozyStay.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <div className="detailInfo__line"></div>
-          <section className="detailMap">
-            <div className="info-title">
-              <h3>Nơi bạn sẽ sống</h3>
-            </div>
-            <div className="detailMap__address">
-              Địa chỉ: {dataPlace.address}
-            </div>
-            <div className="detailMap__showMap">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.443980540085!2d106.62348867451811!3d10.853796757762948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752a20d8555e69%3A0x743b1e9558fb89e0!2sQTSC%209%20Building!5e0!3m2!1svi!2s!4v1718375141696!5m2!1svi!2s"
-                width="100%"
-                height="450"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </section>
-          <div className="detailInfo__line"></div>
-          <section className="detailPartner">
-            <div className="info-title">
-              <h3>Về chủ nhà</h3>
-            </div>
-            <div className="detailPartner__content">
-              <div className="detailPartner__info">
-                <div>
-                  <div className="detailPartner__personal">
-                    <div className="detailPartner__left">
-                      <div className="detailPartner__avatar">
-                        <img src="images/admin.jpg" alt="" />
-                      </div>
-                      <div className="detailPartner__name">Sarah Nguyen</div>
-                      <div className="detailPartner__role">
-                        Chủ nhà cho thuê
-                      </div>
-                    </div>
-                    <div className="detailPartner__right">
                       <div>
-                        <div className="detailPartner__confirm">
-                          <span>Thông tin đã xác minh</span>
-                        </div>
-                        <div className="detailPartner__confirm">
-                          <FontAwesomeIcon icon={faCheck} />{" "}
-                          <span>Danh tính</span>
-                        </div>
-                        <div className="detailPartner__confirm">
-                          <FontAwesomeIcon icon={faCheck} />{" "}
-                          <span>Địa chỉ email</span>
-                        </div>
-                        <div className="detailPartner__confirm mb-0">
-                          <FontAwesomeIcon icon={faCheck} />{" "}
-                          <span>Số điện thoại</span>
-                        </div>
+                        {/* Giới hạn văn bản hiển thị khi chưa mở rộng */}
+                        <p
+                          className={`block font-sans text-base antialiased font-light leading-relaxed text-gray-700 ${expandedIndex === index ? '' : 'line-clamp-2'}`}
+                        >
+                          {place.description}
+                        </p>
+
+                        {/* Nút "Xem tất cả" hoặc "Thu gọn" */}
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault(); // Ngăn hành vi mặc định
+                            e.stopPropagation(); // Ngăn chặn sự kiện click lan truyền
+                            toggleExpand(index); // Thay đổi trạng thái hiển thị văn bản
+                          }}
+                          className="text-blue-500 hover:text-blue-700 focus:outline-none"
+                        >
+                          {expandedIndex === index ? 'Thu gọn' : 'Xem tất cả'}
+                        </button>
                       </div>
                     </div>
-                  </div>
-                  <div className="detailPartner__intro">
-                    <div className="detailPartner__introTitle">
-                      Giới thiệu chủ nhà
+                    <div className="p-6 pt-3">
+                      {sttPlaces[place.id] === 0 ? <button
+                        className="block w-full select-none rounded-lg bg-color-red-button py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault(); // Ngăn hành vi mặc định
+                          e.stopPropagation(); // Ngăn chặn sự kiện click lan truyền
+                          RefundGenerate.canCelBill(place.id, idPlacesAndIdbill, emailCurentUser);
+                        }}
+                      >
+                        Hủy đặt phòng
+                      </button> : <button
+                        className="block w-full select-none rounded-lg bg-color-green-0 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        type="button">
+                        Đến trang chi tiết <FontAwesomeIcon icon={faArrowRight} />
+                      </button>
+                      }
                     </div>
-                    <div className="detailPartner__introText">
-                      Tôi thích đi du lịch và trải nghiệm cuộc sống ở những nơi
-                      tôi đến. Tôi nói tiếng Việt và tiếng Anh.Chỗ ở của chúng
-                      tôi nằm ở Quận Phú Nhuận. Cách sân bay Tân Sơn 5km.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="detailPartner__rulePlace">
-                <div className="detailPartner__title">Nội quy cho thuê</div>
-                <div className="detailPartner__allRule">
-                  <div className="detailPartner__item">
-                    <div className="detailPartner__icon">
-                      <FontAwesomeIcon icon={faArrowRight} />
-                    </div>
-                    <div className="detailPartner__rule">Tối đa 10 khách</div>
-                  </div>
-                  <div className="detailPartner__item">
-                    <div className="detailPartner__icon">
-                      <FontAwesomeIcon icon={faArrowRight} />
-                    </div>
-                    <div className="detailPartner__rule">
-                      Cho phép hút thuốc
-                    </div>
-                  </div>
-                  <div className="detailPartner__item">
-                    <div className="detailPartner__icon">
-                      <FontAwesomeIcon icon={faArrowRight} />
-                    </div>
-                    <div className="detailPartner__rule">
-                      Cho phép chụp ảnh vì mục đích thương mại
-                    </div>
-                  </div>
-                  <div className="detailPartner__item">
-                    <div className="detailPartner__icon">
-                      <FontAwesomeIcon icon={faArrowRight} />
-                    </div>
-                    <div className="detailPartner__rule">
-                      Không được tổ chức tiệc hoặc sự kiện
-                    </div>
-                  </div>
-                  <div className="detailPartner__item">
-                    <div className="detailPartner__icon">
-                      <FontAwesomeIcon icon={faArrowRight} />
-                    </div>
-                    <div className="detailPartner__rule">
-                      Không được phép mang theo thú cưng
-                    </div>
-                  </div>
-                </div>
-                <div className="detailPartner__warning">
-                  <div className="warning-logo">
-                    <img src="images/CS.png" alt="" />
-                  </div>
-                  <div className="warning-text">
-                    Để bảo vệ khoản thanh toán và quyền lợi của bạn, tuyệt đối
-                    không chuyển tiền hoặc liên lạc bên ngoài trang web
-                    CozyStay.
-                  </div>
-                </div>
-              </div>
+                  </Link>
+                );
+              })}
             </div>
-          </section>
+          </div>
         </div>
       </LayoutCustomer>
     </>

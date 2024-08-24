@@ -8,7 +8,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       if (req.query.idPlace) {
         await apiJoinConvenient.getJoinConvenient(req, res);
-      } else {
+      } else if (req.query.idArPlaces) {
+        await apiJoinConvenient.getArrayConvenient(req, res);
+      }
+      else {
         // Lấy tất cả các sản phẩm
         await apiJoinConvenient.getAllJoinConvenient(req, res);
       }

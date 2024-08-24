@@ -73,6 +73,24 @@ export default class ApiPlaces {
     }
   };
 
+  // Lấy dựa theo 1 mảng id
+  public getArrayPlaces = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      // Lấy mảng idPlace từ query string và chuyển đổi nó thành mảng số nguyên
+      const ids: number[] = JSON.parse(req.query.idPlaces as string);
+
+      // Gọi hàm fetchPlacesByIds với mảng ids
+      const resultPlaces = await Places.fetchPlacesByIds(ids);
+
+      // Trả kết quả places dưới dạng JSON
+      res.json({ places: resultPlaces });
+    } catch (error) {
+      // In lỗi ra console và trả về phản hồi lỗi
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
+    }
+  };
+
   // Lấy 1
   public getUserPlaces = async (req: NextApiRequest, res: NextApiResponse) => {
     try {

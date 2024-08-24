@@ -2982,3 +2982,12 @@ footer .footer-copyright .footer-social a i:hover {
   flex: 0 0 33%;
   transition: flex 0.3s ease;
 }
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* Số lượng dòng hiển thị */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

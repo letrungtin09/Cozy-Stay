@@ -23,6 +23,21 @@ export default class Bill {
     }
   }
 
+  // lấy theo idUser
+  static async fetchBillByIdUser(id: number) {
+    const sqlGetItem = `SELECT * FROM bill WHERE idUser  = ?`;
+    try {
+      const resultItem = await commonFunctions.handleDataBase(
+        db,
+        sqlGetItem,
+        id
+      );
+      return resultItem;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   // Lấy 1 theo id
   static async fetchOneBill(id: number) {
     const sqlGetItem = `SELECT * FROM bill WHERE id = ?`;
