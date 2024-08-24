@@ -22,6 +22,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       // Thêm một sản phẩm mới
       await apiBill.postaddBill(req, res);
       break;
+    case "PUT":
+      // Cập nhật một sản phẩm
+      await apiBill.changeStatusBill(req, res);
+      break;
     case "DELETE":
       // Xóa một sản phẩm
       await apiBill.deleteBill(req, res);

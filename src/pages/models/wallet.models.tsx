@@ -11,7 +11,7 @@ export default class Wallet {
       throw err;
     }
   }
-  // Lấy 1 
+  // Lấy 1
   static async fetchWalletbyId(id: number) {
     const sqlGetItem = `SELECT * FROM wallet WHERE id = ?`;
     try {
@@ -45,11 +45,19 @@ export default class Wallet {
     }
   }
   // Sửa wallet qr and role
-  static async putUpdateSuccessPayment(transactionType: number, linkQrId: string, id: number) {
+  static async putUpdateSuccessPayment(
+    transactionType: number,
+    linkQrId: string,
+    id: number
+  ) {
     const sql = `UPDATE wallet SET linkQr = '', transactionType = ? WHERE id = ? AND linkQrId = ?`;
     try {
-      const result = await commonFunctions.handleDataBase(db, sql, [transactionType, id, linkQrId]);
-      return result
+      const result = await commonFunctions.handleDataBase(db, sql, [
+        transactionType,
+        id,
+        linkQrId,
+      ]);
+      return result;
     } catch (err) {
       throw err;
     }
