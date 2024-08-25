@@ -14,6 +14,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
 import Link from 'next/link';
+import RefundGenerate from '@/lib/refund';
 
 
 export default function TableInforCheck({ dataPlace }: any) {
@@ -64,25 +65,6 @@ export default function TableInforCheck({ dataPlace }: any) {
         }
     }
 
-    const handleSendWallet = (numberId: any, status: any, moneyNumber: any) => {
-        const apiWallet: string = `${localUrl}/api/wallet`;
-        try {
-            if (idUser !== null) {
-                const dataWallet: any = {
-                    id: numberId,
-                    status: status,
-                    moneyNumber: moneyNumber
-                }
-                ApiFunctions.postData(apiWallet, dataWallet);
-            } else {
-                console.warn("ID User hoặc URL không có giá trị");
-            }
-        } catch (error) {
-            console.error("Lỗi khi gọi API:", error);
-
-        }
-    }
-
     const addForBill = async () => {
         if (!idUser) window.location.href = "/auth/login";
         const totalMoney = (dataPlace.price * monthNumberLease) + (dataPlace.price * monthNumberLease * 0.05);
@@ -108,7 +90,7 @@ export default function TableInforCheck({ dataPlace }: any) {
                 try {
                     const res = await ApiFunctions.postData(urlBill, dataBill);
                     if (res.thongbao) {
-                        await handleSendWallet(idUser, 0, totalMoney);
+                        await RefundGenerate.handleSendWallet(idUser, 0, totalMoney);
                         await minusTotalMoney(totalMoney);
                         window.location.href = `/myPlace`;
                     } else {
