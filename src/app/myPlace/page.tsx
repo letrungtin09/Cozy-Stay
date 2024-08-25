@@ -102,8 +102,13 @@ export default function Home() {
                     }}
                     className="relative cursor-pointer flex w-[300px] mr-[18px] max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg"
                   >
+                    {/* Mã số đơn hàng */}
+                    <div className="absolute top-0 left-0 mt-2 ml-2 text-sm font-semibold text-white bg-blue-500 py-1 px-3 rounded-lg">
+                      Mã số đơn: {idPlacesAndIdbill[place.id]}
+                    </div>
+
                     <div
-                      className="relative mx-4 mt-4 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
+                      className="relative mx-4 mt-12 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
                       <Image
                         src={`/images/places/${imageList[0]}`}
                         alt="ui/ux review check"
@@ -166,6 +171,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
       </LayoutCustomer>
     </>
   );

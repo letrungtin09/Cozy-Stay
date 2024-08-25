@@ -37,4 +37,23 @@ export default class ApiEmail {
                 .json({ error: "Đã xảy ra lỗi khi gửi email" });
         }
     };
+
+    public sendEmailAcceptController = async (req: NextApiRequest, res: NextApiResponse) => {
+        try {
+            let email = req.body.currentEmailNameAccept;
+            let idBill = req.body.idBill;
+            let dateStart = req.body.dateStart;
+            let dateEnd = req.body.dateEnd;
+            let code = req.body.code;
+            if (email) {
+                await EmailModels.sendEmailAcceptModels(email, idBill, dateStart, dateEnd, code);
+                res.status(200).json({ status: true, message: 'đã gửi email hoàn tiền' });
+            }
+        } catch (error) {
+            console.error(error);
+            res
+                .status(500)
+                .json({ error: "Đã xảy ra lỗi khi gửi email" });
+        }
+    };
 }

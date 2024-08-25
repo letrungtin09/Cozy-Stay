@@ -45,6 +45,20 @@ const handleSendEmail = async (email: any, idBill: number) => {
     await ApiFunctions.postData(urlSendEmail, dataEmail)
 };
 
+const handleSendEmailAccept = async (email: any, idBill: number) => {
+    const urlSendEmail: string = `${localUrl}/api/email`;
+    const urlBill: string = `${localUrl}/api/bill?id=${idBill}`;
+    const dataBill = await ApiFunctions.getData(urlBill)
+    const dataEmail: any = {
+        currentEmailNameAccept: email,
+        idBill: idBill,
+        dateStart: dataBill.bill[0].dateStart,
+        dateEnd: dataBill.bill[0].dateEnd,
+        code: dataBill.bill[0].code
+    };
+    await ApiFunctions.postData(urlSendEmail, dataEmail)
+};
+
 const canCelBill = async (idPlace: number, idPlacesAndIdbill: any) => {
     const emailCurentUser = UserCurrent.GetUserEmail();
     const userConfirmed = window.confirm(`Xác nhận hủy đơn hàng?`);
@@ -56,6 +70,6 @@ const canCelBill = async (idPlace: number, idPlacesAndIdbill: any) => {
         window.location.href = "/";
     }
 }
-const RefundGenerate = { canCelBill, handleSendEmail, handleSendWallet, handlePlusTotalMoney };
+const RefundGenerate = { canCelBill, handleSendEmail, handleSendWallet, handleSendEmailAccept };
 
 export default RefundGenerate;

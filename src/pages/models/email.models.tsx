@@ -66,4 +66,40 @@ export default class EmailModels {
         return info;
     }
 
+    static async sendEmailAcceptModels(email: string, idBill: number, dateStart: string, dateEnd: string, code: string) {
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // Use `true` for port 465, `false` for all other ports
+            auth: {
+                user: DataEmail.emailUserName,
+                pass: DataEmail.passEmail,
+            },
+        });
+        const info = await transporter.sendMail({
+            from: '"CozyStay" <duyttps26271@fpt.edu.vn>', // sender address
+            to: email, // list of receivers
+            subject: "[CozyStay] Thông báo yêu cầu thuê nhà của bạn đã được xác nhận", // Subject line
+            text: "Thuê nhà giá rẻ an tâm sức khỏe", // plain text body
+            html: `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+            <h2>Chào bạn,</h2>
+            <p>Chúng tôi vui mừng xác nhận rằng đơn hàng thuê nhà số ${idBill} của bạn đã được xác nhận thành công với các thông tin sau:</p>
+            <ul>
+                <li><strong>Ngày bắt đầu thuê:</strong> ${dateStart}</li>
+                <li><strong>Ngày kết thúc thuê:</strong> ${dateEnd}</li>
+                <li><strong>Mã code xác nhận:</strong> ${code}</li>
+                <li><strong>Thời gian nhận phòng:</strong> 12h trưa ngày ${dateStart}</li>
+            </ul>
+            <p>Vui lòng lưu lại mã code xác nhận để sử dụng khi nhận phòng.</p>
+            <p>Chúng tôi xin nhắc nhở bạn vui lòng tuân thủ các nội quy mà chủ nhà đã đặt ra trong suốt thời gian thuê. Điều này sẽ giúp đảm bảo trải nghiệm của bạn diễn ra suôn sẻ và tốt đẹp.</p>
+            <p>Nếu có bất kỳ câu hỏi hoặc yêu cầu hỗ trợ, đừng ngần ngại liên hệ với chúng tôi qua email hoặc số điện thoại chăm sóc khách hàng.</p>
+            <br>
+            <p>Trân trọng,</p>
+            <p>Đội ngũ CozyStay</p>
+        </div>
+        `
+        });
+        return info;
+    }
 }

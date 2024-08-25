@@ -11,6 +11,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 await apiEmail.sendEmailController(req, res);
             } else if (req.body.currentEmailNameRefund) {
                 await apiEmail.sendEmailRefundController(req, res);
+            } else if (req.body.currentEmailNameAccept) {
+                await apiEmail.sendEmailAcceptController(req, res);
             }
             break;
         default:
