@@ -24,21 +24,32 @@ export default class ApiComment {
     }
   };
 
+  // Lấy theo IdPlaces and idUser
+  public getCommentByIdPlaceAndIdUser = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const idPlace: number = parseInt(req.query.idPlaceAndIdUser as string);
+      const idUser: number = parseInt(req.query.idUser as string);
+      const resultPlaces = await Comment.fetchCommentByIdPlaceAndIdUser(idPlace, idUser);
+      res.json({ comment: resultPlaces });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
+    }
+  };
+
   // Thêm
   public postaddComment = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const idUser = req.body.idUser;
       const content = req.body.content;
-      const star = req.body.star;
       const idPlace = req.body.idPlace;
       const data = {
         idUser: idUser,
         content: content,
-        star: star,
         idPlace: idPlace,
       };
-      await Comment.addNewComment(data);
-      res.json({ thongbao: "Đã thêm Comment" });
+      const newCommentId = await Comment.addNewComment(data);
+      res.json({ success: "Đã thêm Comment", newCommentId });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Đã xảy ra lỗi khi thêm dữ liệu Comment" });
@@ -60,19 +71,10 @@ export default class ApiComment {
   // Update
   public updateComment = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const numberId: number = parseInt(req.query.id as string);
-      const idUser = req.body.idUser;
+      const numberId: number = parseInt(req.body.id as string);
       const content = req.body.content;
-      const star = req.body.star;
-      const idPlace = req.body.idPlace;
-      const data = {
-        idUser: idUser,
-        content: content,
-        star: star,
-        idPlace: idPlace,
-      };
-      await Comment.putUpDateComment(data, numberId);
-      res.json({ thongbao: "Đã cập nhật Comment" });
+      await Comment.putUpDateComment(content, numberId);
+      res.json({ success: "Đã cập nhật Comment" });
     } catch (error) {
       console.error(error);
       res
@@ -86,7 +88,7 @@ export default class ApiComment {
     try {
       const numberId: number = parseInt(req.query.id as string);
       await Comment.delComment(numberId);
-      res.json({ thongbao: "Đã xóa thành công" });
+      res.json({ success: "Đã xóa thành công" });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Đã xảy ra lỗi khi xóa dữ liệu Comment" });

@@ -8,6 +8,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       if (req.query.idPlace) {
         await apiComment.getCommentByIdPlaces(req, res);
+      } if (req.query.idPlaceAndIdUser) {
+        await apiComment.getCommentByIdPlaceAndIdUser(req, res);
       } else {
         // Lấy tất cả các sản phẩm
         await apiComment.getAllComment(req, res);

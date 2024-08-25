@@ -28,11 +28,30 @@ export default class Comment {
     }
   }
 
+  // lấy theo idPlaces and idUser
+  static async fetchCommentByIdPlaceAndIdUser(idPlace: number, idUser: number) {
+    const sqlGetItem = `SELECT * FROM comment WHERE idPlace = ? AND idUser = ?`;
+    try {
+      const resultItem = await commonFunctions.handleDataBase(
+        db,
+        sqlGetItem,
+        [idPlace, idUser]
+      );
+      return resultItem;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+
   // Thêm Comment
   static async addNewComment(data: any) {
     const sql = "INSERT INTO comment SET ?";
     try {
-      await commonFunctions.handleDataBase(db, sql, data);
+      const resultItem = await commonFunctions.handleDataBase(db, sql, data);
+      const commentId = resultItem.insertId; // MySQL trả về ID của dòng mới được thêm vào
+
+      return commentId;
     } catch (err) {
       throw err;
     }
@@ -54,10 +73,10 @@ export default class Comment {
   }
 
   // Sửa Comment
-  static async putUpDateComment(data: any, id: number) {
-    const sql = `UPDATE comment SET ? WHERE id = ${id}`;
+  static async putUpDateComment(content: string, id: number) {
+    const sql = `UPDATE comment SET content = ? WHERE id = ?`;
     try {
-      await commonFunctions.handleDataBase(db, sql, data);
+      await commonFunctions.handleDataBase(db, sql, [content, id]);
     } catch (err) {
       throw err;
     }

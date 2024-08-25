@@ -2991,3 +2991,10 @@ footer .footer-copyright .footer-social a i:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}

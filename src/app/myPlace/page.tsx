@@ -158,11 +158,13 @@ export default function Home() {
                         }}
                       >
                         Hủy đặt phòng
-                      </button> : <button
+                      </button> : <Link
+                        href={`/detailMyPlace?id=${place.id}`}
                         className="block w-full select-none rounded-lg bg-color-green-0 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                        type="button">
+                        type="button"
+                      >
                         Đến trang chi tiết <FontAwesomeIcon icon={faArrowRight} />
-                      </button>
+                      </Link>
                       }
                     </div>
                   </Link>
