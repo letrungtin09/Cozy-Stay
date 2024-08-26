@@ -6,29 +6,82 @@ import localUrl from "@/lib/const";
 import UserCurrent from "@/lib/currentUser";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+interface ImageData {
+  id: string;
+  link: string;
+  name: string;
+  status: string;
+  view: string;
+}
 
 export default function Home() {
   const id = UserCurrent.GetUserId();
-  const apiUser = `${localUrl}/api/user?idUser=${id}`;
   const apiCategory = `${localUrl}/api/category`;
   const apiPlace = `${localUrl}/api/places`;
   const [dataCategory, setDataCategory] = useState<any[]>([]);
-  const [dataUser, setDataUser] = useState<any>([]);
-  const [dataPlace, setDataPlace] = useState<any>([]);
+  const [dataImage, setDataImage] = useState<string>();
+  let postData: { name: string; type: string; data: string }[] = [];
+  const inputTitleRef = useRef<HTMLInputElement>(null);
+  const inputAddressRef = useRef<HTMLInputElement>(null);
+  const inputPriceRef = useRef<HTMLInputElement>(null);
+  const inputImgRef = useRef<HTMLInputElement>(null);
+  const inputIdCategoryRef = useRef<HTMLSelectElement>(null);
+  const inputKindRoomRef = useRef<HTMLSelectElement>(null);
+  const inputQuantityPeopleRef = useRef<HTMLInputElement>(null);
+  const inputQuantityBathPeopleRef = useRef<HTMLInputElement>(null);
+  const inputQuantityBedRoomPeopleRef = useRef<HTMLInputElement>(null);
+  const inputAreaRef = useRef<HTMLInputElement>(null);
+  const inputDescriptionRef = useRef<HTMLTextAreaElement>(null);
+  const inputLongitudePeopleRef = useRef<HTMLInputElement>(null);
+  const inputLatitudePeopleRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await ApiFunctions.getData(apiUser);
-        setDataUser(res.user[0]);
-      } catch (error) {
-        console.error(error);
+  const generateUniqueFilename = (originalName: string) => {
+    const timestamp = Date.now();
+    const extension = originalName.split('.').pop();
+    return `${timestamp}.${extension}`;
+  };
+
+  const handleFileChange = () => {
+    if (inputImgRef.current?.files) {
+      const fileList = inputImgRef.current.files;
+      const filesArray = Array.from(fileList);
+      filesArray.forEach((file: File) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.addEventListener("load", () => {
+          if (typeof reader.result === "string") {
+            const data = reader.result.split(",")[1];
+            postData.push({
+              name: generateUniqueFilename(file.name),
+              type: file.type,
+              data: data,
+            });
+          }
+        });
+      });
+    }
+  };
+
+  const postFile = async (postData: any) => {
+    try {
+      const response = await fetch(
+        "https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbwgpiLav-SfV7E-O-GhYq-DAGYdhWUP5XuMD-7rDLcv3wi97Nz8iUwhRW01pg0ZVidw/exec",
+        {
+          method: "POST",
+          body: JSON.stringify(postData),
+        }
+      );
+      const data = await response.json();
+      if (data && data.length > 0) {
+        const links = data.map((item: ImageData) => item.link);
+        const linksJson = JSON.stringify(links)
+        setDataImage(linksJson);
       }
-    };
-
-    fetchData();
-  }, [apiUser]);
+    } catch (error) {
+      alert("Vui lòng thử lại");
+    }
+  }
 
   useEffect(() => {
     const fetchDataCate = async () => {
@@ -43,77 +96,46 @@ export default function Home() {
     fetchDataCate();
   }, [apiCategory]);
 
-  const { values, handleChange } = useHandleChange({
-    address: "",
-    price: 0,
-    quantityPeople: 0,
-    image1: "",
-    image2: "",
-    image3: "",
-    image4: "",
-    image5: "",
-    longitude: "",
-    latitude: "",
-    status: 0,
-    description: "",
-    quantityBedRoom: 0,
-    quantityBath: 0,
-    area: 0,
-    kindRoom: 0,
-    title: "",
-    reservationKind: 1,
-    approveStatus: 1,
-    statusCancel: 0,
-    idUser: 0,
-    idCategory: 0,
-  });
+  const router = useRouter();
 
   useEffect(() => {
-    setDataPlace(values);
-  }, [values]);
+    const createPlace = async () => {
+      if (dataImage) {
+        const placeNew = {
+          address: inputAddressRef.current?.value,
+          price: inputPriceRef.current?.value,
+          quantityPeople: inputQuantityPeopleRef.current?.value,
+          image: dataImage,
+          longitude: inputLongitudePeopleRef.current?.value,
+          latitude: inputLatitudePeopleRef.current?.value,
+          description: inputDescriptionRef.current?.value,
+          quantityBedRoom: inputQuantityBedRoomPeopleRef.current?.value,
+          quantityBath: inputQuantityBathPeopleRef.current?.value,
+          area: inputAreaRef.current?.value,
+          kindRoom: inputKindRoomRef.current?.value,
+          title: inputTitleRef.current?.value,
+          idUser: id,
+          idCategory: inputIdCategoryRef.current?.value
+        };
+        console.log(dataImage)
+        console.log(placeNew)
 
-  const router = useRouter();
+        try {
+          await ApiFunctions.postData(apiPlace, placeNew);
+          alert("Thêm mới thành công !");
+          router.push(`/houseOwner/managePlaces?idUser=${id}`);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    createPlace();
+  }, [dataImage]);
 
   const addDataPlace = async (e: any) => {
     e.preventDefault();
-    const placeNew = {
-      address: dataPlace.address,
-      price: +dataPlace.price,
-      quantityPeople: +dataPlace.quantityPeople,
-      image1: "place1/image1.webp",
-      image2: "",
-      image3: "",
-      image4: "",
-      image5: "",
-      longitude: +dataPlace.longitude,
-      latitude: +dataPlace.latitude,
-      status: 0,
-      description: dataPlace.description,
-      quantityBedRoom: +dataPlace.quantityBedRoom,
-      quantityBath: +dataPlace.quantityBath,
-      area: +dataPlace.area,
-      kindRoom: +dataPlace.kindRoom,
-      title: dataPlace.title,
-      reservationKind: 1,
-      approveStatus: 0,
-      statusCancel: 0,
-      idUser: id,
-      idCategory: +dataPlace.idCategory,
-    };
-    console.log(placeNew);
-
-    try {
-      const res = await ApiFunctions.postData(apiPlace, placeNew)
-        .then(() => {
-          alert("Thêm mới thành công !");
-          router.push(`/houseOwner/managePlaces?idUser=${id}`);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } catch (error) {
-      console.error(error);
-    }
+    await postFile(postData);
   };
 
   return (
@@ -126,7 +148,7 @@ export default function Home() {
             </div>
             <div className="formInsertEdit__space"></div>
             <div className="formInsertEdit__content">
-              <form onSubmit={addDataPlace}>
+              <form>
                 <div className="formInsertEdit__item">
                   <label className="formInsertEdit__label">Mã số ID</label>
                   <br />
@@ -147,7 +169,7 @@ export default function Home() {
                     className="formInsertEdit__input"
                     type="text"
                     name="title"
-                    onChange={handleChange}
+                    ref={inputTitleRef}
                   />
                 </div>
                 <div className="formInsertEdit__item">
@@ -157,7 +179,7 @@ export default function Home() {
                     className="formInsertEdit__input"
                     type="text"
                     name="address"
-                    onChange={handleChange}
+                    ref={inputAddressRef}
                   />
                 </div>
                 <div className="formInsertEdit__item">
@@ -169,77 +191,40 @@ export default function Home() {
                     className="formInsertEdit__input"
                     type="text"
                     name="price"
-                    onChange={handleChange}
+                    ref={inputPriceRef}
                   />
                 </div>
-                {/* <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Hình ảnh 1</label>
-            <br />
-            <input
-              className="formInsertEdit__input"
-              type="text"
-              name="image1"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Hình ảnh 2</label>
-            <br />
-            <input
-              className="formInsertEdit__input"
-              type="text"
-              name="image2"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Hình ảnh 3</label>
-            <br />
-            <input
-              className="formInsertEdit__input"
-              type="text"
-              name="image3"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Hình ảnh 4</label>
-            <br />
-            <input
-              className="formInsertEdit__input"
-              type="text"
-              name="image4"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Hình ảnh 5</label>
-            <br />
-            <input
-              className="formInsertEdit__input"
-              type="text"
-              name="image5"
-              onChange={handleChange}
-            />
-          </div> */}
+                <div className="formInsertEdit__item">
+                  <label className="formInsertEdit__label">Hình ảnh</label>
+                  <br />
+                  <input
+                    className="formInsertEdit__input"
+                    type="file"
+                    name="image"
+                    onChange={handleFileChange}
+                    ref={inputImgRef}
+                    multiple
+                  />
+                </div>
+
                 <div className="formInsertEdit__item">
                   <label className="formInsertEdit__label">Chủ nhà</label>
                   <br />
-                  <select
+                  <input
                     className="formInsertEdit__input"
-                    name="idUser"
-                    onChange={handleChange}
-                  >
-                    <option value={id}>{id}</option>
-                  </select>
+                    type="text"
+                    name="image5"
+                    value={id}
+                  />
                 </div>
+
                 <div className="formInsertEdit__item">
                   <label className="formInsertEdit__label">Danh mục</label>
                   <br />
                   <select
                     className="formInsertEdit__input"
                     name="idCategory"
-                    onChange={handleChange}
+                    ref={inputIdCategoryRef}
                   >
                     <option value="0">Chọn danh mục</option>
                     {dataCategory.map((cate) => (
@@ -256,7 +241,7 @@ export default function Home() {
                   <select
                     className="formInsertEdit__input"
                     name="kindRoom"
-                    onChange={handleChange}
+                    ref={inputKindRoomRef}
                   >
                     <option value="">Chọn loại cho thuê</option>
                     <option value="0">Phòng</option>
@@ -274,7 +259,7 @@ export default function Home() {
                     className="formInsertEdit__input"
                     type="text"
                     name="quantityPeople"
-                    onChange={handleChange}
+                    ref={inputQuantityPeopleRef}
                   />
                 </div>
                 <div className="formInsertEdit__item">
@@ -286,7 +271,7 @@ export default function Home() {
                     className="formInsertEdit__input"
                     type="text"
                     name="quantityBath"
-                    onChange={handleChange}
+                    ref={inputQuantityBathPeopleRef}
                   />
                 </div>
                 <div className="formInsertEdit__item">
@@ -298,7 +283,7 @@ export default function Home() {
                     className="formInsertEdit__input"
                     type="text"
                     name="quantityBedRoom"
-                    onChange={handleChange}
+                    ref={inputQuantityBedRoomPeopleRef}
                   />
                 </div>
                 <div className="formInsertEdit__item">
@@ -310,7 +295,7 @@ export default function Home() {
                     className="formInsertEdit__input"
                     type="text"
                     name="area"
-                    onChange={handleChange}
+                    ref={inputAreaRef}
                   />
                 </div>
                 <div className="formInsertEdit__item">
@@ -321,7 +306,7 @@ export default function Home() {
                     name="description"
                     cols={100}
                     rows={5}
-                    onChange={handleChange}
+                    ref={inputDescriptionRef}
                   ></textarea>
                 </div>
                 <div className="formInsertEdit__item">
@@ -331,7 +316,7 @@ export default function Home() {
                     className="formInsertEdit__input"
                     type="text"
                     name="longitude"
-                    onChange={handleChange}
+                    ref={inputLongitudePeopleRef}
                   />
                 </div>
                 <div className="formInsertEdit__item">
@@ -341,19 +326,19 @@ export default function Home() {
                     className="formInsertEdit__input"
                     type="text"
                     name="latitude"
-                    onChange={handleChange}
+                    ref={inputLatitudePeopleRef}
                   />
                 </div>
 
                 <div className="formInsertEdit__item formInsertEdit__btn">
-                  <button name="btn-insert" className="btn-form" id="btnInsert">
+                  <button name="btn-insert" className="btn-form" id="btnInsert" onClick={addDataPlace}>
                     Thêm mới
                   </button>
                   <button type="reset" className="btn-form">
                     Nhập lại
                   </button>
                   <Link
-                    href={`/houseOwner/managePlaces?idUser=${id}`}
+                    href={`/houseOwner/managePlaces`}
                     className="btn-form"
                   >
                     Danh sách

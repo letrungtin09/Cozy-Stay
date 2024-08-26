@@ -60,6 +60,8 @@ export default function HeaderHouseOwner() {
                     width={500}
                     height={500}
                     className="account-icon icon-header"
+                    width={100}
+                    height={100}
                   />
                   <Image
                     src="/images/icon-menu.png"
@@ -71,7 +73,7 @@ export default function HeaderHouseOwner() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href="/">
+                  <Dropdown.Item href={`/`}>
                     Chuyển sang chế độ thuê
                   </Dropdown.Item>
                   <Dropdown.Item href="/updateAccount">
