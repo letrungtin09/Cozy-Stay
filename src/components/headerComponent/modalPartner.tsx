@@ -1,9 +1,7 @@
 import * as React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowRightFromBracket,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 export const ModalPartner = ({ isOpen, onClose, id, idUser }: any) => {
   if (!isOpen) return null;
   const removeSession = () => {

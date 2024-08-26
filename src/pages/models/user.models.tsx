@@ -59,6 +59,7 @@ export default class User {
       throw err;
     }
   }
+
   // Nạp thêm tiền
   static async putSuccessTotalMoney(moneyChange: number, id: number) {
     const sql = `UPDATE user SET totalMoney = totalMoney + ? WHERE id = ?`;

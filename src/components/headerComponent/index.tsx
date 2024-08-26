@@ -143,7 +143,7 @@ export default function HeaderComponent() {
                 />
               </button>
             </div>
-            <div className="search-local h-[45%] btn-header !border-[#000]">
+            <div className="search-local h-[45%] btn-header !border-[#000] duration-200 hover:bg-color-green-0">
               <Link
                 href={{
                   pathname: "/searchPlace",
@@ -151,13 +151,15 @@ export default function HeaderComponent() {
                 onClick={() => searchAddressUser()}
               >
                 <FontAwesomeIcon icon={faLocationDot} />
-                <p>Địa điểm gần bạn</p>
+                <p className="leading-[1.2]">
+                  Các địa điểm tại khu vực của bạn
+                </p>
               </Link>
             </div>
           </div>
           <div className="col col-3">
             {roleUser !== 2 && roleUser !== 1 && (
-              <div className="register-host h-[45%] btn-header">
+              <div className="register-host h-[45%] btn-header duration-200 hover:!bg-color-green-2">
                 <Link className="d-flex items-center" href={"/cozySetup"}>
                   <FontAwesomeIcon icon={faHouseUser} />
                   <p>Trở thành chủ nhà</p>

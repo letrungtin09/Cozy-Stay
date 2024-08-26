@@ -12,6 +12,7 @@ import {
   faChartLine,
   faChartSimple,
   faUser,
+  faComment,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
@@ -74,6 +75,12 @@ const SideBarAdmin = () => {
             </Link>
           </li>
           <li>
+            <Link className="cateAdmin" href="/admin/adminComment">
+              <FontAwesomeIcon icon={faComment} />
+              <span>Bình luận</span>
+            </Link>
+          </li>
+          <li>
             <Link className="cateAdmin" href="/admin/adminConvenient">
               <FontAwesomeIcon icon={faReceipt} /> <span>Tiện nghi</span>
             </Link>
@@ -85,11 +92,6 @@ const SideBarAdmin = () => {
             </Link>
           </li>
         </ul>
-      </div>
-      <div className="btn-admin">
-        <Link className="btn--home" href="/">
-          Quay lại trang chủ
-        </Link>
       </div>
     </div>
   );

@@ -99,18 +99,14 @@ export default function Home() {
             <div className="houseOwnerInfo__personal__bottom">
               <div className="houseOwnerInfo__personal__des">
                 <div className="font-bold mb-[5px]">Giới thiệu chủ nhà</div>
-                <div className="text-justify">
-                  Tôi thích đi du lịch và trải nghiệm cuộc sống ở những nơi tôi
-                  đến. Tôi nói tiếng Việt và tiếng Anh.Chỗ ở của chúng tôi nằm ở
-                  Quận Phú Nhuận. Cách sân bay Tân Sơn 5km.
-                  {dataUser.info}
-                </div>
+                <div className="text-justify">{dataUser.info}</div>
               </div>
             </div>
           </div>
           <div className="houseOwnerInfo__places w-[67%]">
             <div className="text-[20px] font-bold mb-[20px]">
-              Mục cho thuê của {dataUser.userName}
+              Mục cho thuê của{" "}
+              <span className="text-color-green-2">{dataUser.userName}</span>
             </div>
             <div className="d-flex justify-between flex-wrap gap-y-[30px]">
               {dataPlace.map((place) => {
