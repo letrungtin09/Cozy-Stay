@@ -4,9 +4,15 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import UserCurrent from "@/lib/currentUser";
+import Image from "next/image";
 
 export default function HeaderHouseOwner() {
   const id = UserCurrent.GetUserId();
+  const avatar = UserCurrent.GetUserAvatar();
+  const removeSession = () => {
+    sessionStorage.removeItem("currentUser");
+    window.location.href = "/auth/login";
+  };
   return (
     <>
       <header className="header-houserholder">
@@ -17,7 +23,13 @@ export default function HeaderHouseOwner() {
                 pathname: "/houseOwner/managePlaces",
               }}
             >
-              <img className="logo-hd" src="images/CozyStay.png" alt="" />
+              <Image
+                className="logo-hd"
+                src="/images/CozyStay.png"
+                width={500}
+                height={500}
+                alt="logo"
+              />
             </Link>
           </div>
           <div className="col col-2">
@@ -42,14 +54,18 @@ export default function HeaderHouseOwner() {
             <div className="dropdown-header btn-height">
               <Dropdown>
                 <Dropdown.Toggle>
-                  <img
-                    src="images/icon-user.png"
-                    alt=""
+                  <Image
+                    src={`/images/${avatar}`}
+                    alt="avatarHouseOwner"
+                    width={500}
+                    height={500}
                     className="account-icon icon-header"
                   />
-                  <img
-                    src="images/icon-menu.png"
-                    alt=""
+                  <Image
+                    src="/images/icon-menu.png"
+                    alt="menu"
+                    width={500}
+                    height={500}
                     className="account-menu icon-header"
                   />
                 </Dropdown.Toggle>
@@ -64,7 +80,7 @@ export default function HeaderHouseOwner() {
                   <Dropdown.Item href="/changePassword">
                     Đổi mật khẩu
                   </Dropdown.Item>
-                  <Dropdown.Item href="#/action-6">
+                  <Dropdown.Item onClick={removeSession}>
                     Đăng xuất <FontAwesomeIcon icon={faArrowRightFromBracket} />
                   </Dropdown.Item>
                 </Dropdown.Menu>

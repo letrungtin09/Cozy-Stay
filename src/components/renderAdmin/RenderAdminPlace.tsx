@@ -158,7 +158,7 @@ const RenderAdminPlace = () => {
                 <td>{place.quantityBedRoom} phòng</td>
 
                 {/* <td className="place-des">{place.description}</td> */}
-                <td>{place.longitude}</td>
+                <td>{place.longtitude}</td>
                 <td>{place.latitude}</td>
                 <td>
                   {place.status == 0 ? "Chưa có người ở" : "Đang có người ở"}
@@ -189,10 +189,6 @@ const RenderAdminPlace = () => {
                       <FontAwesomeIcon icon={faCircleXmark} />
                       Xóa
                     </button>
-                    {/* <a className="btn--operation btn--detail" href="#">
-                    <FontAwesomeIcon icon={faCircleInfo} />
-                    Chi tiết
-                  </a> */}
                   </div>
                 </td>
               </tr>

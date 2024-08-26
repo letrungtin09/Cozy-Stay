@@ -115,12 +115,8 @@ const FormUpdatePlace = () => {
     address: "",
     price: 0,
     quantityPeople: 0,
-    image1: "",
-    image2: "",
-    image3: "",
-    image4: "",
-    image5: "",
-    longitude: "",
+    image: "",
+    longtitude: "",
     latitude: "",
     description: "",
     quantityBedRoom: 0,
@@ -145,12 +141,8 @@ const FormUpdatePlace = () => {
       address: values.address,
       price: +values.price,
       quantityPeople: +values.quantityPeople,
-      image1: "",
-      image2: "",
-      image3: "",
-      image4: "",
-      image5: "",
-      longitude: +values.longitude,
+      image: "",
+      longtitude: +values.longtitude,
       latitude: +values.latitude,
       description: values.description,
       quantityBedRoom: +values.quantityBedRoom,
@@ -162,8 +154,6 @@ const FormUpdatePlace = () => {
       idUser: +values.idUser,
       idCategory: +values.idCategory,
     };
-    console.log(placeUpdate);
-
     try {
       const res = await ApiFunctions.putData(apiPlace, placeUpdate)
         .then(() => {
@@ -373,7 +363,7 @@ const FormUpdatePlace = () => {
               className="formInsertEdit__input"
               type="text"
               name="longitude"
-              value={values.longitude}
+              value={values.longtitude}
               onChange={handleChange}
             />
           </div>
