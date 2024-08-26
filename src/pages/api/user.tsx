@@ -22,8 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "PUT":
       if (req.body.moneyChange) {
         await apiUser.updateTotalMoney(req, res);
-      }
-      else if (req.body.moneyRental) {
+      } else if (req.body.moneyRental) {
         // Cập nhật một sản phẩm
         await apiUser.updateMinusMoney(req, res);
       }

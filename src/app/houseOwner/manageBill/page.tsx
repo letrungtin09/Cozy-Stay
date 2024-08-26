@@ -11,6 +11,7 @@ import { Tab } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import RefundGenerate from "@/lib/refund";
 
 export default function Home() {
   const id = UserCurrent.GetUserId();
@@ -19,6 +20,7 @@ export default function Home() {
   const [dataPlaces, setDataPlaces] = useState<any[]>([]);
   const [dataBill, setDataBill] = useState<any[]>([]);
   const [dataBillById, setDataBillById] = useState<any>([]);
+  const [dataEmail, setDataEmail] = useState<any>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +60,7 @@ export default function Home() {
       moneyChange: moneyChange,
     };
     try {
-      const res = await ApiFunctions.putData(apiUser, dataUser);
+      await ApiFunctions.putData(apiUser, dataUser);
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +73,7 @@ export default function Home() {
       moneyChange: moneyChange,
     };
     try {
-      const res = await ApiFunctions.putData(apiUser, dataUser);
+      await ApiFunctions.putData(apiUser, dataUser);
     } catch (error) {
       console.log(error);
     }
@@ -82,41 +84,37 @@ export default function Home() {
     try {
       const res = await ApiFunctions.getData(apiBill);
       setDataBillById(res.bill);
+      return res.bill;
     } catch (error) {
       console.log(error);
     }
   };
 
-  const updateWallet = async (data: any) => {
-    const apiWallet = `${localUrl}/api/wallet`;
+  const getEmailUser = async (idUser: any) => {
+    const apiUser = `${localUrl}/api/user?id=${idUser}`;
     try {
-      const res = await ApiFunctions.postData(apiWallet, data);
+      const res = await ApiFunctions.getData(apiUser);
+      setDataEmail(res.user[0].email);
+      return res.user[0].email;
     } catch (error) {
       console.log(error);
     }
   };
 
   const confirmStatusBill = async (id: any) => {
-    const idUser = UserCurrent.GetUserId();
     const apiBill = `${localUrl}/api/bill?id=${id}`;
     const statusBill = {
       status: 1,
     };
     try {
-      const infoBill = await getBillById(id).then(() => {
-        const moneyChange = dataBillById[0].total - dataBillById[0].serviceFee;
-        updateMoneyPartner(moneyChange);
-        // const dataWallet = {
-        //   changeMoney: moneyChange,
-        //   transactionType: 1,
-        //   idUser: idUser,
-        // };
-        // updateWallet(dataWallet);
-      });
-      const res = await ApiFunctions.putData(apiBill, statusBill).then(() => {
-        alert("Xác nhận thành công !");
-        location.reload();
-      });
+      const bill = await getBillById(id);
+      const moneyChange = bill[0].total - bill[0].serviceFee;
+      await updateMoneyPartner(moneyChange);
+      const email = await getEmailUser(bill[0].idUser);
+      RefundGenerate.handleSendEmailAccept(email, id);
+      await ApiFunctions.putData(apiBill, statusBill);
+      alert("Xác nhận thành công !");
+      location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -124,19 +122,16 @@ export default function Home() {
 
   const cancelBill = async (id: any) => {
     const apiBill = `${localUrl}/api/bill?id=${id}`;
-    const statusBill = {
-      status: 2,
-    };
     try {
-      const infoBill = await getBillById(id).then(() => {
-        const moneyChange = dataBillById[0].total;
-        const userId = dataBillById[0].idUser;
-        updateMoneyUser(moneyChange, userId);
-      });
-      const res = await ApiFunctions.putData(apiBill, statusBill).then(() => {
-        alert("Hủy đơn thành công !");
-        location.reload();
-      });
+      const bill = await getBillById(id);
+      const moneyChange = bill[0].total;
+      const idUser = bill[0].idUser;
+      await updateMoneyUser(moneyChange, idUser);
+      const email = await getEmailUser(bill[0].idUser);
+      RefundGenerate.handleSendEmail(email, id);
+      await ApiFunctions.deleteData(apiBill);
+      alert("Hủy đơn thành công !");
+      location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -164,7 +159,6 @@ export default function Home() {
                 >
                   <Tab label="Đơn yêu cầu đặt chỗ" value="1" />
                   <Tab label="Đơn đã xác nhận" value="2" />
-                  <Tab label="Đơn đã hủy" value="3" />
                 </TabList>
                 <TabPanel value="1" className="px-0">
                   <table className="table table-list-house table-hover">
@@ -328,81 +322,6 @@ export default function Home() {
                                     <span className="text-green-700">
                                       Đã xác nhận
                                     </span>
-                                  </td>
-                                </tr>
-                              </>
-                            ) : (
-                              <></>
-                            )
-                          ) : (
-                            <></>
-                          )
-                        )
-                      )}
-                    </tbody>
-                  </table>
-                </TabPanel>
-                <TabPanel value="3">
-                  <table className="table table-list-house table-hover">
-                    <thead>
-                      <tr>
-                        <th className="text-center" scope="col">
-                          ID
-                        </th>
-                        <th className="text-center" scope="col">
-                          ĐỊA CHỈ
-                        </th>
-                        <th className="text-center" scope="col">
-                          NGÀY LẬP ĐƠN
-                        </th>
-                        <th className="text-center" scope="col">
-                          NGÀY BẮT ĐẦU
-                        </th>
-                        <th className="text-center" scope="col">
-                          NGÀY KẾT THÚC
-                        </th>
-                        <th className="text-center" scope="col">
-                          SỐ THÁNG THUÊ
-                        </th>
-                        <th className="text-center" scope="col">
-                          TỔNG TIỀN
-                        </th>
-                        <th className="text-center" scope="col">
-                          TRẠNG THÁI
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="s">
-                      {dataBill.map((bill) =>
-                        dataPlaces.map((place) =>
-                          bill.idPlace == place.id ? (
-                            bill.status == 2 ? (
-                              <>
-                                <tr key={bill.id}>
-                                  <td className="text-center">{bill.id}</td>
-                                  <td className="text-center">
-                                    {place.address}
-                                  </td>
-                                  <td className="text-center">
-                                    {bill.dateOrder}
-                                  </td>
-                                  <td className="text-center">
-                                    {bill.dateStart}
-                                  </td>
-                                  <td className="text-center">
-                                    {bill.dateEnd}
-                                  </td>
-                                  <td className="text-center">
-                                    {bill.rentalMonth}
-                                  </td>
-                                  <td className="text-center">
-                                    {new Intl.NumberFormat("de-DE").format(
-                                      bill.total
-                                    )}
-                                    đ
-                                  </td>
-                                  <td className="text-center font-bold ">
-                                    <span className="text-red-700">Đã hủy</span>
                                   </td>
                                 </tr>
                               </>
