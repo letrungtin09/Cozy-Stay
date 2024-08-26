@@ -95,7 +95,10 @@ export default class ApiUser {
   };
 
   // Update TotalMoney
-  public updateTotalMoney = async (req: NextApiRequest, res: NextApiResponse) => {
+  public updateTotalMoney = async (
+    req: NextApiRequest,
+    res: NextApiResponse
+  ) => {
     try {
       let numberId: number = parseInt(req.body.id as string);
       let moneyChange: number = req.body.moneyChange as number;
@@ -108,7 +111,10 @@ export default class ApiUser {
   };
 
   // Update TotalMoney
-  public updateMinusMoney = async (req: NextApiRequest, res: NextApiResponse) => {
+  public updateMinusMoney = async (
+    req: NextApiRequest,
+    res: NextApiResponse
+  ) => {
     try {
       let numberId: number = parseInt(req.body.id as string);
       let moneyChange: number = req.body.moneyRental as number;
@@ -126,7 +132,7 @@ export default class ApiUser {
       const numberId: number = parseInt(req.query.id as string);
       const password = req.body.password;
       const data = {
-        password: password
+        password: password,
       };
       await User.putUpDateUser(data, numberId);
       res.json({ thongbao: "Đã cập nhật password" });

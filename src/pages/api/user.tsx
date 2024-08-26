@@ -9,10 +9,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (req.query.id) {
         await apiUser.getUser(req, res);
       } else if (req.query.all) {
-        await apiUser.getAllUser(req, res);
+        await apiUser.getAllPartner(req, res);
       } else {
         // Lấy tất cả các sản phẩm
-        await apiUser.getAllPartner(req, res);
+        await apiUser.getAllUser(req, res);
       }
       break;
     case "POST":
@@ -22,10 +22,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "PUT":
       if (req.body.moneyChange) {
         await apiUser.updateTotalMoney(req, res);
-      }
-      else if (req.body.moneyRental) {
+      } else if (req.body.moneyRental) {
         // Cập nhật một sản phẩm
         await apiUser.updateMinusMoney(req, res);
+      } else if (req.body.password) {
+        await apiUser.updatePassWord(req, res);
+      } else {
+        await apiUser.updateUser(req, res);
       }
       break;
     case "DELETE":

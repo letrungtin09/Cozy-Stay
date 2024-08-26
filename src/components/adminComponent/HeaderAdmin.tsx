@@ -11,6 +11,10 @@ import {
 import Script from "next/script";
 
 const HeaderAdmin = () => {
+  const removeSession = () => {
+    sessionStorage.removeItem("currentUser");
+    window.location.href = "/auth/login";
+  };
   return (
     <div className="header-admin">
       <div className="header-form">
@@ -53,9 +57,9 @@ const HeaderAdmin = () => {
             </a>
           </li>
           <li>
-            <a className="dropdown-item" href="#">
+            <button className="dropdown-item" onClick={removeSession}>
               <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
-            </a>
+            </button>
           </li>
         </ul>
       </div>

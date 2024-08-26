@@ -15,11 +15,17 @@ export default class Places {
 
   static async fetchPlacesByIds(ids: number[]) {
     // Tạo câu truy vấn SQL với điều kiện id nằm trong mảng ids
-    const sqlGetItems = `SELECT * FROM places WHERE id IN (${ids.map(() => '?').join(',')})`;
+    const sqlGetItems = `SELECT * FROM places WHERE id IN (${ids
+      .map(() => "?")
+      .join(",")})`;
 
     try {
       // Thực thi truy vấn với mảng ids
-      const resultItems = await commonFunctions.handleDataBase(db, sqlGetItems, ids);
+      const resultItems = await commonFunctions.handleDataBase(
+        db,
+        sqlGetItems,
+        ids
+      );
       return resultItems;
     } catch (err) {
       throw err;
@@ -50,7 +56,7 @@ export default class Places {
       throw err;
     }
   }
-  // lấy theo cateid 
+  // lấy theo cateid
   static async fetchIdCatePlaces(id: number) {
     const sqlGetItem = `SELECT * FROM places WHERE idCategory  = ?`;
     try {
@@ -84,6 +90,18 @@ export default class Places {
     const sql = `UPDATE places SET ? WHERE id = ${id}`;
     try {
       await commonFunctions.handleDataBase(db, sql, data);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  //Tìm kiếm places
+  static async searchPlaces(keyword: any) {
+    const sql = `SELECT * FROM places WHERE title LIKE ? OR address LIKE ?`;
+    const params = [`%${keyword}%`, `%${keyword}%`];
+    try {
+      const results = await commonFunctions.handleDataBase(db, sql, params);
+      return results;
     } catch (err) {
       throw err;
     }

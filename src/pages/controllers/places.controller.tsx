@@ -159,6 +159,18 @@ export default class ApiPlaces {
     }
   };
 
+  // Tìm kiếm
+  public searchPlaces = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const keyword: any = req.query.keyword;
+      const resultPlaces = await Places.searchPlaces(keyword);
+      res.json({ places: resultPlaces });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Places" });
+    }
+  };
+
   // Delete
   public deletePlaces = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
