@@ -18,7 +18,7 @@ export default function Home() {
       try {
         const res = await ApiFunctions.getData(apiPlaces);
         const dataRes = res.places;
-        console.log(dataRes)
+        console.log(dataRes);
         const sortData = dataRes.sort(function (a: any, b: any) {
           return b.id - a.id;
         });
@@ -149,7 +149,7 @@ export default function Home() {
                           <button className="mr-[5px]">
                             <Link
                               className=" bg-blue-600 px-3 py-2.5 text-color-white-0 rounded-lg"
-                              href={`/houseOwner/updatePlace?id=${place.id}&idUser=${id}&idPlace=${place.id}`}
+                              href={`/houseOwner/updatePlace?idUser=${id}&idPlace=${place.id}`}
                             >
                               Sửa
                             </Link>

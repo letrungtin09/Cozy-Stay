@@ -87,6 +87,42 @@ export default class Bill {
     }
   }
 
+  // Thống kê thu nhập theo tháng
+  static async staticsTotalBill() {
+    const sqlItem = `SELECT DATE_FORMAT(dateOrder, '%m') AS month, SUM((total - serviceFee)) AS total_amount FROM bill GROUP BY DATE_FORMAT(dateOrder, '%m') ORDER BY month;`;
+
+    try {
+      const resultItems = await commonFunctions.getDataBase(db, sqlItem);
+      return resultItems;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  // Thống kê phí theo tháng
+  static async staticsFeeBill() {
+    const sqlItem = `SELECT DATE_FORMAT(dateOrder, '%m') AS month, SUM(serviceFee) AS total_amount FROM bill GROUP BY DATE_FORMAT(dateOrder, '%m') ORDER BY month;`;
+
+    try {
+      const resultItems = await commonFunctions.getDataBase(db, sqlItem);
+      return resultItems;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  // Thống kê đơn theo tháng
+  static async staticsOrderBill() {
+    const sqlItem = `SELECT DATE_FORMAT(dateOrder, '%m') AS month, COUNT(id) AS total_amount FROM bill GROUP BY DATE_FORMAT(dateOrder, '%m') ORDER BY month;`;
+
+    try {
+      const resultItems = await commonFunctions.getDataBase(db, sqlItem);
+      return resultItems;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   // Xóa Bill
   static async delBill(id: number) {
     const sqlDeleteData = `DELETE FROM bill WHERE id=?`;

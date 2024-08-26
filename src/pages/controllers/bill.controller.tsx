@@ -12,8 +12,47 @@ export default class ApiBill {
     }
   };
 
+  //Thống kê
+  public staticsBill = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const resultBill = await Bill.staticsTotalBill();
+      res.json({ bill: resultBill });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Bill" });
+    }
+  };
+
+  //Thống kê
+  public staticsFeeBill = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const resultBill = await Bill.staticsFeeBill();
+      res.json({ bill: resultBill });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Bill" });
+    }
+  };
+
+  //Thống kê
+  public staticsOrderBill = async (
+    req: NextApiRequest,
+    res: NextApiResponse
+  ) => {
+    try {
+      const resultBill = await Bill.staticsOrderBill();
+      res.json({ bill: resultBill });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Đã xảy ra lỗi khi lấy dữ liệu Bill" });
+    }
+  };
+
   // Lấy theo IdUser
-  public getBillByIdUser = async (req: NextApiRequest, res: NextApiResponse) => {
+  public getBillByIdUser = async (
+    req: NextApiRequest,
+    res: NextApiResponse
+  ) => {
     try {
       const idUserAll: number = parseInt(req.query.idUserAll as string);
       const resultPlaces = await Bill.fetchBillByIdUser(idUserAll);

@@ -13,6 +13,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       } else if (req.query.idUserAll) {
         // Lấy theo user
         await apiBill.getBillByIdUser(req, res);
+      } else if (req.query.statics) {
+        await apiBill.staticsBill(req, res);
+      } else if (req.query.fee) {
+        await apiBill.staticsFeeBill(req, res);
+      } else if (req.query.order) {
+        await apiBill.staticsOrderBill(req, res);
       } else {
         // Lấy tất cả các sản phẩm
         await apiBill.getAllBill(req, res);

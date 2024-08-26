@@ -5,17 +5,17 @@ import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
 import { faJoint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function Home() {
   const searchParams = useSearchParams();
-  const id = searchParams!.get("id");
   const idUser = searchParams!.get("idUser");
   const idPlace = searchParams!.get("idPlace");
   const apiCategory = `${localUrl}/api/category`;
-  const apiPlace = `${localUrl}/api/places?id=${id}`;
+  const apiPlace = `${localUrl}/api/places?id=${idPlace}`;
   const apiUser = `${localUrl}/api/user?idUser=${idUser}`;
   const apiJoinConvenient = `${localUrl}/api/joinConvenient?idPlace=${idPlace}`;
   const apiConvenient = `${localUrl}/api/convenient`;
@@ -160,12 +160,8 @@ export default function Home() {
     address: "",
     price: 0,
     quantityPeople: 0,
-    image1: "",
-    image2: "",
-    image3: "",
-    image4: "",
-    image5: "",
-    longitude: "",
+    image: "",
+    longtitude: "",
     latitude: "",
     description: "",
     quantityBedRoom: 0,
@@ -190,12 +186,8 @@ export default function Home() {
       address: values.address,
       price: +values.price,
       quantityPeople: +values.quantityPeople,
-      image1: "place1/image1.webp",
-      image2: "",
-      image3: "",
-      image4: "",
-      image5: "",
-      longitude: +values.longitude,
+      image: values.image,
+      longtitude: +values.longtitude,
       latitude: +values.latitude,
       description: values.description,
       quantityBedRoom: +values.quantityBedRoom,
@@ -405,7 +397,7 @@ export default function Home() {
                   className="formInsertEdit__input"
                   type="text"
                   name="longitude"
-                  value={values.longitude}
+                  value={values.longtitude}
                   onChange={handleChange}
                 />
               </div>
@@ -435,7 +427,7 @@ export default function Home() {
                 <div className="manageConvenient mt-2">
                   <Link
                     className="px-5 py-2 bg-color-green-0 text-color-white-0 rounded-md transition-all font-bold hover:bg-color-green-2"
-                    href={`/houseOwner/addConvenient?idPlace=${idPlace}`}
+                    href={`/houseOwner/addConvenient?idUser=${idUser}&idPlace=${idPlace}`}
                   >
                     Thêm tiện nghi
                   </Link>
@@ -449,10 +441,12 @@ export default function Home() {
                             className="addConvenient__item w-50% mb-3 d-flex items-center"
                             key={join.id}
                           >
-                            <img
+                            <Image
                               className="w-6"
-                              src={`images/iconSvg/iconConvenient/${con.icon}`}
-                              alt=""
+                              width={500}
+                              height={500}
+                              src={`/images/iconSvg/iconConvenient/${con.icon}`}
+                              alt="convenient"
                             />
                             <span className="ml-3 font-medium">
                               {con.nameConvenient}
@@ -472,7 +466,7 @@ export default function Home() {
                 <div className="manageRules mt-2">
                   <Link
                     className="px-5 py-2 bg-color-green-0 text-color-white-0 rounded-md transition-all font-bold hover:bg-color-green-2"
-                    href={`/houseOwner/addRules?idPlace=${idPlace}`}
+                    href={`/houseOwner/addRules?idUser=${idUser}&idPlace=${idPlace}`}
                   >
                     Thêm nội quy
                   </Link>
@@ -486,10 +480,12 @@ export default function Home() {
                             className="addRules__item w-50% mb-3 d-flex items-center"
                             key={join.id}
                           >
-                            <img
+                            <Image
                               className="w-6"
-                              src={`images/iconSvg/iconRules/${ru.icon}`}
-                              alt=""
+                              width={500}
+                              height={500}
+                              src={`/images/iconSvg/iconRules/${ru.icon}`}
+                              alt="rules"
                             />
                             <span className="ml-3 font-medium">
                               {ru.nameRules}
@@ -512,7 +508,7 @@ export default function Home() {
                   Nhập lại
                 </button>
                 <Link
-                  href={`/houseOwner/managePlaces?idUser=${id}`}
+                  href={`/houseOwner/managePlaces?idUser=${idPlace}`}
                   className="btn-form"
                 >
                   Danh sách

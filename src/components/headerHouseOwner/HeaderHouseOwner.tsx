@@ -60,8 +60,6 @@ export default function HeaderHouseOwner() {
                     width={500}
                     height={500}
                     className="account-icon icon-header"
-                    width={100}
-                    height={100}
                   />
                   <Image
                     src="/images/icon-menu.png"
