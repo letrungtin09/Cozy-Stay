@@ -38,6 +38,7 @@ const deleteData = async (url: string): Promise<boolean> => {
         return false;
     }
 };
+
 const ApiFunctions = { getData, postData, putData, deleteData };
 
 export default ApiFunctions;

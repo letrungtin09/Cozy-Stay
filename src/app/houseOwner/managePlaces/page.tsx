@@ -3,20 +3,22 @@ import LayoutHouseOwner from "@/components/layoutHouseOwner";
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
 import UserCurrent from "@/lib/currentUser";
+import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const id = UserCurrent.GetUserId();
   const apiPlaces = `${localUrl}/api/places?idUser=${id}`;
   const [dataPlaces, setDataPlaces] = useState<any[]>([]);
+  const [imageList, setImageList] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await ApiFunctions.getData(apiPlaces);
         const dataRes = res.places;
+        console.log(dataRes)
         const sortData = dataRes.sort(function (a: any, b: any) {
           return b.id - a.id;
         });
@@ -100,9 +102,6 @@ export default function Home() {
                       TRẠNG THÁI CHO THUÊ
                     </th>
                     <th className="text-center" scope="col">
-                      TRẠNG THÁI HỦY
-                    </th>
-                    <th className="text-center" scope="col">
                       TRẠNG THÁI XÉT DUYỆT
                     </th>
                     <th className="text-center" scope="col">
@@ -118,28 +117,18 @@ export default function Home() {
                       </td>
                       <td className="img-place-holder">
                         <a href="#">
-                          <img src={`images/places/${place.image}`} alt="" />
+                          <Image
+                            src={`/images/places/${JSON.parse(place.image)[0]}`}
+                            alt=""
+                            width={100}
+                            height={100}
+                          />
                         </a>
                       </td>
                       <td className="text-center">
                         <a href="#">{place.title}</a>
                       </td>
                       <td className="">{PlaceStatus(place.status)}</td>
-                      <td className="">
-                        {place.statusCancel == 0 ? (
-                          <>
-                            <div className="trang-thai text-center text-color-green-2 font-bold">
-                              Không
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="trang-thai text-center text-color-red-0 font-bold">
-                              Báo hủy
-                            </div>
-                          </>
-                        )}
-                      </td>
                       <td className="">
                         {place.approveStatus == 0 ? (
                           <>

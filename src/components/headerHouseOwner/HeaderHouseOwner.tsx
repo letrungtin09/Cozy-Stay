@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import UserCurrent from "@/lib/currentUser";
+import Image from "next/image";
 
 export default function HeaderHouseOwner() {
   const id = UserCurrent.GetUserId();
@@ -17,7 +18,12 @@ export default function HeaderHouseOwner() {
                 pathname: "/houseOwner/managePlaces",
               }}
             >
-              <img className="logo-hd" src="images/CozyStay.png" alt="" />
+              <Image
+                className="logo-hd"
+                src={"/images/CozyStay.png"}
+                width={100}
+                height={100}
+                alt="" />
             </Link>
           </div>
           <div className="col col-2">
@@ -42,20 +48,24 @@ export default function HeaderHouseOwner() {
             <div className="dropdown-header btn-height">
               <Dropdown>
                 <Dropdown.Toggle>
-                  <img
-                    src="images/icon-user.png"
+                  <Image
+                    src={"/images/icon-user.png"}
                     alt=""
                     className="account-icon icon-header"
+                    width={100}
+                    height={100}
                   />
-                  <img
-                    src="images/icon-menu.png"
+                  <Image
+                    src={"/images/icon-menu.png"}
+                    width={100}
+                    height={100}
                     alt=""
                     className="account-menu icon-header"
                   />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href="/">
+                  <Dropdown.Item href={`/`}>
                     Chuyển sang chế độ thuê
                   </Dropdown.Item>
                   <Dropdown.Item href="/updateAccount">
