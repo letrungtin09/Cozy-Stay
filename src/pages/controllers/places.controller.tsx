@@ -108,13 +108,12 @@ export default class ApiPlaces {
   // Update
   public updatePlaces = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const numberId: number = parseInt(req.query.id as string);
       const address = req.body.address;
       const price = req.body.price;
       const quantityPeople = req.body.quantityPeople;
       const idUser = req.body.idUser;
       const idCategory = req.body.idCategory;
-      const longtitude = req.body.longtitude;
+      const longtitude = req.body.longitude;
       const latitude = req.body.latitude;
       const description = req.body.description;
       const quantityBedRoom = req.body.quantityBedRoom;
@@ -123,7 +122,7 @@ export default class ApiPlaces {
       const title = req.body.title;
       const kindRoom = req.body.kindRoom;
       const image = req.body.image;
-      const approveStatus = req.body.approveStatus;
+      const numberId = req.body.numberId;
       const data = {
         address: address,
         price: price,
@@ -137,7 +136,6 @@ export default class ApiPlaces {
         area: area,
         kindRoom: kindRoom,
         title: title,
-        approveStatus: approveStatus,
         idUser: idUser,
         idCategory: idCategory,
       };
