@@ -8,6 +8,11 @@ import Image from "next/image";
 
 export default function HeaderHouseOwner() {
   const id = UserCurrent.GetUserId();
+  const avatar = UserCurrent.GetUserAvatar();
+  const removeSession = () => {
+    sessionStorage.removeItem("currentUser");
+    window.location.href = "/auth/login";
+  };
   return (
     <>
       <header className="header-houserholder">
@@ -20,10 +25,11 @@ export default function HeaderHouseOwner() {
             >
               <Image
                 className="logo-hd"
-                src={"/images/CozyStay.png"}
-                width={100}
-                height={100}
-                alt="" />
+                src="/images/CozyStay.png"
+                width={500}
+                height={500}
+                alt="logo"
+              />
             </Link>
           </div>
           <div className="col col-2">
@@ -49,17 +55,17 @@ export default function HeaderHouseOwner() {
               <Dropdown>
                 <Dropdown.Toggle>
                   <Image
-                    src={"/images/icon-user.png"}
-                    alt=""
+                    src={`/images/${avatar}`}
+                    alt="avatarHouseOwner"
+                    width={500}
+                    height={500}
                     className="account-icon icon-header"
-                    width={100}
-                    height={100}
                   />
                   <Image
-                    src={"/images/icon-menu.png"}
-                    width={100}
-                    height={100}
-                    alt=""
+                    src="/images/icon-menu.png"
+                    alt="menu"
+                    width={500}
+                    height={500}
                     className="account-menu icon-header"
                   />
                 </Dropdown.Toggle>
@@ -74,7 +80,7 @@ export default function HeaderHouseOwner() {
                   <Dropdown.Item href="/changePassword">
                     Đổi mật khẩu
                   </Dropdown.Item>
-                  <Dropdown.Item href="#/action-6">
+                  <Dropdown.Item onClick={removeSession}>
                     Đăng xuất <FontAwesomeIcon icon={faArrowRightFromBracket} />
                   </Dropdown.Item>
                 </Dropdown.Menu>

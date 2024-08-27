@@ -22,12 +22,10 @@ export default class ApiJoinRules {
   ) => {
     try {
       const idPlace = req.body.idPlace;
-      const idDetailRule = req.body.idDetailRule;
-      const note = req.body.note;
+      const idRules = req.body.idRules;
       const data = {
         idPlace: idPlace,
-        idDetailRule: idDetailRule,
-        note: note,
+        idRules: idRules,
       };
       await JoinRules.addNewJoinRules(data);
       res.json({ thongbao: "Đã thêm JoinRule" });

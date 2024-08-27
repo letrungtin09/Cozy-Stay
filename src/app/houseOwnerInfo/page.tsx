@@ -144,7 +144,7 @@ export default function Home() {
                       <div className="places__detail">
                         <div className="places__top">
                           <div className="name-place font-bold text-color-green-2 mb-[5px]">
-                            Phòng cho thuê quận Phú Nhuận sạch đẹp
+                            {place.title}
                           </div>
                         </div>
                         <div className="places__center mb-[5px]">
@@ -153,28 +153,30 @@ export default function Home() {
                               className="text-[#222222b3]"
                               icon={faChartArea}
                             />{" "}
-                            30m
-                            <sup>2</sup>
+                            {place.area}m<sup>2</sup>
                           </span>
                           <span className="area-place mx-[25px] text-[14px] text-[#464646b3]">
                             <FontAwesomeIcon
                               className="text-[#222222b3]"
                               icon={faBed}
                             />{" "}
-                            2 phòng ngủ
+                            {place.quantityBedRoom} phòng ngủ
                           </span>
                           <span className="bed-place text-[14px] text-[#464646b3]">
                             <FontAwesomeIcon
                               className="text-[#222222b3]"
                               icon={faBath}
                             />{" "}
-                            2 phòng tắm
+                            {place.quantityBath} phòng tắm
                           </span>
                         </div>
                         <div className="places__bottom">
                           <span>
                             <span className="price-place text-[18px] font-bold text-color-green-2">
-                              1.500.000đ / tháng
+                              {new Intl.NumberFormat("de-DE").format(
+                                place.price
+                              )}
+                              đ / tháng
                             </span>
                           </span>
                         </div>

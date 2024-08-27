@@ -3,7 +3,8 @@ import LayoutHouseOwner from "@/components/layoutHouseOwner";
 import useHandleChange from "@/hooks/useHandleChange";
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
-import Image from "next/image";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -11,6 +12,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const searchParams = useSearchParams();
+  const idUser = searchParams!.get("idUser");
   const idPlace = searchParams!.get("idPlace");
   const apiJoinRules = `${localUrl}/api/joinRules?idPlace=${idPlace}`;
   const apiRules = `${localUrl}/api/rules`;
@@ -45,14 +47,16 @@ export default function Home() {
 
   const { values, handleChange } = useHandleChange({
     idPlace: 0,
-    idConvenient: 0,
+    idRules: 0,
   });
 
-  const addConvenient = async (e: any) => {
+  const router = useRouter();
+
+  const addRules = async (e: any) => {
     e.preventDefault();
     const conNew = {
       idPlace: idPlace,
-      idConvenient: 0,
+      idRules: values.idRules,
     };
     console.log(conNew);
 
@@ -60,11 +64,26 @@ export default function Home() {
       const res = await ApiFunctions.postData(apiJoinRules, conNew)
         .then(() => {
           alert("Thêm mới thành công !");
-          // router.push(`/houseOwner/managePlaces?idUser=${id}`);
+          router.push(
+            `/houseOwner/updatePlace?idUser=${idUser}&idPlace=${idPlace}`
+          );
         })
         .catch((err) => {
           console.error(err);
         });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteRules = async (id: any) => {
+    const apiJoinRules = `${localUrl}/api/joinRules?id=${id}`;
+    try {
+      const res = await ApiFunctions.deleteData(apiJoinRules);
+      alert("Xóa thành công !");
+      router.push(
+        `/houseOwner/updatePlace?idUser=${idUser}&idPlace=${idPlace}`
+      );
     } catch (error) {
       console.error(error);
     }
@@ -104,6 +123,15 @@ export default function Home() {
                               <span className="ml-3 font-medium">
                                 {rules.nameRules}
                               </span>
+                              <button
+                                className="text-[14px] ml-[20px] cursor-pointer"
+                                onClick={() => deleteRules(join.id)}
+                              >
+                                <FontAwesomeIcon
+                                  className="text-white bg-red-700 px-[5px] py-[5px] rounded-[50%]"
+                                  icon={faX}
+                                />
+                              </button>
                             </div>
                           </>
                         ) : (
@@ -124,10 +152,10 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="list-item-add">
-                  <form onSubmit={addConvenient}>
+                  <form onSubmit={addRules}>
                     <select
                       className="formInsertEdit__input w-90% p-2 bg-color-gray-0"
-                      name="idConvenient"
+                      name="idRules"
                       onChange={handleChange}
                     >
                       <option value="0">Chọn nội quy</option>

@@ -50,12 +50,7 @@ const SideBarAdmin = () => {
               <span>Thống kê đơn đặt chỗ</span>
             </Link>
           </li>
-          <li>
-            <Link className="cateAdmin" href="/admin/statisticPlace">
-              <FontAwesomeIcon icon={faChartSimple} />
-              <span>Thống kê chỗ ở</span>
-            </Link>
-          </li>
+
           <li>
             <Link className="cateAdmin" href="/admin/adminCategory">
               <FontAwesomeIcon icon={faTableList} />

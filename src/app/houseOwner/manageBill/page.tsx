@@ -102,6 +102,7 @@ export default function Home() {
   };
 
   const confirmStatusBill = async (id: any) => {
+    const idUserNow = UserCurrent.GetUserId();
     const apiBill = `${localUrl}/api/bill?id=${id}`;
     const statusBill = {
       status: 1,
@@ -112,6 +113,7 @@ export default function Home() {
       await updateMoneyPartner(moneyChange);
       const email = await getEmailUser(bill[0].idUser);
       RefundGenerate.handleSendEmailAccept(email, id);
+      RefundGenerate.handleSendWallet(idUserNow, 1, moneyChange);
       await ApiFunctions.putData(apiBill, statusBill);
       alert("Xác nhận thành công !");
       location.reload();
@@ -129,6 +131,7 @@ export default function Home() {
       await updateMoneyUser(moneyChange, idUser);
       const email = await getEmailUser(bill[0].idUser);
       RefundGenerate.handleSendEmail(email, id);
+      RefundGenerate.handleSendWallet(bill[0].idUser, 0, moneyChange);
       await ApiFunctions.deleteData(apiBill);
       alert("Hủy đơn thành công !");
       location.reload();

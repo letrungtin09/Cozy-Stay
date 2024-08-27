@@ -118,85 +118,90 @@ const RenderAdminPlace = () => {
             {/* <th>mô tả</th> */}
             <th>kinh độ</th>
             <th>vĩ độ</th>
-            <th>trạng thái</th>
+
             <th>phê duyệt</th>
             <th>thao tác</th>
           </thead>
           <tbody className="infoCate">
-            {dataPlace.map((place) => (
-              <tr key={place.id}>
-                <td>{place.id}</td>
-                <td>{place.title}</td>
-                <td>{place.address}</td>
-                <td>{place.price}đ</td>
-                <td>
-                  <img src={`images/places/${place.image1}`} alt="" />
-                  {/* <Image
-                                  src={place.image}
-                                  width={50}
-                                  height={50}
-                                  alt="Picture of the author"
-                                /> */}
-                </td>
-                <td>
-                  {dataUser.map((user) => (
-                    <div key={user.id}>
-                      {user.id == place.idUser ? user.userName : ""}
-                    </div>
-                  ))}
-                </td>
-                <td>
-                  {dataCategory.map((cate) => (
-                    <div key={cate.id}>
-                      {cate.id == place.idCategory ? cate.nameCategory : ""}
-                    </div>
-                  ))}
-                </td>
-                <td>{PlaceKindRoom(place.kindRoom)}</td>
-                <td>{place.quantityPeople} khách</td>
-                <td>{place.quantityBath} phòng</td>
-                <td>{place.quantityBedRoom} phòng</td>
+            {dataPlace.map((place) => {
+              let imageArray = [];
 
-                {/* <td className="place-des">{place.description}</td> */}
-                <td>{place.longitude}</td>
-                <td>{place.latitude}</td>
-                <td>
-                  {place.status == 0 ? "Chưa có người ở" : "Đang có người ở"}
-                </td>
-                <td>
-                  {place.approveStatus == 0 ? (
-                    <div className="approveStatus-no">Chưa phê duyệt</div>
-                  ) : (
-                    <div className="approveStatus-yes">Đã phê duyệt</div>
-                  )}
-                </td>
-                <td>
-                  <div className="btn-action">
-                    <Link
-                      className="btn--operation btn--edit"
-                      href={{
-                        pathname: "/admin/adminPlace/formUpdatePlace",
-                        query: { id: place.id },
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faPenToSquare} />
-                      Sửa
-                    </Link>
-                    <button
-                      className="btn--operation btn--delete"
-                      onClick={() => deletePlace(place.id)}
-                    >
-                      <FontAwesomeIcon icon={faCircleXmark} />
-                      Xóa
-                    </button>
-                    {/* <a className="btn--operation btn--detail" href="#">
-                    <FontAwesomeIcon icon={faCircleInfo} />
-                    Chi tiết
-                  </a> */}
-                  </div>
-                </td>
-              </tr>
-            ))}
+              try {
+                if (place.image) {
+                  imageArray = JSON.parse(place.image);
+                }
+              } catch (error) {
+                console.error("JSON parsing error:", error);
+              }
+              return (
+                <tr key={place.id}>
+                  <td>{place.id}</td>
+                  <td>{place.title}</td>
+                  <td>{place.address}</td>
+                  <td>{new Intl.NumberFormat("de-DE").format(place.price)}đ</td>
+                  <td>
+                    <Image
+                      className="w-[100%] h-[100px] object-cover"
+                      src={`/images/places/${imageArray[0]}`}
+                      alt="imagePlaces"
+                      width={500}
+                      height={500}
+                    />
+                  </td>
+                  <td>
+                    {dataUser.map((user) => (
+                      <div key={user.id}>
+                        {user.id == place.idUser ? user.userName : ""}
+                      </div>
+                    ))}
+                  </td>
+                  <td>
+                    {dataCategory.map((cate) => (
+                      <div key={cate.id}>
+                        {cate.id == place.idCategory ? cate.nameCategory : ""}
+                      </div>
+                    ))}
+                  </td>
+                  <td>{PlaceKindRoom(place.kindRoom)}</td>
+                  <td>{place.quantityPeople} khách</td>
+                  <td>{place.quantityBath} phòng</td>
+                  <td>{place.quantityBedRoom} phòng</td>
+
+                  {/* <td className="place-des">{place.description}</td> */}
+                  <td>{place.longtitude}</td>
+                  <td>{place.latitude}</td>
+
+                  <td>
+                    {place.approveStatus == 0 ? (
+                      <div className="approveStatus-no">Chưa phê duyệt</div>
+                    ) : (
+                      <div className="approveStatus-yes">Đã phê duyệt</div>
+                    )}
+                  </td>
+                  <td>
+                    <div className="btn-action">
+                      <Link
+                        className="btn--operation btn--edit"
+                        href={{
+                          pathname: "/admin/adminPlace/formUpdatePlace",
+                          query: { id: place.id },
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                        Sửa
+                      </Link>
+                      <button
+                        className="btn--operation btn--delete"
+                        onClick={() => deletePlace(place.id)}
+                      >
+                        <FontAwesomeIcon icon={faCircleXmark} />
+                        Xóa
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

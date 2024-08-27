@@ -3,6 +3,9 @@ import LayoutHouseOwner from "@/components/layoutHouseOwner";
 import useHandleChange from "@/hooks/useHandleChange";
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -10,6 +13,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const searchParams = useSearchParams();
+  const idUser = searchParams!.get("idUser");
   const idPlace = searchParams!.get("idPlace");
   const apiJoinConvenient = `${localUrl}/api/joinConvenient?idPlace=${idPlace}`;
   const apiConvenient = `${localUrl}/api/convenient`;
@@ -47,23 +51,40 @@ export default function Home() {
     idConvenient: 0,
   });
 
+  const router = useRouter();
+
   const addConvenient = async (e: any) => {
     e.preventDefault();
+
     const conNew = {
       idPlace: idPlace,
-      idConvenient: 0,
+      idConvenient: values.idConvenient,
     };
     console.log(conNew);
-
     try {
       const res = await ApiFunctions.postData(apiJoinConvenient, conNew)
         .then(() => {
           alert("Thêm mới thành công !");
-          // router.push(`/houseOwner/managePlaces?idUser=${id}`);
+          router.push(
+            `/houseOwner/updatePlace?idUser=${idUser}&idPlace=${idPlace}`
+          );
         })
         .catch((err) => {
           console.error(err);
         });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteConvenient = async (id: any) => {
+    const apiJoinConvenient = `${localUrl}/api/joinConvenient?id=${id}`;
+    try {
+      const res = await ApiFunctions.deleteData(apiJoinConvenient);
+      alert("Xóa thành công !");
+      router.push(
+        `/houseOwner/updatePlace?idUser=${idUser}&idPlace=${idPlace}`
+      );
     } catch (error) {
       console.error(error);
     }
@@ -93,14 +114,25 @@ export default function Home() {
                               className="item-convenient d-flex items-center mb-4"
                               key={join.id}
                             >
-                              <img
+                              <Image
                                 className="w-6"
-                                src={`images/iconSvg/iconConvenient/${con.icon}`}
-                                alt=""
+                                width={500}
+                                height={500}
+                                src={`/images/iconSvg/iconConvenient/${con.icon}`}
+                                alt="convenient"
                               />
                               <span className="ml-3 font-medium">
                                 {con.nameConvenient}
                               </span>
+                              <button
+                                className="text-[14px] ml-[20px] cursor-pointer"
+                                onClick={() => deleteConvenient(join.id)}
+                              >
+                                <FontAwesomeIcon
+                                  className="text-white bg-red-700 px-[5px] py-[5px] rounded-[50%]"
+                                  icon={faX}
+                                />
+                              </button>
                             </div>
                           </>
                         ) : (

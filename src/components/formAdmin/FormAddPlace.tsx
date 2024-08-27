@@ -44,13 +44,9 @@ const FormAddPlace = () => {
     address: "",
     price: 0,
     quantityPeople: 0,
-    image1: "",
-    image2: "",
-    image3: "",
-    image4: "",
-    image5: "",
-    longitude: "",
+    image: "",
     latitude: "",
+    longitude: "",
     status: 0,
     description: "",
     quantityBedRoom: 0,
@@ -77,13 +73,9 @@ const FormAddPlace = () => {
       address: dataPlace.address,
       price: +dataPlace.price,
       quantityPeople: +dataPlace.quantityPeople,
-      image1: "place1/image1.webp",
-      image2: "",
-      image3: "",
-      image4: "",
-      image5: "",
-      longitude: +dataPlace.longitude,
+      image: "place1/image1.webp",
       latitude: +dataPlace.latitude,
+      longitude: +dataPlace.longitude,
       status: 0,
       description: dataPlace.description,
       quantityBedRoom: +dataPlace.quantityBedRoom,
@@ -162,56 +154,16 @@ const FormAddPlace = () => {
               onChange={handleChange}
             />
           </div>
-          {/* <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Hình ảnh 1</label>
+          <div className="formInsertEdit__item">
+            <label className="formInsertEdit__label">Hình ảnh</label>
             <br />
             <input
               className="formInsertEdit__input"
               type="text"
-              name="image1"
+              name="image"
               onChange={handleChange}
             />
           </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Hình ảnh 2</label>
-            <br />
-            <input
-              className="formInsertEdit__input"
-              type="text"
-              name="image2"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Hình ảnh 3</label>
-            <br />
-            <input
-              className="formInsertEdit__input"
-              type="text"
-              name="image3"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Hình ảnh 4</label>
-            <br />
-            <input
-              className="formInsertEdit__input"
-              type="text"
-              name="image4"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Hình ảnh 5</label>
-            <br />
-            <input
-              className="formInsertEdit__input"
-              type="text"
-              name="image5"
-              onChange={handleChange}
-            />
-          </div> */}
           <div className="formInsertEdit__item">
             <label className="formInsertEdit__label">Chủ nhà</label>
             <br />

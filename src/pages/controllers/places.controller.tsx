@@ -20,7 +20,7 @@ export default class ApiPlaces {
       const quantityPeople = req.body.quantityPeople;
       const idUser = req.body.idUser;
       const idCategory = req.body.idCategory;
-      const longtitude = req.body.longitude;
+      const longtitude = req.body.longtitude;
       const latitude = req.body.latitude;
       const description = req.body.description;
       const quantityBedRoom = req.body.quantityBedRoom;
