@@ -3,6 +3,7 @@ import LayoutHouseOwner from "@/components/layoutHouseOwner";
 import useHandleChange from "@/hooks/useHandleChange";
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -93,9 +94,11 @@ export default function Home() {
                               className="item-convenient d-flex items-center mb-4"
                               key={join.id}
                             >
-                              <img
+                              <Image
                                 className="w-6"
                                 src={`images/iconSvg/iconRules/${rules.icon}`}
+                                width={100}
+                                height={100}
                                 alt=""
                               />
                               <span className="ml-3 font-medium">

@@ -22,6 +22,7 @@ export default function Home() {
   const [dataCategory, setDataCategory] = useState<any[]>([]);
   const [dataImage, setDataImage] = useState<string>();
   let postData: { name: string; type: string; data: string }[] = [];
+  const [isUploading, setIsUploading] = useState(false);
   const inputTitleRef = useRef<HTMLInputElement>(null);
   const inputAddressRef = useRef<HTMLInputElement>(null);
   const inputPriceRef = useRef<HTMLInputElement>(null);
@@ -64,6 +65,8 @@ export default function Home() {
   };
 
   const postFile = async (postData: any) => {
+    setIsUploading(true); // Bắt đầu upload
+
     try {
       const response = await fetch(
         "https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbwgpiLav-SfV7E-O-GhYq-DAGYdhWUP5XuMD-7rDLcv3wi97Nz8iUwhRW01pg0ZVidw/exec",
@@ -77,6 +80,8 @@ export default function Home() {
         const links = data.map((item: ImageData) => item.link);
         const linksJson = JSON.stringify(links)
         setDataImage(linksJson);
+      } else {
+        setIsUploading(false); // Bắt đầu upload
       }
     } catch (error) {
       alert("Vui lòng thử lại");
@@ -106,7 +111,7 @@ export default function Home() {
           price: inputPriceRef.current?.value,
           quantityPeople: inputQuantityPeopleRef.current?.value,
           image: dataImage,
-          longitude: inputLongitudePeopleRef.current?.value,
+          longtitude: inputLongitudePeopleRef.current?.value,
           latitude: inputLatitudePeopleRef.current?.value,
           description: inputDescriptionRef.current?.value,
           quantityBedRoom: inputQuantityBedRoomPeopleRef.current?.value,
@@ -117,15 +122,14 @@ export default function Home() {
           idUser: id,
           idCategory: inputIdCategoryRef.current?.value
         };
-        console.log(dataImage)
-        console.log(placeNew)
-
         try {
           await ApiFunctions.postData(apiPlace, placeNew);
           alert("Thêm mới thành công !");
           router.push(`/houseOwner/managePlaces?idUser=${id}`);
         } catch (error) {
           console.error(error);
+        } finally {
+          setIsUploading(false); // Kết thúc upload
         }
       }
     };
@@ -315,7 +319,7 @@ export default function Home() {
                   <input
                     className="formInsertEdit__input"
                     type="text"
-                    name="longitude"
+                    name="longtitude"
                     ref={inputLongitudePeopleRef}
                   />
                 </div>
@@ -331,8 +335,12 @@ export default function Home() {
                 </div>
 
                 <div className="formInsertEdit__item formInsertEdit__btn">
-                  <button name="btn-insert" className="btn-form" id="btnInsert" onClick={addDataPlace}>
-                    Thêm mới
+                  <button
+                    onClick={addDataPlace}
+                    disabled={isUploading} // Disable nút khi đang upload
+                    className={`btn-form ${isUploading ? 'btn-disabled' : ''}`} // Thêm class 'btn-disabled' khi đang upload
+                  >
+                    {isUploading ? "Đang upload..." : "Thêm mới"} {/* Đổi nội dung nút */}
                   </button>
                   <button type="reset" className="btn-form">
                     Nhập lại

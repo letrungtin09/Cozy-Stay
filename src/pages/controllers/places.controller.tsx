@@ -108,13 +108,12 @@ export default class ApiPlaces {
   // Update
   public updatePlaces = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const numberId: number = parseInt(req.query.id as string);
       const address = req.body.address;
       const price = req.body.price;
       const quantityPeople = req.body.quantityPeople;
       const idUser = req.body.idUser;
       const idCategory = req.body.idCategory;
-      const longitude = req.body.longitude;
+      const longtitude = req.body.longitude;
       const latitude = req.body.latitude;
       const description = req.body.description;
       const quantityBedRoom = req.body.quantityBedRoom;
@@ -122,22 +121,14 @@ export default class ApiPlaces {
       const area = req.body.area;
       const title = req.body.title;
       const kindRoom = req.body.kindRoom;
-      const image1 = req.body.image1;
-      const image2 = req.body.image2;
-      const image3 = req.body.image3;
-      const image4 = req.body.image4;
-      const image5 = req.body.image5;
-      const approveStatus = req.body.approveStatus;
+      const image = req.body.image;
+      const numberId = req.body.numberId;
       const data = {
         address: address,
         price: price,
         quantityPeople: quantityPeople,
-        image1: image1,
-        image2: image2,
-        image3: image3,
-        image4: image4,
-        image5: image5,
-        longitude: longitude,
+        image: image,
+        longtitude: longtitude,
         latitude: latitude,
         description: description,
         quantityBedRoom: quantityBedRoom,
@@ -145,7 +136,6 @@ export default class ApiPlaces {
         area: area,
         kindRoom: kindRoom,
         title: title,
-        approveStatus: approveStatus,
         idUser: idUser,
         idCategory: idCategory,
       };
