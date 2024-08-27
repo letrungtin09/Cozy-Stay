@@ -8,7 +8,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       if (req.query.id) {
         await apiUser.getUser(req, res);
-      } else if (req.query.all) {
+      } else if (req.query.partner) {
         await apiUser.getAllPartner(req, res);
       } else {
         // Lấy tất cả các sản phẩm
@@ -27,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         await apiUser.updateMinusMoney(req, res);
       } else if (req.body.password) {
         await apiUser.updatePassWord(req, res);
-      } else {
+      } else if (req.query.id) {
         await apiUser.updateUser(req, res);
       }
       break;

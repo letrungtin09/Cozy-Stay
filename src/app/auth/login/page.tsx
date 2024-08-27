@@ -36,13 +36,19 @@ export default function Login() {
             errorElement(response.response.data.error, passwordRef.current);
           }
         } else if (response.status) {
-          if (response.idUser) {
+          if (response.idUser && (response.role == 0 || response.role == 1)) {
             window.sessionStorage.setItem(
               "currentUser",
               JSON.stringify(response)
             );
+            window.location.href = "/";
+          } else if (response.idUser && response.role == 2) {
+            window.sessionStorage.setItem(
+              "currentUser",
+              JSON.stringify(response)
+            );
+            window.location.href = "/admin/statisticIncome";
           }
-          window.location.href = "/";
         }
       });
     }

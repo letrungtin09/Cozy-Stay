@@ -38,7 +38,7 @@ export default function Home() {
 
   const generateUniqueFilename = (originalName: string) => {
     const timestamp = Date.now();
-    const extension = originalName.split('.').pop();
+    const extension = originalName.split(".").pop();
     return `${timestamp}.${extension}`;
   };
 
@@ -75,13 +75,13 @@ export default function Home() {
       const data = await response.json();
       if (data && data.length > 0) {
         const links = data.map((item: ImageData) => item.link);
-        const linksJson = JSON.stringify(links)
+        const linksJson = JSON.stringify(links);
         setDataImage(linksJson);
       }
     } catch (error) {
       alert("Vui lòng thử lại");
     }
-  }
+  };
 
   useEffect(() => {
     const fetchDataCate = async () => {
@@ -106,7 +106,7 @@ export default function Home() {
           price: inputPriceRef.current?.value,
           quantityPeople: inputQuantityPeopleRef.current?.value,
           image: dataImage,
-          longitude: inputLongitudePeopleRef.current?.value,
+          longtitude: inputLongitudePeopleRef.current?.value,
           latitude: inputLatitudePeopleRef.current?.value,
           description: inputDescriptionRef.current?.value,
           quantityBedRoom: inputQuantityBedRoomPeopleRef.current?.value,
@@ -115,10 +115,10 @@ export default function Home() {
           kindRoom: inputKindRoomRef.current?.value,
           title: inputTitleRef.current?.value,
           idUser: id,
-          idCategory: inputIdCategoryRef.current?.value
+          idCategory: inputIdCategoryRef.current?.value,
         };
-        console.log(dataImage)
-        console.log(placeNew)
+        console.log(dataImage);
+        console.log(placeNew);
 
         try {
           await ApiFunctions.postData(apiPlace, placeNew);
@@ -331,16 +331,18 @@ export default function Home() {
                 </div>
 
                 <div className="formInsertEdit__item formInsertEdit__btn">
-                  <button name="btn-insert" className="btn-form" id="btnInsert" onClick={addDataPlace}>
+                  <button
+                    name="btn-insert"
+                    className="btn-form"
+                    id="btnInsert"
+                    onClick={addDataPlace}
+                  >
                     Thêm mới
                   </button>
                   <button type="reset" className="btn-form">
                     Nhập lại
                   </button>
-                  <Link
-                    href={`/houseOwner/managePlaces`}
-                    className="btn-form"
-                  >
+                  <Link href={`/houseOwner/managePlaces`} className="btn-form">
                     Danh sách
                   </Link>
                 </div>

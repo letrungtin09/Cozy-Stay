@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const FormAddPlace = () => {
-  const apiUser = `${localUrl}/api/user`;
+  const apiUser = `${localUrl}/api/user?partner=""`;
   const apiCategory = `${localUrl}/api/category`;
   const apiPlace = `${localUrl}/api/places`;
   const [dataCategory, setDataCategory] = useState<any[]>([]);
@@ -46,7 +46,7 @@ const FormAddPlace = () => {
     quantityPeople: 0,
     image: "",
     latitude: "",
-    longitude: "",
+    longtitude: "",
     status: 0,
     description: "",
     quantityBedRoom: 0,
@@ -73,9 +73,9 @@ const FormAddPlace = () => {
       address: dataPlace.address,
       price: +dataPlace.price,
       quantityPeople: +dataPlace.quantityPeople,
-      image: "place1/image1.webp",
+      image: `["place12/image1.webp", "place12/image2.webp", "place1/image3.webp", "place1/image4.webp", "place1/image5.webp" ]`,
       latitude: +dataPlace.latitude,
-      longitude: +dataPlace.longitude,
+      longtitude: +dataPlace.longtitude,
       status: 0,
       description: dataPlace.description,
       quantityBedRoom: +dataPlace.quantityBedRoom,
@@ -154,16 +154,7 @@ const FormAddPlace = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="formInsertEdit__item">
-            <label className="formInsertEdit__label">Hình ảnh</label>
-            <br />
-            <input
-              className="formInsertEdit__input"
-              type="text"
-              name="image"
-              onChange={handleChange}
-            />
-          </div>
+
           <div className="formInsertEdit__item">
             <label className="formInsertEdit__label">Chủ nhà</label>
             <br />
@@ -271,7 +262,7 @@ const FormAddPlace = () => {
             <input
               className="formInsertEdit__input"
               type="text"
-              name="longitude"
+              name="longtitude"
               onChange={handleChange}
             />
           </div>

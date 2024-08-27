@@ -91,57 +91,63 @@ export default function Home() {
                     console.error("JSON parsing error:", error);
                   }
 
-                  return (
-                    <div key={place.id} className="w-[25%] px-[6px]">
-                      <div className="places__item">
-                        <div className="places__slider">
-                          <div className="places__list w-full">
-                            <div className="places__img img1 h-full">
-                              <CarouselRenderPlaces
-                                imageAr={imageArray}
-                                onChangeData={handleDataChange}
-                              />
+                  return place.approveStatus == 1 ? (
+                    <>
+                      <div key={place.id} className="w-[25%] px-[6px]">
+                        <div className="places__item">
+                          <div className="places__slider">
+                            <div className="places__list w-full">
+                              <div className="places__img img1 h-full">
+                                <CarouselRenderPlaces
+                                  imageAr={imageArray}
+                                  onChangeData={handleDataChange}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <Link
-                          href={{
-                            pathname: "/detailPlace",
-                            query: { id: place.id },
-                          }}
-                        >
-                          <div className="places__detail">
-                            <div className="places__top">
-                              <span className="name-place">{place.title}</span>
-                            </div>
-                            <div className="places__center">
-                              <span className="star-place">
-                                <FontAwesomeIcon icon={faChartArea} />{" "}
-                                {place.area}m<sup>2</sup>
-                              </span>
-                              <span className="area-place">
-                                <FontAwesomeIcon icon={faBed} />{" "}
-                                {place.quantityBedRoom} phòng ngủ
-                              </span>
-                              <span className="bed-place">
-                                <FontAwesomeIcon icon={faBath} />{" "}
-                                {place.quantityBath} phòng tắm
-                              </span>
-                            </div>
-                            <div className="places__bottom">
-                              <span>
-                                <span className="price-place">
-                                  {new Intl.NumberFormat("de-DE").format(
-                                    place.price
-                                  )}
-                                  đ / tháng
+                          <Link
+                            href={{
+                              pathname: "/detailPlace",
+                              query: { id: place.id },
+                            }}
+                          >
+                            <div className="places__detail">
+                              <div className="places__top">
+                                <span className="name-place">
+                                  {place.title}
                                 </span>
-                              </span>
+                              </div>
+                              <div className="places__center">
+                                <span className="star-place">
+                                  <FontAwesomeIcon icon={faChartArea} />{" "}
+                                  {place.area}m<sup>2</sup>
+                                </span>
+                                <span className="area-place">
+                                  <FontAwesomeIcon icon={faBed} />{" "}
+                                  {place.quantityBedRoom} phòng ngủ
+                                </span>
+                                <span className="bed-place">
+                                  <FontAwesomeIcon icon={faBath} />{" "}
+                                  {place.quantityBath} phòng tắm
+                                </span>
+                              </div>
+                              <div className="places__bottom">
+                                <span>
+                                  <span className="price-place">
+                                    {new Intl.NumberFormat("de-DE").format(
+                                      place.price
+                                    )}
+                                    đ / tháng
+                                  </span>
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        </Link>
+                          </Link>
+                        </div>
                       </div>
-                    </div>
+                    </>
+                  ) : (
+                    <></>
                   );
                 })}
                 {visibleItems < dataPlace.length && (

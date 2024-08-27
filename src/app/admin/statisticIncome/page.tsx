@@ -54,25 +54,10 @@ export default function Home() {
                   <h2>Thống kê doanh thu</h2>
                 </div>
                 <div className="content-adminBottom">
-                  <div className="flex justify-center">
-                    <LineChart
-                      xAxis={[{ dataKey: "x", label: "Tháng" }]}
-                      series={[
-                        {
-                          dataKey: "y",
-                          area: true,
-                          label: "Tổng doanh thu mỗi tháng",
-                        },
-                      ]}
-                      dataset={getData()}
-                      width={1100}
-                      height={500}
-                    />
-                  </div>
-                  <div className="text-center mt-[50px] text-[18px] font-bold">
+                  <div className="text-center mb-[30px] mt-[20px] text-[18px] font-bold">
                     Bảng thống kê doanh thu theo tháng
                   </div>
-                  <div className="flex justify-center mt-[20px]">
+                  <div className="flex justify-center mt-[20px] mb-[50px]">
                     <TableContainer component={Paper} className="w-[50%]">
                       <Table sx={{ minWidth: 350 }} aria-label="simple table">
                         <TableHead className="bg-color-green-0">
@@ -109,6 +94,21 @@ export default function Home() {
                         </TableBody>
                       </Table>
                     </TableContainer>
+                  </div>
+                  <div className="flex justify-center">
+                    <LineChart
+                      xAxis={[{ dataKey: "x", label: "Tháng" }]}
+                      series={[
+                        {
+                          dataKey: "y",
+                          area: true,
+                          label: "Tổng doanh thu mỗi tháng",
+                        },
+                      ]}
+                      dataset={getData()}
+                      width={1100}
+                      height={500}
+                    />
                   </div>
                 </div>
               </div>

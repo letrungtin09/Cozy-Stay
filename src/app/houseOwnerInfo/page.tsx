@@ -119,70 +119,74 @@ export default function Home() {
                 } catch (error) {
                   console.error("JSON parsing error:", error);
                 }
-                return (
-                  <div className="places__item w-[31%]" key={place.id}>
-                    <Link
-                      href={{
-                        pathname: "/detailPlace",
-                        query: { id: place.id },
-                      }}
-                    >
-                      <div className="places__slider">
-                        <div className="places__list">
-                          <div className="places__img">
-                            <Image
-                              className="rounded-[10px] mb-[7px] w-[100%] h-[170px] object-cover"
-                              src={`/images/places/${imageArray[0]}`}
-                              alt="imagePlaces"
-                              width={2000}
-                              height={2000}
-                            />
+                return place.approveStatus == 1 ? (
+                  <>
+                    <div className="places__item w-[31%]" key={place.id}>
+                      <Link
+                        href={{
+                          pathname: "/detailPlace",
+                          query: { id: place.id },
+                        }}
+                      >
+                        <div className="places__slider">
+                          <div className="places__list">
+                            <div className="places__img">
+                              <Image
+                                className="rounded-[10px] mb-[7px] w-[100%] h-[170px] object-cover"
+                                src={`/images/places/${imageArray[0]}`}
+                                alt="imagePlaces"
+                                width={2000}
+                                height={2000}
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="places__detail">
-                        <div className="places__top">
-                          <div className="name-place font-bold text-color-green-2 mb-[5px]">
-                            {place.title}
+                        <div className="places__detail">
+                          <div className="places__top">
+                            <div className="name-place font-bold text-color-green-2 mb-[5px]">
+                              {place.title}
+                            </div>
+                          </div>
+                          <div className="places__center mb-[5px]">
+                            <span className="star-place text-[14px] text-[#464646b3]">
+                              <FontAwesomeIcon
+                                className="text-[#222222b3]"
+                                icon={faChartArea}
+                              />{" "}
+                              {place.area}m<sup>2</sup>
+                            </span>
+                            <span className="area-place mx-[25px] text-[14px] text-[#464646b3]">
+                              <FontAwesomeIcon
+                                className="text-[#222222b3]"
+                                icon={faBed}
+                              />{" "}
+                              {place.quantityBedRoom} phòng ngủ
+                            </span>
+                            <span className="bed-place text-[14px] text-[#464646b3]">
+                              <FontAwesomeIcon
+                                className="text-[#222222b3]"
+                                icon={faBath}
+                              />{" "}
+                              {place.quantityBath} phòng tắm
+                            </span>
+                          </div>
+                          <div className="places__bottom">
+                            <span>
+                              <span className="price-place text-[18px] font-bold text-color-green-2">
+                                {new Intl.NumberFormat("de-DE").format(
+                                  place.price
+                                )}
+                                đ / tháng
+                              </span>
+                            </span>
                           </div>
                         </div>
-                        <div className="places__center mb-[5px]">
-                          <span className="star-place text-[14px] text-[#464646b3]">
-                            <FontAwesomeIcon
-                              className="text-[#222222b3]"
-                              icon={faChartArea}
-                            />{" "}
-                            {place.area}m<sup>2</sup>
-                          </span>
-                          <span className="area-place mx-[25px] text-[14px] text-[#464646b3]">
-                            <FontAwesomeIcon
-                              className="text-[#222222b3]"
-                              icon={faBed}
-                            />{" "}
-                            {place.quantityBedRoom} phòng ngủ
-                          </span>
-                          <span className="bed-place text-[14px] text-[#464646b3]">
-                            <FontAwesomeIcon
-                              className="text-[#222222b3]"
-                              icon={faBath}
-                            />{" "}
-                            {place.quantityBath} phòng tắm
-                          </span>
-                        </div>
-                        <div className="places__bottom">
-                          <span>
-                            <span className="price-place text-[18px] font-bold text-color-green-2">
-                              {new Intl.NumberFormat("de-DE").format(
-                                place.price
-                              )}
-                              đ / tháng
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <></>
                 );
               })}
             </div>

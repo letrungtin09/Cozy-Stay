@@ -10,7 +10,7 @@ const FormUpdatePlace = () => {
   const searchParams = useSearchParams();
   const id = searchParams!.get("id");
   const apiCategory = `${localUrl}/api/category`;
-  const apiUser = `${localUrl}/api/user`;
+  const apiUser = `${localUrl}/api/user?partner=""`;
   const apiPlace = `${localUrl}/api/places?id=${id}`;
   const [dataPlace, setDataPlace] = useState<any>([]);
   const [dataCategory, setDataCategory] = useState<any[]>([]);
@@ -141,7 +141,7 @@ const FormUpdatePlace = () => {
       address: values.address,
       price: +values.price,
       quantityPeople: +values.quantityPeople,
-      image: "",
+      image: values.image,
       longtitude: +values.longtitude,
       latitude: +values.latitude,
       description: values.description,
@@ -362,7 +362,7 @@ const FormUpdatePlace = () => {
             <input
               className="formInsertEdit__input"
               type="text"
-              name="longitude"
+              name="longtitude"
               value={values.longtitude}
               onChange={handleChange}
             />

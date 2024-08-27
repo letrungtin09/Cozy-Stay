@@ -4,6 +4,7 @@ import LayoutCustomer from "@/components/layoutCustomer";
 import useHandleChange from "@/hooks/useHandleChange";
 import ApiFunctions from "@/lib/api";
 import localUrl from "@/lib/const";
+import UserCurrent from "@/lib/currentUser";
 import { faHouseMedical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -11,9 +12,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const searchParams = useSearchParams();
-  const id = searchParams!.get("id");
-  const apiUser = `${localUrl}/api/user?id=${id}`;
+  const idUser = UserCurrent.GetUserId();
+  const apiUser = `${localUrl}/api/user?id=${idUser}`;
   const [dataUser, setDataUser] = useState<any>([]);
 
   useEffect(() => {
@@ -33,9 +33,8 @@ export default function Home() {
     userName: "",
     avatar: "",
     email: "",
-    password: "",
     phoneNumber: "",
-    role: 0,
+    role: 1,
     address: "",
     info: "",
     dateRegister: "",
@@ -56,13 +55,12 @@ export default function Home() {
     const userUpdate = {
       userName: values.userName,
       email: values.email,
-      password: values.password,
-      avatar: values.avatar,
+      avatar: "user.jpg",
       phoneNumber: values.phoneNumber,
       role: 1,
       address: values.address,
       info: values.info,
-      dateRegister: `${year}/${month}/${day}`,
+      dateRegister: `${year}-${month}-${day}`,
     };
 
     console.log(userUpdate);
@@ -71,7 +69,8 @@ export default function Home() {
       const res = await ApiFunctions.putData(apiUser, userUpdate)
         .then(() => {
           alert("Đăng ký chủ nhà thành công !");
-          window.location.href = "/";
+          sessionStorage.removeItem("currentUser");
+          window.location.href = "/auth/login";
         })
         .catch((err) => {
           console.error(err);
@@ -124,7 +123,8 @@ export default function Home() {
                   onChange={handleChange}
                 />
               </div>
-              <div className="formInsertEdit__item">
+
+              {/* <div className="formInsertEdit__item">
                 <label className="formInsertEdit__label">Avatar</label>
                 <br />
                 <input
@@ -134,7 +134,7 @@ export default function Home() {
                   value={values.avatar}
                   onChange={handleChange}
                 />
-              </div>
+              </div> */}
               <div className="formInsertEdit__item">
                 <label className="formInsertEdit__label">Số điện thoại</label>
                 <br />

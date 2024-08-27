@@ -196,7 +196,7 @@ export default function Home() {
       kindRoom: +values.kindRoom,
       title: values.title,
       approveStatus: +values.approveStatus,
-      idUser: +dataUser.id,
+      idUser: idUser,
       idCategory: +values.idCategory,
     };
     console.log(placeUpdate);

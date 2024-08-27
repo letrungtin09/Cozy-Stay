@@ -51,6 +51,59 @@ export default function Home() {
               <h1 className="title font-bold">Thống kê thu nhập</h1>
             </div>
             <div className="col-2">
+              <div className="text-center mt-[0px] text-[18px] font-bold">
+                Bảng thống kê thu nhập theo tháng
+              </div>
+              <div className="flex justify-center mt-[20px] mb-[50px]">
+                <TableContainer component={Paper} className="w-[50%]">
+                  <Table
+                    sx={{ minWidth: 350 }}
+                    aria-label="simple table"
+                    className="border-collapse border border-gray-500"
+                  >
+                    <TableHead className="bg-color-green-0">
+                      <TableRow>
+                        <TableCell className="border-collapse border border-gray-500">
+                          Tháng
+                        </TableCell>
+                        <TableCell
+                          className="border-collapse border border-gray-500"
+                          align="right"
+                        >
+                          Tổng tiền
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {dataBill.map((bill) => (
+                        <TableRow
+                          key={bill.month}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell
+                            className="border-collapse border border-gray-500"
+                            component="th"
+                            scope="row"
+                          >
+                            {bill.month}
+                          </TableCell>
+                          <TableCell
+                            className="border-collapse border border-gray-500"
+                            align="right"
+                          >
+                            {new Intl.NumberFormat("de-DE").format(
+                              bill.total_amount
+                            )}
+                            đ
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div>
               <div className="flex justify-center">
                 <LineChart
                   xAxis={[{ dataKey: "x", label: "Tháng" }]}
@@ -65,41 +118,6 @@ export default function Home() {
                   width={1300}
                   height={500}
                 />
-              </div>
-              <div className="text-center mt-[50px] text-[18px] font-bold">
-                Bảng thống kê thu nhập theo tháng
-              </div>
-              <div className="flex justify-center mt-[20px]">
-                <TableContainer component={Paper} className="w-[50%]">
-                  <Table sx={{ minWidth: 350 }} aria-label="simple table">
-                    <TableHead className="bg-color-green-0">
-                      <TableRow>
-                        <TableCell>Tháng</TableCell>
-                        <TableCell align="right">Tổng tiền</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {dataBill.map((bill) => (
-                        <TableRow
-                          key={bill.month}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {bill.month}
-                          </TableCell>
-                          <TableCell align="right">
-                            {new Intl.NumberFormat("de-DE").format(
-                              bill.total_amount
-                            )}
-                            đ
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
               </div>
             </div>
           </div>
